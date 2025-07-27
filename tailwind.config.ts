@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'sans': ['Inter', 'system-ui', 'sans-serif'],
+				'serif': ['Playfair Display', 'serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -26,7 +30,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -51,6 +56,12 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				academic: {
+					blue: 'hsl(var(--academic-blue))',
+					'blue-light': 'hsl(var(--academic-blue-light))',
+					gray: 'hsl(var(--academic-gray))',
+					'gray-light': 'hsl(var(--academic-gray-light))'
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
