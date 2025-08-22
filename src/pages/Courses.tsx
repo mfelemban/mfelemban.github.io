@@ -6,60 +6,91 @@ import { Calendar, Clock, Users } from "lucide-react";
 const Courses = () => {
   const currentCourses = [
     {
-      code: "CS 6890",
-      title: "Advanced Algorithms and Data Structures",
-      semester: "Spring 2024",
+      code: "SEC 595",
+      title: "Special Topics in Information Assurance and Security (Encrypted Computing)",
+      semester: "Fall 2024",
       level: "Graduate",
-      students: 45,
-      schedule: "MW 2:00-3:30 PM",
-      description: "In-depth study of advanced algorithmic techniques including dynamic programming, graph algorithms, and computational complexity theory."
+      schedule: "TBD",
+      description: "Advanced topics in encrypted computing, homomorphic encryption, and secure multiparty computation."
     },
     {
-      code: "CS 4820",
-      title: "Machine Learning Fundamentals",
+      code: "COE 466",
+      title: "Quantum Architecture and Algorithms",
+      semester: "Fall 2024",
+      level: "Graduate", 
+      schedule: "TBD",
+      description: "Introduction to quantum computing architectures, quantum algorithms, and quantum programming."
+    }
+  ];
+
+  const recentCourses = [
+    {
+      code: "COE 531",
+      title: "Quantum Communication",
       semester: "Spring 2024",
-      level: "Undergraduate",
-      students: 78,
-      schedule: "TTh 10:00-11:30 AM",
-      description: "Introduction to machine learning concepts, algorithms, and applications with hands-on programming assignments."
+      level: "Graduate"
+    },
+    {
+      code: "COE 292",
+      title: "Introduction to AI",
+      semester: "Spring 2024",
+      level: "Undergraduate"
+    },
+    {
+      code: "COE 520",
+      title: "Queueing Theory and Network Applications", 
+      semester: "Fall 2023",
+      level: "Graduate"
+    },
+    {
+      code: "COE 530",
+      title: "Quantum Computer & Architecture",
+      semester: "Spring 2023",
+      level: "Graduate"
     }
   ];
 
   const pastCourses = [
     {
-      code: "CS 7850",
-      title: "Computational Biology",
-      semester: "Fall 2023",
-      level: "Graduate"
+      code: "COE 426",
+      title: "Data Privacy",
+      semesters: ["Fall 2022", "Fall 2020", "Fall 2019"]
     },
     {
-      code: "CS 3410",
-      title: "Data Structures and Algorithms",
-      semester: "Fall 2023",
-      level: "Undergraduate"
+      code: "COE 526", 
+      title: "Data Privacy",
+      semesters: ["Fall 2020"]
     },
     {
-      code: "CS 6810",
-      title: "High Performance Computing",
-      semester: "Spring 2023",
-      level: "Graduate"
+      code: "COE 523",
+      title: "Distributed Computing",
+      semesters: ["Fall 2021"]
     },
     {
-      code: "CS 2110",
-      title: "Introduction to Programming",
-      semester: "Fall 2022",
-      level: "Undergraduate"
+      code: "COE 445",
+      title: "Internet Information Services",
+      semesters: ["Spring 2019", "Spring 2020"]
+    },
+    {
+      code: "ISE 361",
+      title: "Fundamentals of Database Systems",
+      semesters: ["Fall 2018", "Spring 2019"]
+    },
+    {
+      code: "ICS 103",
+      title: "Computer Programming",
+      semesters: ["Spring 2011", "Fall 2019", "Spring 2020"]
     }
   ];
 
   return (
     <PageLayout 
       title="Courses"
-      subtitle="Teaching the next generation of computer scientists and researchers"
+      subtitle="Teaching cybersecurity, quantum computing, and data privacy at KFUPM"
     >
       {/* Current Courses */}
       <div className="mb-16">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Current Courses</h2>
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Current Courses (Fall 2024)</h2>
         <div className="grid lg:grid-cols-2 gap-8">
           {currentCourses.map((course, index) => (
             <AcademicCard key={index} variant="highlighted" className="h-full">
@@ -75,14 +106,10 @@ const Courses = () => {
               </AcademicCardHeader>
               <AcademicCardContent>
                 <p className="text-muted-foreground mb-4">{course.description}</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   <div className="flex items-center text-muted-foreground">
                     <Clock className="h-4 w-4 mr-2" />
                     {course.schedule}
-                  </div>
-                  <div className="flex items-center text-muted-foreground">
-                    <Users className="h-4 w-4 mr-2" />
-                    {course.students} students
                   </div>
                   <div className="flex items-center text-muted-foreground">
                     <Calendar className="h-4 w-4 mr-2" />
@@ -95,11 +122,11 @@ const Courses = () => {
         </div>
       </div>
 
-      {/* Past Courses */}
+      {/* Recent Courses */}
       <div className="mb-16">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Previously Taught</h2>
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Recently Taught</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {pastCourses.map((course, index) => (
+          {recentCourses.map((course, index) => (
             <AcademicCard key={index}>
               <AcademicCardHeader>
                 <div className="flex items-start justify-between mb-2">
@@ -116,6 +143,30 @@ const Courses = () => {
         </div>
       </div>
 
+      {/* Course History */}
+      <div className="mb-16">
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Course History</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {pastCourses.map((course, index) => (
+            <AcademicCard key={index}>
+              <AcademicCardHeader>
+                <AcademicCardTitle className="text-lg">{course.code}</AcademicCardTitle>
+                <h3 className="text-base font-medium text-foreground mb-2">{course.title}</h3>
+              </AcademicCardHeader>
+              <AcademicCardContent>
+                <div className="flex flex-wrap gap-2">
+                  {course.semesters.map((semester, idx) => (
+                    <Badge key={idx} variant="outline" className="text-xs">
+                      {semester}
+                    </Badge>
+                  ))}
+                </div>
+              </AcademicCardContent>
+            </AcademicCard>
+          ))}
+        </div>
+      </div>
+
       {/* Teaching Philosophy */}
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8 text-center">
@@ -125,20 +176,21 @@ const Courses = () => {
           <AcademicCardContent className="pt-6">
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I believe in creating an inclusive and engaging learning environment where students 
-                are encouraged to think critically, ask questions, and explore the fascinating 
-                world of computer science through both theoretical understanding and practical application.
+                My teaching philosophy centers on making complex topics in cybersecurity, quantum computing, 
+                and data privacy accessible and engaging for students. I believe in bridging theoretical 
+                concepts with practical applications, helping students understand not just the "how" but 
+                also the "why" behind security and privacy technologies.
               </p>
               <p>
-                My courses emphasize problem-solving skills, collaborative learning, and the 
-                development of computational thinking. I strive to connect abstract concepts 
-                to real-world applications, helping students understand the relevance and 
-                impact of their studies.
+                Through hands-on projects, real-world case studies, and collaborative learning, I encourage 
+                students to think critically about emerging challenges in cybersecurity and quantum computing. 
+                My courses emphasize both technical skills and ethical considerations, preparing students 
+                for responsible leadership in the rapidly evolving fields of security and quantum technologies.
               </p>
               <p>
-                Through a combination of lectures, hands-on programming assignments, and 
-                research projects, I aim to prepare students not just for their next course, 
-                but for successful careers in technology and research.
+                I particularly focus on interdisciplinary approaches, showing how cybersecurity and quantum 
+                computing intersect with other fields. This perspective helps students develop a holistic 
+                understanding that will serve them well in research and industry careers.
               </p>
             </div>
           </AcademicCardContent>

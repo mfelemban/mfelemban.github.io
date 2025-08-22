@@ -4,95 +4,131 @@ import { Badge } from "@/components/ui/badge";
 import { GraduationCap, User, Mail } from "lucide-react";
 
 const Students = () => {
-  const currentStudents = [
+  const currentGraduateStudents = [
     {
-      name: "Sarah Johnson",
+      name: "Hind Baagel",
       degree: "PhD",
-      year: "4th Year",
-      research: "Machine Learning for Climate Modeling",
-      email: "sarah.j@university.edu",
-      expectedGraduation: "2024"
+      department: "ICS, KFUPM",
+      research: "Post-Quantum Cryptography (PQC)",
+      role: "Advisor",
+      status: "Active"
     },
     {
-      name: "Michael Chen",
+      name: "Eid Al-Dawsari", 
+      degree: "MSc",
+      department: "ICS, KFUPM",
+      research: "Quantum Computing",
+      role: "Advisor",
+      status: "Active"
+    },
+    {
+      name: "Maram Al-Qahtani",
+      degree: "MSc", 
+      department: "ICS, KFUPM",
+      research: "Federated Unlearning",
+      role: "Advisor",
+      status: "Active"
+    },
+    {
+      name: "Soha Sandoukah",
       degree: "PhD",
-      year: "2nd Year",
-      research: "Distributed Algorithms for Bioinformatics",
-      email: "m.chen@university.edu",
-      expectedGraduation: "2027"
+      department: "COE, KFUPM", 
+      research: "Secure and Privacy-Preserving FL using GAN",
+      role: "Advisor",
+      status: "Active"
     },
     {
-      name: "Emily Rodriguez",
-      degree: "MS",
-      year: "1st Year", 
-      research: "Graph Neural Networks for Social Network Analysis",
-      email: "e.rodriguez@university.edu",
-      expectedGraduation: "2025"
+      name: "Nourah Alotaibi",
+      degree: "PhD",
+      department: "ICS, KFUPM",
+      research: "LFAs on Federated Learning",
+      role: "Co-advisor",
+      status: "Active"
     },
     {
-      name: "David Kim",
+      name: "Mustafa Alghafli",
       degree: "MS",
-      year: "2nd Year",
-      research: "Optimization Algorithms for Resource Allocation",
-      email: "d.kim@university.edu",
-      expectedGraduation: "2024"
+      department: "COE, KFUPM",
+      research: "Updatable Multi-party Private Set Intersection", 
+      role: "Advisor",
+      status: "Active"
     }
   ];
 
-  const alumni = [
+  const recentGraduates = [
     {
-      name: "Dr. Jennifer Liu",
+      name: "Dr. Nourah Al-Otaibi",
       degree: "PhD",
-      graduationYear: "2023",
-      thesis: "Deep Learning Approaches to Protein Structure Prediction",
-      currentPosition: "Research Scientist at Google DeepMind"
+      graduationYear: "2025",
+      thesis: "Edge-based Detection and Mitigation of Label Flipping Attacks in Federated Learning Systems",
+      achievement: "First PhD student to graduate from SPQ group! Published 1 journal and 2 A* conference papers."
     },
     {
-      name: "Dr. Alex Thompson",
-      degree: "PhD", 
-      graduationYear: "2022",
-      thesis: "Scalable Graph Algorithms for Large-Scale Networks",
-      currentPosition: "Assistant Professor at Stanford University"
+      name: "Abdulmumin Saad",
+      degree: "MSc",
+      graduationYear: "2024",
+      department: "COE, KFUPM",
+      thesis: "Communication-Efficient FL for Personal Assistant Applications"
     },
     {
-      name: "Maria Gonzalez",
+      name: "Shuroog Al-Ogbi", 
+      degree: "MSc",
+      graduationYear: "2024",
+      department: "COE, KFUPM", 
+      thesis: "Accelerating Non-Linear PDEs using Quantum Computing"
+    },
+    {
+      name: "Sani Umar",
       degree: "MS",
-      graduationYear: "2023",
-      thesis: "Machine Learning for Traffic Optimization",
-      currentPosition: "Senior Data Scientist at Tesla"
-    },
-    {
-      name: "James Wilson",
-      degree: "MS",
-      graduationYear: "2022",
-      thesis: "Distributed Computing in Genomics",
-      currentPosition: "Software Engineer at Microsoft Research"
+      graduationYear: "2020",
+      department: "COE, KFUPM",
+      thesis: "Cybersecurity of Power Grids"
     }
   ];
 
-  const opportunities = [
+  const undergraduateStudents = [
     {
-      position: "PhD Student",
-      description: "Seeking motivated PhD students interested in machine learning, computational biology, or distributed systems.",
-      requirements: ["Strong programming skills", "Background in mathematics/computer science", "Research experience preferred"]
+      name: "Mohammed Al-Bejadi",
+      department: "COE, KFUPM",
+      research: "Collaborative Video Streaming",
+      status: "Graduated Fall 2019"
     },
     {
-      position: "Research Assistant",
-      description: "Undergraduate research opportunities available for students interested in gaining research experience.",
-      requirements: ["GPA 3.5+", "Completed CS algorithms course", "Available 10+ hours/week"]
+      name: "Asaad Alghamdi",
+      department: "ICS, KFUPM", 
+      research: "Collaborative Video Streaming",
+      status: "Graduated Spring 2020, Now MS student at KAUST"
+    },
+    {
+      name: "Abdulkarim Alaweet",
+      department: "COE, KFUPM",
+      research: "File Fragment Classification Using Deep Learning", 
+      status: "Graduated Fall 2019, Now at Saudi Aramco"
+    },
+    {
+      name: "Mohammad Khiami",
+      department: "COE, KFUPM",
+      research: "Write Efficient LSM-based Merkle Tree",
+      status: "Graduated Spring 2020"
+    },
+    {
+      name: "Kunwar Saaim",
+      department: "Aligarh Muslim University",
+      research: "File Fragment Classification Using Deep Learning",
+      status: "Directed research collaboration"
     }
   ];
 
   return (
     <PageLayout 
       title="Students"
-      subtitle="Mentoring the next generation of computational researchers"
+      subtitle="Security, Privacy, and Quantum (SPQ) Group - Mentoring the next generation of researchers"
     >
-      {/* Current Students */}
+      {/* Current Graduate Students */}
       <div className="mb-16">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Current Students</h2>
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Current Graduate Students</h2>
         <div className="grid lg:grid-cols-2 gap-6">
-          {currentStudents.map((student, index) => (
+          {currentGraduateStudents.map((student, index) => (
             <AcademicCard key={index} variant="highlighted">
               <AcademicCardHeader>
                 <div className="flex items-start justify-between">
@@ -103,7 +139,7 @@ const Students = () => {
                     </AcademicCardTitle>
                     <div className="flex gap-2 mt-2">
                       <Badge variant="default">{student.degree}</Badge>
-                      <Badge variant="secondary">{student.year}</Badge>
+                      <Badge variant="secondary">{student.role}</Badge>
                     </div>
                   </div>
                 </div>
@@ -114,13 +150,9 @@ const Students = () => {
                     <h4 className="font-medium text-foreground mb-1">Research Area</h4>
                     <p className="text-sm text-muted-foreground">{student.research}</p>
                   </div>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <Mail className="h-4 w-4 mr-2" />
-                    {student.email}
-                  </div>
-                  <div className="flex items-center text-sm text-muted-foreground">
-                    <GraduationCap className="h-4 w-4 mr-2" />
-                    Expected graduation: {student.expectedGraduation}
+                  <div>
+                    <h4 className="font-medium text-foreground mb-1">Department</h4>
+                    <p className="text-sm text-muted-foreground">{student.department}</p>
                   </div>
                 </div>
               </AcademicCardContent>
@@ -129,31 +161,60 @@ const Students = () => {
         </div>
       </div>
 
-      {/* Alumni */}
+      {/* Recent Graduates */}
       <div className="mb-16">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Alumni</h2>
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Recent Graduates</h2>
         <div className="grid lg:grid-cols-2 gap-6">
-          {alumni.map((alum, index) => (
+          {recentGraduates.map((grad, index) => (
             <AcademicCard key={index}>
               <AcademicCardHeader>
                 <AcademicCardTitle className="flex items-center gap-2">
-                  <User className="h-5 w-5" />
-                  {alum.name}
+                  <GraduationCap className="h-5 w-5" />
+                  {grad.name}
                 </AcademicCardTitle>
                 <div className="flex gap-2 mt-2">
-                  <Badge variant="secondary">{alum.degree}</Badge>
-                  <Badge variant="outline">{alum.graduationYear}</Badge>
+                  <Badge variant="secondary">{grad.degree}</Badge>
+                  <Badge variant="outline">{grad.graduationYear}</Badge>
                 </div>
               </AcademicCardHeader>
               <AcademicCardContent>
                 <div className="space-y-3">
                   <div>
                     <h4 className="font-medium text-foreground mb-1">Thesis</h4>
-                    <p className="text-sm text-muted-foreground">{alum.thesis}</p>
+                    <p className="text-sm text-muted-foreground">{grad.thesis}</p>
+                  </div>
+                  {grad.achievement && (
+                    <div>
+                      <h4 className="font-medium text-foreground mb-1">Achievement</h4>
+                      <p className="text-sm text-muted-foreground">{grad.achievement}</p>
+                    </div>
+                  )}
+                </div>
+              </AcademicCardContent>
+            </AcademicCard>
+          ))}
+        </div>
+      </div>
+
+      {/* Undergraduate Research Students */}
+      <div className="mb-16">
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Undergraduate Research Alumni</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {undergraduateStudents.map((student, index) => (
+            <AcademicCard key={index}>
+              <AcademicCardHeader>
+                <AcademicCardTitle className="text-base">{student.name}</AcademicCardTitle>
+                <AcademicCardDescription className="text-sm">{student.department}</AcademicCardDescription>
+              </AcademicCardHeader>
+              <AcademicCardContent>
+                <div className="space-y-2">
+                  <div>
+                    <h4 className="font-medium text-foreground mb-1 text-sm">Research</h4>
+                    <p className="text-xs text-muted-foreground">{student.research}</p>
                   </div>
                   <div>
-                    <h4 className="font-medium text-foreground mb-1">Current Position</h4>
-                    <p className="text-sm text-muted-foreground">{alum.currentPosition}</p>
+                    <h4 className="font-medium text-foreground mb-1 text-sm">Status</h4>
+                    <p className="text-xs text-muted-foreground">{student.status}</p>
                   </div>
                 </div>
               </AcademicCardContent>
@@ -166,22 +227,49 @@ const Students = () => {
       <div className="mb-16">
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Research Opportunities</h2>
         <div className="space-y-6">
-          {opportunities.map((opp, index) => (
-            <AcademicCard key={index}>
-              <AcademicCardHeader>
-                <AcademicCardTitle>{opp.position}</AcademicCardTitle>
-                <AcademicCardDescription>{opp.description}</AcademicCardDescription>
-              </AcademicCardHeader>
-              <AcademicCardContent>
-                <h4 className="font-medium text-foreground mb-2">Requirements</h4>
-                <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
-                  {opp.requirements.map((req, idx) => (
-                    <li key={idx}>{req}</li>
-                  ))}
-                </ul>
-              </AcademicCardContent>
-            </AcademicCard>
-          ))}
+          <AcademicCard>
+            <AcademicCardHeader>
+              <AcademicCardTitle>PhD & MSc Positions</AcademicCardTitle>
+              <AcademicCardDescription>
+                Join the SPQ group to work on cutting-edge research in cybersecurity, quantum computing, and privacy-preserving technologies.
+              </AcademicCardDescription>
+            </AcademicCardHeader>
+            <AcademicCardContent>
+              <h4 className="font-medium text-foreground mb-2">Current Research Areas</h4>
+              <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground mb-4">
+                <li>Post-Quantum Cryptography and Quantum-Resistant Systems</li>
+                <li>Privacy-Preserving Machine Learning and Federated Learning Security</li>
+                <li>Quantum Computing Algorithms and Applications</li>
+                <li>Digital Forensics and File Fragment Classification</li>
+                <li>Cybersecurity for Critical Infrastructure</li>
+              </ul>
+              <h4 className="font-medium text-foreground mb-2">Requirements</h4>
+              <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                <li>Strong background in computer science, electrical engineering, or related field</li>
+                <li>Programming experience in Python, C++, or similar languages</li>
+                <li>Interest in cybersecurity, quantum computing, or machine learning</li>
+                <li>Strong mathematical foundation</li>
+              </ul>
+            </AcademicCardContent>
+          </AcademicCard>
+
+          <AcademicCard>
+            <AcademicCardHeader>
+              <AcademicCardTitle>Undergraduate Research</AcademicCardTitle>
+              <AcademicCardDescription>
+                Opportunities for KFUPM undergraduate students to gain research experience in the SPQ group.
+              </AcademicCardDescription>
+            </AcademicCardHeader>
+            <AcademicCardContent>
+              <h4 className="font-medium text-foreground mb-2">Requirements</h4>
+              <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground">
+                <li>GPA 3.5+ in Computer Engineering or related field</li>
+                <li>Completed fundamental CS courses (data structures, algorithms)</li>
+                <li>Available 10+ hours/week for research</li>
+                <li>Strong motivation for research and learning</li>
+              </ul>
+            </AcademicCardContent>
+          </AcademicCard>
         </div>
       </div>
 
@@ -194,22 +282,22 @@ const Students = () => {
           <AcademicCardContent className="pt-6">
             <div className="space-y-4 text-muted-foreground leading-relaxed">
               <p>
-                I believe that successful mentoring involves creating an environment where 
-                students can develop both technical expertise and critical thinking skills. 
-                My approach emphasizes collaborative learning, where students are encouraged 
-                to pursue their own research interests while contributing to broader project goals.
+                As the director of the SPQ group, I believe in fostering an environment where students 
+                can explore the fascinating intersections of security, privacy, and quantum computing. 
+                My mentoring approach emphasizes both theoretical depth and practical applications, 
+                ensuring students develop strong foundations while working on real-world problems.
               </p>
               <p>
-                Each student brings unique perspectives and strengths to our research group. 
-                I work closely with each individual to identify their career goals and provide 
-                the guidance, resources, and opportunities needed to achieve them, whether in 
-                academia, industry, or entrepreneurship.
+                I work closely with each student to identify their interests and career goals, whether 
+                in academia or industry. Through regular meetings, collaborative projects, and 
+                interdisciplinary research, students gain not only technical expertise but also 
+                critical thinking and leadership skills essential for their future careers.
               </p>
               <p>
-                Regular one-on-one meetings, group seminars, and collaborative projects ensure 
-                that students receive comprehensive support throughout their academic journey. 
-                I'm committed to helping students develop not just as researchers, but as 
-                future leaders in their chosen fields.
+                Our group values collaboration, innovation, and the pursuit of knowledge that makes 
+                a real impact. Students are encouraged to publish their work, present at conferences, 
+                and collaborate with industry partners like Saudi Aramco to ensure their research 
+                has both academic merit and practical relevance.
               </p>
             </div>
           </AcademicCardContent>

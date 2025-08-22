@@ -8,19 +8,19 @@ const Index = () => {
     {
       icon: <FlaskConical className="h-8 w-8 text-primary" />,
       title: "Research",
-      description: "Exploring cutting-edge topics in computational science and data analysis.",
+      description: "Cybersecurity, data privacy, quantum computing, and secure machine learning.",
       link: "/research"
     },
     {
       icon: <BookOpen className="h-8 w-8 text-primary" />,
       title: "Courses",
-      description: "Teaching advanced courses in computer science and mathematics.",
+      description: "Data Privacy, Quantum Computing, AI, and Cybersecurity courses.",
       link: "/courses"
     },
     {
       icon: <GraduationCap className="h-8 w-8 text-primary" />,
       title: "Projects",
-      description: "Leading innovative research projects with real-world applications.",
+      description: "Security & Privacy research, Quantum algorithms, and Privacy-preserving ML.",
       link: "/projects"
     },
     {
@@ -40,12 +40,13 @@ const Index = () => {
             Dr. Muhamad Felemban
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            Professor of Computer Science at [University Name]
+            Assistant Professor at KFUPM & Director of IRC-ISS
           </p>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Welcome to my academic homepage. I am a researcher passionate about 
-            computational methods, data science, and their applications to solving 
-            complex real-world problems. Explore my work, courses, and research projects.
+            I am the director of the Interdisciplinary Research Center for Intelligent Secure Systems (IRC-ISS) 
+            at KFUPM. I am an assistant professor with the Computer Engineering Department and the Information and 
+            Computer Science Department at KFUPM. My research focuses on Cybersecurity, particularly data privacy, 
+            quantum computing, and privacy-preserving machine learning.
           </p>
         </div>
       </div>
@@ -81,39 +82,39 @@ const Index = () => {
         <div className="space-y-6">
           <AcademicCard variant="highlighted">
             <AcademicCardHeader>
-              <AcademicCardTitle>New Paper Published</AcademicCardTitle>
-              <AcademicCardDescription>March 2024</AcademicCardDescription>
+              <AcademicCardTitle>Research Grant from Saudi Aramco</AcademicCardTitle>
+              <AcademicCardDescription>February 2025</AcademicCardDescription>
             </AcademicCardHeader>
             <AcademicCardContent>
               <p className="text-muted-foreground">
-                Our latest research on machine learning applications in computational biology 
-                has been accepted for publication in the Journal of Computational Science.
+                SPQ group was awarded a Research Grant titled "Using Quantum Computing for Reservoir Simulation" 
+                by Saudi Aramco. Looking forward to a fruitful collaboration.
               </p>
             </AcademicCardContent>
           </AcademicCard>
 
-          <AcademicCard>
+            <AcademicCard>
             <AcademicCardHeader>
-              <AcademicCardTitle>Conference Presentation</AcademicCardTitle>
-              <AcademicCardDescription>February 2024</AcademicCardDescription>
+              <AcademicCardTitle>First PhD Graduate from SPQ Group</AcademicCardTitle>
+              <AcademicCardDescription>April 2025</AcademicCardDescription>
             </AcademicCardHeader>
             <AcademicCardContent>
               <p className="text-muted-foreground">
-                Presented our work on distributed computing algorithms at the International 
-                Conference on High Performance Computing.
+                Dr. Nourah Al-Otaibi successfully defended her PhD thesis on "Edge-based Detection and 
+                Mitigation of Label Flipping Attacks in Federated Learning Systems".
               </p>
             </AcademicCardContent>
           </AcademicCard>
 
-          <AcademicCard>
+            <AcademicCard>
             <AcademicCardHeader>
-              <AcademicCardTitle>New Course Launch</AcademicCardTitle>
-              <AcademicCardDescription>January 2024</AcademicCardDescription>
+              <AcademicCardTitle>Quantum Computing Symposium</AcademicCardTitle>
+              <AcademicCardDescription>February 2025</AcademicCardDescription>
             </AcademicCardHeader>
             <AcademicCardContent>
               <p className="text-muted-foreground">
-                Launched a new graduate course on Advanced Data Structures and Algorithms 
-                with a focus on modern computational challenges.
+                Chaired the organization committee of the 1st Symposium of Quantum Computing and Technology, 
+                held at KFUPM on February 17-18, 2025.
               </p>
             </AcademicCardContent>
           </AcademicCard>

@@ -6,49 +6,64 @@ import { ExternalLink } from "lucide-react";
 const Research = () => {
   const researchAreas = [
     {
-      title: "Machine Learning & AI",
-      description: "Developing novel algorithms for deep learning, natural language processing, and computer vision applications.",
-      keywords: ["Deep Learning", "NLP", "Computer Vision", "Neural Networks"]
+      title: "Data Security and Privacy",
+      description: "Research on privacy-preserving technologies, data protection methods, and secure data management systems.",
+      keywords: ["Data Privacy", "Privacy Enhancing Technologies", "Secure Data Management", "Privacy-Preserving Analytics"]
     },
     {
-      title: "Computational Biology",
-      description: "Applying computational methods to understand biological systems and processes.",
-      keywords: ["Bioinformatics", "Genomics", "Protein Folding", "Systems Biology"]
+      title: "Secure and Privacy-Preserving ML",
+      description: "Federated learning security, privacy-preserving machine learning, and defense against adversarial attacks.",
+      keywords: ["Federated Learning", "Privacy-Preserving ML", "Adversarial Defense", "Label Flipping Attacks"]
     },
     {
-      title: "Data Science & Analytics",
-      description: "Creating scalable methods for large-scale data analysis and visualization.",
-      keywords: ["Big Data", "Data Mining", "Visualization", "Statistics"]
+      title: "Quantum-Resistant Systems",
+      description: "Post-quantum cryptography, quantum-safe security protocols, and quantum-resistant system design.",
+      keywords: ["Post-Quantum Cryptography", "Quantum-Safe Protocols", "PQC", "Quantum-Resistant Security"]
+    },
+    {
+      title: "Quantum Computing",
+      description: "Quantum algorithms, quantum architecture, quantum communication, and quantum applications for real-world problems.",
+      keywords: ["Quantum Algorithms", "Quantum Architecture", "Quantum Communication", "Quantum Applications"]
+    },
+    {
+      title: "Cybersecurity",
+      description: "Intrusion detection, attack-resilient systems, digital forensics, and cybersecurity for critical infrastructure.",
+      keywords: ["Intrusion Detection", "Attack-Resilient Systems", "Digital Forensics", "Cybersecurity"]
+    },
+    {
+      title: "Digital Forensics",
+      description: "File fragment classification, deep learning for forensics, and advanced digital investigation techniques.",
+      keywords: ["File Fragment Classification", "Deep Learning Forensics", "Digital Investigation", "Forensic Analysis"]
     }
   ];
 
   const publications = [
     {
-      title: "Advanced Neural Networks for Protein Structure Prediction",
-      authors: "Your Name, J. Smith, M. Johnson",
-      journal: "Nature Computational Biology",
+      title: "File Fragment Type Classification using Light-Weight Convolutional Neural Networks",
+      authors: "K. Azaim, M. Ghaleb, S. Al-Saleh, A. Al-Mulhem, M. Felemban",
+      journal: "IEEE Access",
       year: "2024",
       link: "#"
     },
     {
-      title: "Scalable Algorithms for Large-Scale Graph Analysis",
-      authors: "Your Name, A. Davis, K. Wilson",
-      journal: "ACM Transactions on Algorithms",
-      year: "2023",
+      title: "Edge-Assisted Label-Flipping Attack Detection in Federated Learning",
+      authors: "N. Al-Otaibi, M. Felemban",
+      journal: "IEEE Open Journal for Communication Society",
+      year: "2024",
       link: "#"
     },
     {
-      title: "Machine Learning Approaches to Climate Modeling",
-      authors: "Your Name, R. Brown, S. Lee",
-      journal: "Journal of Climate Science",
-      year: "2023",
+      title: "A Systematic Literature Review on Vulnerabilities, Mitigation Techniques, and Attacks in Field-Programmable Gate Arrays",
+      authors: "A. Al-Suwiyan, A. Azim, A. Tabakh, M. Felemban",
+      journal: "Arabian Journal for Science and Engineering",
+      year: "2024",
       link: "#"
     },
     {
-      title: "Distributed Computing in Computational Genomics",
-      authors: "Your Name, T. Martinez, L. Zhang",
-      journal: "IEEE Transactions on Parallel Computing",
-      year: "2022",
+      title: "Guard: Attack-Resilient Adaptive Load Balancing in Distributed Streaming Systems",
+      authors: "A. Daghistani, M. Khayat, M. Felemban, W. G. Aref, A. Ghafoor",
+      journal: "IEEE Transactions on Dependable and Secure Computing",
+      year: "2021",
       link: "#"
     }
   ];
@@ -56,11 +71,11 @@ const Research = () => {
   return (
     <PageLayout 
       title="Research"
-      subtitle="Exploring the frontiers of computational science and its applications"
+      subtitle="Security, Privacy, and Quantum (SPQ) Group - Leading research in cybersecurity and quantum computing"
     >
       {/* Research Areas */}
       <div className="mb-16">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Research Areas</h2>
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Research Thrusts</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {researchAreas.map((area, index) => (
             <AcademicCard key={index} className="h-full">
@@ -112,23 +127,24 @@ const Research = () => {
         </div>
       </div>
 
-      {/* Research Interests */}
+      {/* Research Center */}
       <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8 text-center">
-          Current Research Interests
+          Interdisciplinary Research Center for Intelligent Secure Systems (IRC-ISS)
         </h2>
         <AcademicCard variant="highlighted">
           <AcademicCardContent className="pt-6">
             <p className="text-muted-foreground leading-relaxed mb-4">
-              My current research focuses on developing innovative computational methods that bridge 
-              the gap between theoretical computer science and practical applications in biology, 
-              climate science, and data analytics.
+              As the director of the Interdisciplinary Research Center for Intelligent Secure Systems (IRC-ISS) 
+              at KFUPM, I lead cutting-edge research in cybersecurity, data privacy, and quantum computing. 
+              Our research focuses on developing innovative solutions that bridge theoretical computer science 
+              with practical applications.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              I am particularly interested in creating scalable algorithms that can handle the 
-              increasing complexity and size of modern datasets, while maintaining theoretical 
-              rigor and practical efficiency. My work involves collaboration with researchers 
-              across multiple disciplines to ensure real-world impact.
+              Our work particularly emphasizes the intersection of security, privacy, and emerging technologies 
+              like quantum computing. We collaborate with industry partners including Saudi Aramco and work on 
+              projects that have real-world impact in critical infrastructure protection and next-generation 
+              computing systems.
             </p>
           </AcademicCardContent>
         </AcademicCard>
