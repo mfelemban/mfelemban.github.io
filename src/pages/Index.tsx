@@ -34,15 +34,15 @@ const Index = () => {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <div className="bg-gradient-to-b from-muted/20 to-transparent py-20 mb-16 border-b border-border">
+      <div className="bg-gradient-subtle py-16">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-6xl md:text-7xl font-playfair font-bold text-foreground mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-6">
             Dr. Alex Morgan
           </h1>
-          <p className="text-2xl text-primary font-crimson mb-8 italic">
+          <p className="text-xl text-primary font-medium mb-6">
             Professor of Computer Science
           </p>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed font-crimson">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Advancing computational research at the intersection of machine learning, 
             distributed systems, and computational biology. Dedicated to fostering 
             innovation through rigorous scientific inquiry and collaborative research.
@@ -51,20 +51,20 @@ const Index = () => {
       </div>
 
       {/* Highlights Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         {highlights.map((highlight, index) => (
           <Link key={index} to={highlight.link} className="group">
-            <AcademicCard className="h-full hover:border-primary/50 transition-smooth border-l-4 border-l-primary/30 hover:border-l-primary">
+            <AcademicCard className="h-full hover:border-primary/30 transition-smooth">
               <AcademicCardHeader className="text-center">
-                <div className="mx-auto mb-4 p-4 rounded-full bg-accent/20 w-fit group-hover:bg-primary/10 transition-smooth">
+                <div className="mx-auto mb-4 p-3 rounded-full bg-accent w-fit group-hover:bg-primary/10 transition-smooth">
                   {highlight.icon}
                 </div>
-                <AcademicCardTitle className="group-hover:text-primary transition-smooth text-xl">
+                <AcademicCardTitle className="group-hover:text-primary transition-smooth">
                   {highlight.title}
                 </AcademicCardTitle>
               </AcademicCardHeader>
               <AcademicCardContent>
-                <AcademicCardDescription className="text-center font-crimson leading-relaxed">
+                <AcademicCardDescription className="text-center">
                   {highlight.description}
                 </AcademicCardDescription>
               </AcademicCardContent>
@@ -75,43 +75,43 @@ const Index = () => {
 
       {/* Recent News/Updates Section */}
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl font-playfair font-semibold text-foreground mb-12 text-center">
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8 text-center">
           Recent Updates
         </h2>
-        <div className="space-y-8">
-          <AcademicCard variant="highlighted" className="border-l-4 border-l-primary">
+        <div className="space-y-6">
+          <AcademicCard variant="highlighted">
             <AcademicCardHeader>
-              <AcademicCardTitle className="text-xl">New Paper Published</AcademicCardTitle>
-              <AcademicCardDescription className="font-crimson">March 2024</AcademicCardDescription>
+              <AcademicCardTitle>New Paper Published</AcademicCardTitle>
+              <AcademicCardDescription>March 2024</AcademicCardDescription>
             </AcademicCardHeader>
             <AcademicCardContent>
-              <p className="text-muted-foreground font-crimson leading-relaxed">
+              <p className="text-muted-foreground">
                 Our latest research on machine learning applications in computational biology 
                 has been accepted for publication in the Journal of Computational Science.
               </p>
             </AcademicCardContent>
           </AcademicCard>
 
-          <AcademicCard className="border-l-4 border-l-secondary">
+          <AcademicCard>
             <AcademicCardHeader>
-              <AcademicCardTitle className="text-xl">Conference Presentation</AcademicCardTitle>
-              <AcademicCardDescription className="font-crimson">February 2024</AcademicCardDescription>
+              <AcademicCardTitle>Conference Presentation</AcademicCardTitle>
+              <AcademicCardDescription>February 2024</AcademicCardDescription>
             </AcademicCardHeader>
             <AcademicCardContent>
-              <p className="text-muted-foreground font-crimson leading-relaxed">
+              <p className="text-muted-foreground">
                 Presented our work on distributed computing algorithms at the International 
                 Conference on High Performance Computing.
               </p>
             </AcademicCardContent>
           </AcademicCard>
 
-          <AcademicCard className="border-l-4 border-l-accent">
+          <AcademicCard>
             <AcademicCardHeader>
-              <AcademicCardTitle className="text-xl">New Course Launch</AcademicCardTitle>
-              <AcademicCardDescription className="font-crimson">January 2024</AcademicCardDescription>
+              <AcademicCardTitle>New Course Launch</AcademicCardTitle>
+              <AcademicCardDescription>January 2024</AcademicCardDescription>
             </AcademicCardHeader>
             <AcademicCardContent>
-              <p className="text-muted-foreground font-crimson leading-relaxed">
+              <p className="text-muted-foreground">
                 Launched a new graduate course on Advanced Data Structures and Algorithms 
                 with a focus on modern computational challenges.
               </p>
