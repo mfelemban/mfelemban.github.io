@@ -2,6 +2,10 @@ import PageLayout from "@/components/PageLayout";
 import { AcademicCard, AcademicCardContent, AcademicCardDescription, AcademicCardHeader, AcademicCardTitle } from "@/components/ui/academic-card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
+import climatePredictionImage from "@/assets/climate-prediction.jpg";
+import genomicAnalysisImage from "@/assets/genomic-analysis.jpg";
+import trafficOptimizationImage from "@/assets/traffic-optimization.jpg";
+import proteinFoldingImage from "@/assets/protein-folding.jpg";
 
 const Projects = () => {
   const activeProjects = [
@@ -14,7 +18,8 @@ const Projects = () => {
       collaborators: ["Climate Science Institute", "Atmospheric Research Lab"],
       technologies: ["Python", "TensorFlow", "CUDA", "HPC"],
       link: "#",
-      github: "#"
+      github: "#",
+      image: climatePredictionImage
     },
     {
       title: "Distributed Algorithms for Genomic Analysis",
@@ -25,7 +30,8 @@ const Projects = () => {
       collaborators: ["Genomics Research Center", "Bioinformatics Lab"],
       technologies: ["Scala", "Apache Spark", "Hadoop", "Kubernetes"],
       link: "#",
-      github: "#"
+      github: "#",
+      image: genomicAnalysisImage
     }
   ];
 
@@ -37,7 +43,8 @@ const Projects = () => {
       duration: "2021-2023",
       collaborators: ["City Transportation Dept", "Smart City Initiative"],
       technologies: ["Python", "React", "PostgreSQL", "AWS"],
-      outcome: "Deployed in 3 major cities, reducing traffic congestion by 15%"
+      outcome: "Deployed in 3 major cities, reducing traffic congestion by 15%",
+      image: trafficOptimizationImage
     },
     {
       title: "Protein Folding Prediction Platform",
@@ -46,7 +53,8 @@ const Projects = () => {
       duration: "2020-2022",
       collaborators: ["Structural Biology Lab"],
       technologies: ["Python", "Django", "Docker", "MySQL"],
-      outcome: "Used by over 500 researchers worldwide"
+      outcome: "Used by over 500 researchers worldwide",
+      image: proteinFoldingImage
     }
   ];
 
@@ -60,36 +68,45 @@ const Projects = () => {
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Active Projects</h2>
         <div className="space-y-8">
           {activeProjects.map((project, index) => (
-            <AcademicCard key={index} variant="highlighted">
-              <AcademicCardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <AcademicCardTitle>{project.title}</AcademicCardTitle>
-                      <Badge variant="default">{project.status}</Badge>
-                    </div>
-                    <AcademicCardDescription className="mb-4">
-                      {project.description}
-                    </AcademicCardDescription>
-                  </div>
-                  <div className="flex gap-2 ml-4">
-                    <a 
-                      href={project.link} 
-                      className="text-primary hover:text-primary-glow transition-smooth"
-                      aria-label="View project"
-                    >
-                      <ExternalLink className="h-5 w-5" />
-                    </a>
-                    <a 
-                      href={project.github} 
-                      className="text-primary hover:text-primary-glow transition-smooth"
-                      aria-label="View GitHub repository"
-                    >
-                      <Github className="h-5 w-5" />
-                    </a>
-                  </div>
+            <AcademicCard key={index} variant="highlighted" className="overflow-hidden hover-scale">
+              <div className="md:flex">
+                <div className="md:w-1/3">
+                  <img 
+                    src={project.image} 
+                    alt={`${project.title} illustration`}
+                    className="w-full h-48 md:h-full object-cover"
+                  />
                 </div>
-              </AcademicCardHeader>
+                <div className="md:w-2/3">
+                  <AcademicCardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <AcademicCardTitle>{project.title}</AcademicCardTitle>
+                          <Badge variant="default">{project.status}</Badge>
+                        </div>
+                        <AcademicCardDescription className="mb-4">
+                          {project.description}
+                        </AcademicCardDescription>
+                      </div>
+                      <div className="flex gap-2 ml-4">
+                        <a 
+                          href={project.link} 
+                          className="text-primary hover:text-primary-glow transition-smooth"
+                          aria-label="View project"
+                        >
+                          <ExternalLink className="h-5 w-5" />
+                        </a>
+                        <a 
+                          href={project.github} 
+                          className="text-primary hover:text-primary-glow transition-smooth"
+                          aria-label="View GitHub repository"
+                        >
+                          <Github className="h-5 w-5" />
+                        </a>
+                      </div>
+                    </div>
+                  </AcademicCardHeader>
               <AcademicCardContent>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -119,6 +136,8 @@ const Projects = () => {
                   </div>
                 </div>
               </AcademicCardContent>
+                </div>
+              </div>
             </AcademicCard>
           ))}
         </div>
@@ -129,7 +148,12 @@ const Projects = () => {
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Completed Projects</h2>
         <div className="grid lg:grid-cols-2 gap-6">
           {completedProjects.map((project, index) => (
-            <AcademicCard key={index}>
+            <AcademicCard key={index} className="overflow-hidden hover-scale animate-fade-in">
+              <img 
+                src={project.image} 
+                alt={`${project.title} illustration`}
+                className="w-full h-40 object-cover"
+              />
               <AcademicCardHeader>
                 <div className="flex items-center gap-3 mb-2">
                   <AcademicCardTitle>{project.title}</AcademicCardTitle>
