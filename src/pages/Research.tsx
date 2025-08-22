@@ -130,29 +130,6 @@ const Research = () => {
     }
   ];
 
-  const publications = [
-    {
-      title: "File Fragment Type Classification using Light-Weight Convolutional Neural Networks",
-      authors: "K. Azaim, M. Ghaleb, S. Al-Saleh, A. Al-Mulhem, M. Felemban",
-      journal: "IEEE Access",
-      year: "2024",
-      link: "#"
-    },
-    {
-      title: "Edge-Assisted Label-Flipping Attack Detection in Federated Learning",
-      authors: "N. Al-Otaibi, M. Felemban",
-      journal: "IEEE Open Journal for Communication Society",
-      year: "2024",
-      link: "#"
-    },
-    {
-      title: "Guard: Attack-Resilient Adaptive Load Balancing in Distributed Streaming Systems",
-      authors: "A. Daghistani, M. Khayat, M. Felemban, W. G. Aref, A. Ghafoor",
-      journal: "IEEE Transactions on Dependable and Secure Computing",
-      year: "2021",
-      link: "#"
-    }
-  ];
 
   const renderThrustCategory = (title: string, thrusts: any[], bgColor: string) => (
     <div className="mb-16">
@@ -329,33 +306,6 @@ const Research = () => {
         </div>
       </div>
 
-      {/* Publications */}
-      <div className="mb-16">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Recent Publications</h2>
-        <div className="space-y-6">
-          {publications.map((pub, index) => (
-            <AcademicCard key={index}>
-              <AcademicCardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <AcademicCardTitle className="mb-2">{pub.title}</AcademicCardTitle>
-                    <AcademicCardDescription>
-                      {pub.authors} • {pub.journal} • {pub.year}
-                    </AcademicCardDescription>
-                  </div>
-                  <a 
-                    href={pub.link} 
-                    className="ml-4 text-primary hover:text-primary-glow transition-smooth"
-                    aria-label="View publication"
-                  >
-                    <ExternalLink className="h-5 w-5" />
-                  </a>
-                </div>
-              </AcademicCardHeader>
-            </AcademicCard>
-          ))}
-        </div>
-      </div>
 
       {/* SPQ Group Overview */}
       <div className="max-w-4xl mx-auto">

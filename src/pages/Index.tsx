@@ -13,6 +13,12 @@ const Index = () => {
     },
     {
       icon: <BookOpen className="h-8 w-8 text-primary" />,
+      title: "Publications",
+      description: "Research publications in cybersecurity, privacy, and quantum computing.",
+      link: "/publications"
+    },
+    {
+      icon: <GraduationCap className="h-8 w-8 text-primary" />,
       title: "Courses",
       description: "Data Privacy, Quantum Computing, AI, and Cybersecurity courses.",
       link: "/courses"
