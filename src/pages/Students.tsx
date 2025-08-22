@@ -6,116 +6,387 @@ import { GraduationCap, User, Mail } from "lucide-react";
 const Students = () => {
   const currentGraduateStudents = [
     {
-      name: "Hind Baagel",
+      name: "Bushra Alowaiid",
       degree: "PhD",
-      department: "ICS, KFUPM",
-      research: "Post-Quantum Cryptography (PQC)",
-      role: "Advisor",
-      status: "Active"
+      department: "KFUPM",
+      research: "Distributed Quantum Computing",
+      year: "2025 - now",
+      role: "Advisor"
     },
     {
-      name: "Eid Al-Dawsari", 
-      degree: "MSc",
-      department: "ICS, KFUPM",
-      research: "Quantum Computing",
-      role: "Advisor",
-      status: "Active"
+      name: "Hind Baagel",
+      degree: "PhD", 
+      department: "KFUPM",
+      research: "Post-Quantum Cryptography",
+      year: "2024 - now",
+      role: "Advisor"
     },
     {
-      name: "Maram Al-Qahtani",
-      degree: "MSc", 
-      department: "ICS, KFUPM",
-      research: "Federated Unlearning",
-      role: "Advisor",
-      status: "Active"
+      name: "Lina Alharbi",
+      degree: "PhD",
+      department: "KFUPM", 
+      research: "Practical Private Set Intersection",
+      year: "2024 - now",
+      role: "Advisor"
     },
     {
       name: "Soha Sandoukah",
       degree: "PhD",
-      department: "COE, KFUPM", 
-      research: "Secure and Privacy-Preserving FL using GAN",
-      role: "Advisor",
-      status: "Active"
+      department: "KFUPM",
+      research: "Robust and Secure Federated Learning",
+      year: "2023 - now",
+      role: "Advisor"
     },
     {
-      name: "Nourah Alotaibi",
+      name: "Nourah Al-Otaibi",
       degree: "PhD",
-      department: "ICS, KFUPM",
-      research: "LFAs on Federated Learning",
-      role: "Co-advisor",
-      status: "Active"
+      department: "KFUPM",
+      research: "Edge-Assisted Detection and Mitigation of Label-Flipping Attacks in Federated Learning Systems",
+      year: "2021 - 2025",
+      role: "Advisor"
     },
     {
-      name: "Mustafa Alghafli",
-      degree: "MS",
-      department: "COE, KFUPM",
-      research: "Updatable Multi-party Private Set Intersection", 
-      role: "Advisor",
-      status: "Active"
+      name: "Ekhlas Zaid",
+      degree: "MSc",
+      department: "KFUPM",
+      research: "Backdoor Attack on Federated Learning",
+      year: "2025 - now",
+      role: "Advisor"
+    },
+    {
+      name: "Abdulmjeed Al-Othman",
+      degree: "MSc",
+      department: "KFUPM",
+      research: "Secure Neural Network Inference",
+      year: "2024 - now",
+      role: "Advisor"
+    },
+    {
+      name: "Maram Al-Qahtani",
+      degree: "MSc",
+      department: "KFUPM",
+      research: "Machine Unlearning",
+      year: "2024 - now",
+      role: "Advisor"
+    },
+    {
+      name: "Eid AlDawsari",
+      degree: "MSc",
+      department: "KFUPM",
+      research: "Quantum Computing",
+      year: "2024 - now",
+      role: "Advisor"
+    },
+    {
+      name: "Mustafa Al-Ghafli",
+      degree: "MSc",
+      department: "KFUPM",
+      research: "Private Set Intersection in Mobile Crowdsensing",
+      year: "2021 - now",
+      role: "Advisor"
     }
   ];
 
   const recentGraduates = [
     {
-      name: "Dr. Nourah Al-Otaibi",
-      degree: "PhD",
-      graduationYear: "2025",
-      thesis: "Edge-based Detection and Mitigation of Label Flipping Attacks in Federated Learning Systems",
-      achievement: "First PhD student to graduate from SPQ group! Published 1 journal and 2 A* conference papers."
+      name: "Abdulmunim Sa'ad",
+      degree: "MSc",
+      department: "KFUPM",
+      graduationYear: "2023-2024",
+      thesis: "Federated Learning based Mobile Application"
     },
     {
-      name: "Abdulmumin Saad",
-      degree: "MSc",
-      graduationYear: "2024",
-      department: "COE, KFUPM",
-      thesis: "Communication-Efficient FL for Personal Assistant Applications"
-    },
-    {
-      name: "Shuroog Al-Ogbi", 
-      degree: "MSc",
-      graduationYear: "2024",
-      department: "COE, KFUPM", 
-      thesis: "Accelerating Non-Linear PDEs using Quantum Computing"
+      name: "Shurooq Al-Oqbi",
+      degree: "MSc", 
+      department: "KFUPM",
+      graduationYear: "2023-2024",
+      thesis: "Quantum Algorithms for Solving Partial Differential Equations"
     },
     {
       name: "Sani Umar",
-      degree: "MS",
-      graduationYear: "2020",
-      department: "COE, KFUPM",
-      thesis: "Cybersecurity of Power Grids"
+      degree: "MSc",
+      department: "KFUPM",
+      graduationYear: "2021",
+      thesis: "Modeling and Detecting False Data Injection Attacks in Smart Grids"
+    },
+    {
+      name: "Mohammad AlAkhras",
+      degree: "MEng",
+      department: "KFUPM", 
+      graduationYear: "2021",
+      thesis: "Efficient Network Coding in Wireless Sensor Network"
     }
   ];
 
-  const undergraduateStudents = [
+  const mxGraduateStudents = [
     {
-      name: "Mohammed Al-Bejadi",
-      department: "COE, KFUPM",
-      research: "Collaborative Video Streaming",
-      status: "Graduated Fall 2019"
+      name: "Tariq AlMuqbil",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Circuit Generator using Evolutionary Algorithms",
+      year: "2024"
     },
     {
-      name: "Asaad Alghamdi",
-      department: "ICS, KFUPM", 
-      research: "Collaborative Video Streaming",
-      status: "Graduated Spring 2020, Now MS student at KAUST"
+      name: "Maha Al-Otaibi",
+      program: "QIC MX",
+      department: "KFUPM", 
+      research: "Battery Revenue Optimization using Quantum Computing",
+      year: "2024"
     },
     {
-      name: "Abdulkarim Alaweet",
+      name: "Abdulrahman Alajmi",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Random Number Generator",
+      year: "2024"
+    },
+    {
+      name: "Abdulhadi Alzaidy",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Random Number Generator", 
+      year: "2024"
+    },
+    {
+      name: "Ahoud Alhawash",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Algorithms for PDEs",
+      year: "2024"
+    },
+    {
+      name: "Mohammad Al-Saiyari",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Optimization for Vehicle Routing Problem",
+      year: "2022"
+    },
+    {
+      name: "Rokiya Ghandour",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Computing Application in Finance",
+      year: "2022"
+    },
+    {
+      name: "Mays Miajan",
+      program: "QIC MX", 
+      department: "KFUPM",
+      research: "Quantum Computing Application in Finance",
+      year: "2022"
+    },
+    {
+      name: "Joud Awadh",
+      program: "QIC MX",
+      department: "KFUPM", 
+      research: "Quantum Computing Application in Finance",
+      year: "2022"
+    },
+    {
+      name: "Shuroog Al-Ogbi",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Support Vector Machines",
+      year: "2022"
+    },
+    {
+      name: "Bashayer Al-Nahdi",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Random Number Generator",
+      year: "2022"
+    },
+    {
+      name: "Maryam Baabdullah",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Quantum Support Vector Machines",
+      year: "2021"
+    },
+    {
+      name: "Sarah Al-Wadaah",
+      program: "QIC MX",
+      department: "KFUPM",
+      research: "Feasibility of using Quantum Computing in Seismic Image Processing",
+      year: "2021"
+    }
+  ];
+
+
+  const undergraduateAdvisingStudents = [
+    {
+      name: "Mohammad Serag",
       department: "COE, KFUPM",
-      research: "File Fragment Classification Using Deep Learning", 
-      status: "Graduated Fall 2019, Now at Saudi Aramco"
+      research: "Current Research",
+      year: "2025"
+    },
+    {
+      name: "Abdullah Emad Felemban",
+      department: "CS, OSU", 
+      research: "Current Research",
+      year: "2025"
+    },
+    {
+      name: "Joud Zamzami",
+      department: "CS, UMASS",
+      research: "Current Research",
+      year: "2025"
+    },
+    {
+      name: "Mariam Alsowaidan",
+      department: "Kuwait",
+      research: "Current Research",
+      year: "2025"
+    },
+    {
+      name: "Talal Al-Towaijri",
+      department: "CS, IAU",
+      research: "Quantum Algorithms for VRP",
+      year: "2024"
+    },
+    {
+      name: "Zahra Homoud",
+      department: "EE, Leeds University",
+      research: "Light-Weight Deep Learning",
+      year: "2024"
+    },
+    {
+      name: "Osamah Al-Karnawi",
+      department: "COE, KFUPM",
+      research: "DGA-based domains detection",
+      year: "2024"
+    },
+    {
+      name: "Amer Mosalli",
+      department: "COE, KFUPM",
+      research: "Event-Detection Using Edge-base Vehicle Dashcams",
+      year: "2023"
+    },
+    {
+      name: "Khaled AlShehri",
+      department: "Math, KFUPM",
+      research: "Private Set Intersection using Lattice-based Cryptography",
+      year: "2022"
+    },
+    {
+      name: "Khaled Al-Butainy",
+      department: "COE, KFUPM",
+      research: "Masking Unmasked Faces Using GANs Based Models",
+      year: "2022"
+    },
+    {
+      name: "Khaled Al-Zahrani",
+      department: "Phys, KFUPM",
+      research: "Increasing Fidelity of IBM Q Swap Gates",
+      year: "2021"
+    },
+    {
+      name: "Othman Kisha",
+      department: "COE, KFUPM", 
+      research: "Privacy Requirement for Contact Tracing Applications",
+      year: "2021"
+    },
+    {
+      name: "Kunwar Saaim",
+      department: "COE, Aligarh Muslim University, India",
+      research: "File Fragment Classification Using Deep Learning",
+      year: "2022"
     },
     {
       name: "Mohammad Khiami",
       department: "COE, KFUPM",
-      research: "Write Efficient LSM-based Merkle Tree",
-      status: "Graduated Spring 2020"
+      research: "Write-Efficient LSM-based Merkle Trees",
+      year: "2020"
     },
     {
-      name: "Kunwar Saaim",
-      department: "Aligarh Muslim University",
+      name: "Abdulkarim Al-Alweet",
+      department: "COE, KFUPM",
       research: "File Fragment Classification Using Deep Learning",
-      status: "Directed research collaboration"
+      year: "2020"
+    },
+    {
+      name: "Asaad Al-Ghamdi",
+      department: "ICS, KFUPM",
+      research: "BeeCast: A Collaborative Video Streaming System",
+      year: "2020",
+      achievement: "1st runner up: ACM SRC - Undergraduate track 2021"
+    },
+    {
+      name: "Mohammad Al-Bejadi",
+      department: "COE, KFUPM",
+      research: "Collaborative Video Streaming",
+      year: "2020",
+      achievement: "1st runner up: KAUST WEP Undergraduate Research Competition 2021"
+    }
+  ];
+
+  const undergraduateMentoringStudents = [
+    {
+      name: "Ghanima Boutaiban",
+      department: "CS, GUST",
+      year: "Summer 2023"
+    },
+    {
+      name: "Yousef AbuShabaan",
+      department: "CS, GUST",
+      year: "Summer 2023"
+    },
+    {
+      name: "Abduljawad Mohammad",
+      department: "ICS, KFUPM",
+      research: "Masking Unmasked Faces Using GANs Based Models",
+      program: "SURE 2021"
+    },
+    {
+      name: "Amaan Izhar",
+      department: "ICS, KFUPM",
+      research: "Emotional Interpretation using Voice Recognition",
+      program: "SURE 2021"
+    },
+    {
+      name: "Mujtaba Siddiqui",
+      department: "ISE, KFUPM",
+      research: "Simulation of COVID-19 in KFUPM Campus",
+      program: "SURE 2021"
+    },
+    {
+      name: "Sultan Al-Garbi",
+      department: "ICS, KFUPM",
+      research: "Federated Learning",
+      program: "SURE 2021"
+    },
+    {
+      name: "Mahmoud Ellouh",
+      department: "COE, KFUPM",
+      research: "ZeroJar: IoT Honeypot for Zero-day Attacks Detection",
+      program: "SURE 2021"
+    },
+    {
+      name: "Murtada Al-Hasan",
+      department: "ISE, KFUPM",
+      research: "Dynamic Class Scheduling with COVID-19 Constraints",
+      program: "SURE 2021"
+    },
+    {
+      name: "Hassan Al-Saffar",
+      department: "EE, KFUPM",
+      research: "Emotional Recognition Using Thermal Pictures",
+      program: "SURE 2021"
+    }
+  ];
+
+  const highSchoolStudents = [
+    {
+      name: "Tala Al-Mulla",
+      location: "Dhahran",
+      research: "Modeling and Simulation of University Class Schedules with COVID-19 Constraints",
+      achievement: "Ibdaa 2021 Finalist"
+    },
+    {
+      name: "Hussain AlSaif",
+      location: "Dhahran",
+      research: "Using Reinforcement Learning in Quantum Error Correction Codes",
+      achievement: "Ibdaa 2022 Finalist"
     }
   ];
 
@@ -139,7 +410,7 @@ const Students = () => {
                     </AcademicCardTitle>
                     <div className="flex gap-2 mt-2">
                       <Badge variant="default">{student.degree}</Badge>
-                      <Badge variant="secondary">{student.role}</Badge>
+                      <Badge variant="secondary">{student.year}</Badge>
                     </div>
                   </div>
                 </div>
@@ -147,7 +418,7 @@ const Students = () => {
               <AcademicCardContent>
                 <div className="space-y-3">
                   <div>
-                    <h4 className="font-medium text-foreground mb-1">Research Area</h4>
+                    <h4 className="font-medium text-foreground mb-1">Research Project</h4>
                     <p className="text-sm text-muted-foreground">{student.research}</p>
                   </div>
                   <div>
@@ -180,13 +451,66 @@ const Students = () => {
               <AcademicCardContent>
                 <div className="space-y-3">
                   <div>
-                    <h4 className="font-medium text-foreground mb-1">Thesis</h4>
+                    <h4 className="font-medium text-foreground mb-1">Project/Thesis</h4>
                     <p className="text-sm text-muted-foreground">{grad.thesis}</p>
                   </div>
-                  {grad.achievement && (
+                  <div>
+                    <h4 className="font-medium text-foreground mb-1">Department</h4>
+                    <p className="text-sm text-muted-foreground">{grad.department}</p>
+                  </div>
+                </div>
+              </AcademicCardContent>
+            </AcademicCard>
+          ))}
+        </div>
+      </div>
+
+      {/* MX Graduate Students */}
+      <div className="mb-16">
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">QIC MX Graduate Students</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {mxGraduateStudents.map((student, index) => (
+            <AcademicCard key={index}>
+              <AcademicCardHeader>
+                <AcademicCardTitle className="text-base">{student.name}</AcademicCardTitle>
+                <AcademicCardDescription className="text-sm">{student.department}</AcademicCardDescription>
+                <div className="flex gap-2 mt-2">
+                  <Badge variant="outline" className="text-xs">{student.program}</Badge>
+                  <Badge variant="secondary" className="text-xs">{student.year}</Badge>
+                </div>
+              </AcademicCardHeader>
+              <AcademicCardContent>
+                <div>
+                  <h4 className="font-medium text-foreground mb-1 text-sm">Project</h4>
+                  <p className="text-xs text-muted-foreground">{student.research}</p>
+                </div>
+              </AcademicCardContent>
+            </AcademicCard>
+          ))}
+        </div>
+      </div>
+
+      {/* Undergraduate Advising Students */}
+      <div className="mb-16">
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Undergraduate Students Advising</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {undergraduateAdvisingStudents.map((student, index) => (
+            <AcademicCard key={index}>
+              <AcademicCardHeader>
+                <AcademicCardTitle className="text-base">{student.name}</AcademicCardTitle>
+                <AcademicCardDescription className="text-sm">{student.department}</AcademicCardDescription>
+                <Badge variant="outline" className="text-xs mt-1">{student.year}</Badge>
+              </AcademicCardHeader>
+              <AcademicCardContent>
+                <div className="space-y-2">
+                  <div>
+                    <h4 className="font-medium text-foreground mb-1 text-sm">Project</h4>
+                    <p className="text-xs text-muted-foreground">{student.research}</p>
+                  </div>
+                  {student.achievement && (
                     <div>
-                      <h4 className="font-medium text-foreground mb-1">Achievement</h4>
-                      <p className="text-sm text-muted-foreground">{grad.achievement}</p>
+                      <h4 className="font-medium text-foreground mb-1 text-sm">Achievement</h4>
+                      <p className="text-xs text-muted-foreground">{student.achievement}</p>
                     </div>
                   )}
                 </div>
@@ -196,26 +520,50 @@ const Students = () => {
         </div>
       </div>
 
-      {/* Undergraduate Research Students */}
+      {/* Undergraduate Mentoring Students */}
       <div className="mb-16">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Undergraduate Research Alumni</h2>
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Undergraduate Students Mentoring</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {undergraduateStudents.map((student, index) => (
+          {undergraduateMentoringStudents.map((student, index) => (
             <AcademicCard key={index}>
               <AcademicCardHeader>
                 <AcademicCardTitle className="text-base">{student.name}</AcademicCardTitle>
                 <AcademicCardDescription className="text-sm">{student.department}</AcademicCardDescription>
+                {student.program && (
+                  <Badge variant="secondary" className="text-xs mt-1">{student.program}</Badge>
+                )}
+                {student.year && !student.program && (
+                  <Badge variant="outline" className="text-xs mt-1">{student.year}</Badge>
+                )}
               </AcademicCardHeader>
               <AcademicCardContent>
-                <div className="space-y-2">
+                {student.research && (
                   <div>
-                    <h4 className="font-medium text-foreground mb-1 text-sm">Research</h4>
+                    <h4 className="font-medium text-foreground mb-1 text-sm">Project</h4>
                     <p className="text-xs text-muted-foreground">{student.research}</p>
                   </div>
-                  <div>
-                    <h4 className="font-medium text-foreground mb-1 text-sm">Status</h4>
-                    <p className="text-xs text-muted-foreground">{student.status}</p>
-                  </div>
+                )}
+              </AcademicCardContent>
+            </AcademicCard>
+          ))}
+        </div>
+      </div>
+
+      {/* High School Students */}
+      <div className="mb-16">
+        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">High School Students Mentoring</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {highSchoolStudents.map((student, index) => (
+            <AcademicCard key={index}>
+              <AcademicCardHeader>
+                <AcademicCardTitle className="text-base">{student.name}</AcademicCardTitle>
+                <AcademicCardDescription className="text-sm">{student.location}</AcademicCardDescription>
+                <Badge variant="default" className="text-xs mt-1">{student.achievement}</Badge>
+              </AcademicCardHeader>
+              <AcademicCardContent>
+                <div>
+                  <h4 className="font-medium text-foreground mb-1 text-sm">Project</h4>
+                  <p className="text-xs text-muted-foreground">{student.research}</p>
                 </div>
               </AcademicCardContent>
             </AcademicCard>
