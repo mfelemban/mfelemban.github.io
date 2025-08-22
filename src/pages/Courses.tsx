@@ -3,6 +3,11 @@ import { AcademicCard, AcademicCardContent, AcademicCardDescription, AcademicCar
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Clock, Users } from "lucide-react";
 
+// Import course images
+import classroomAiSecurity from "@/assets/classroom-ai-security.jpg";
+import quantumComputingLab from "@/assets/quantum-computing-lab.jpg";
+import cybersecurityPrivacy from "@/assets/cybersecurity-privacy.jpg";
+
 const Courses = () => {
   const currentCourses = [
     {
@@ -93,7 +98,15 @@ const Courses = () => {
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Current Courses (Fall 2024)</h2>
         <div className="grid lg:grid-cols-2 gap-8">
           {currentCourses.map((course, index) => (
-            <AcademicCard key={index} variant="highlighted" className="h-full">
+            <AcademicCard key={index} variant="highlighted" className="h-full overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={index === 0 ? cybersecurityPrivacy : quantumComputingLab} 
+                  alt={course.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+              </div>
               <AcademicCardHeader>
                 <div className="flex items-start justify-between mb-2">
                   <AcademicCardTitle>{course.code}</AcademicCardTitle>
@@ -167,11 +180,29 @@ const Courses = () => {
         </div>
       </div>
 
-      {/* Teaching Philosophy */}
+      {/* Hero Image for Teaching */}
+      <div className="mb-16">
+        <div className="relative h-64 rounded-lg overflow-hidden">
+          <img 
+            src={classroomAiSecurity} 
+            alt="Modern classroom with AI and cybersecurity focus"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 to-transparent flex items-center">
+            <div className="p-8">
+              <h2 className="text-3xl font-serif font-semibold text-foreground mb-4">
+                Teaching Philosophy
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl">
+                Bridging theory and practice in cybersecurity and quantum computing education
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Teaching Philosophy Content */}
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8 text-center">
-          Teaching Philosophy
-        </h2>
         <AcademicCard>
           <AcademicCardContent className="pt-6">
             <div className="space-y-4 text-muted-foreground leading-relaxed">

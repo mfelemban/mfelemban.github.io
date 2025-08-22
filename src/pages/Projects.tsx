@@ -3,6 +3,14 @@ import { AcademicCard, AcademicCardContent, AcademicCardDescription, AcademicCar
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Github } from "lucide-react";
 
+// Import project images
+import quantumReservoir from "@/assets/quantum-reservoir.jpg";
+import postQuantumCrypto from "@/assets/post-quantum-crypto.jpg";
+import federatedLearning from "@/assets/federated-learning.jpg";
+import cybersecurityPrivacy from "@/assets/cybersecurity-privacy.jpg";
+import beeCastStreaming from "@/assets/beecast-streaming.jpg";
+import digitalForensics from "@/assets/digital-forensics.jpg";
+
 const Projects = () => {
   const activeProjects = [
     {
@@ -13,7 +21,8 @@ const Projects = () => {
       duration: "2025-2028",
       collaborators: ["Saudi Aramco", "KFUPM Petroleum Engineering"],
       technologies: ["Quantum Computing", "Reservoir Simulation", "Optimization Algorithms"],
-      type: "Industry Collaboration"
+      type: "Industry Collaboration",
+      image: quantumReservoir
     },
     {
       title: "Post-Quantum Cryptography Research",
@@ -23,7 +32,8 @@ const Projects = () => {
       duration: "2024-2027",
       collaborators: ["SPQ Group", "Cryptography Lab"],
       technologies: ["Post-Quantum Cryptography", "Lattice-based Cryptography", "Security Analysis"],
-      type: "Fundamental Research"
+      type: "Fundamental Research",
+      image: postQuantumCrypto
     },
     {
       title: "Privacy-Preserving Federated Learning",
@@ -33,7 +43,8 @@ const Projects = () => {
       duration: "2023-2026", 
       collaborators: ["SPQ Group", "ML Research Lab"],
       technologies: ["Federated Learning", "Differential Privacy", "Adversarial Defense"],
-      type: "Machine Learning Security"
+      type: "Machine Learning Security",
+      image: federatedLearning
     }
   ];
 
@@ -46,7 +57,8 @@ const Projects = () => {
       funding: "KACST COVID-19 Response Grant",
       collaborators: ["DSSL Lab", "Public Health Authorities"],
       technologies: ["Privacy-Preserving Analytics", "Contact Tracing", "Surveillance Systems"],
-      outcome: "Successfully deployed privacy-preserving surveillance system"
+      outcome: "Successfully deployed privacy-preserving surveillance system",
+      image: cybersecurityPrivacy
     },
     {
       title: "BeeCast: Device-to-Device Collaborative Video Streaming",
@@ -56,7 +68,8 @@ const Projects = () => {
       funding: "DSR-KFUPM Grant",
       collaborators: ["Undergraduate Research Team", "Networking Lab"],
       technologies: ["P2P Networks", "Video Streaming", "Mobile Computing"],
-      outcome: "Won 2nd place in 2021 ACM Student Research Competition, Published in MobiCom 2020"
+      outcome: "Won 2nd place in 2021 ACM Student Research Competition, Published in MobiCom 2020",
+      image: beeCastStreaming
     },
     {
       title: "Adaptive Intrusion Management System (AIMS)",
@@ -66,7 +79,8 @@ const Projects = () => {
       funding: "Northrop Grumman Research Grant",
       collaborators: ["Purdue University DMSL", "Northrop Grumman"],
       technologies: ["Intrusion Detection", "Database Security", "Adaptive Systems"],
-      outcome: "Published multiple papers in top-tier security conferences"
+      outcome: "Published multiple papers in top-tier security conferences",
+      image: cybersecurityPrivacy
     },
     {
       title: "File Fragment Classification using Deep Learning",
@@ -76,7 +90,8 @@ const Projects = () => {
       funding: "KFUPM Research Grant",
       collaborators: ["Digital Forensics Lab", "International Collaborators"],
       technologies: ["Deep Learning", "Digital Forensics", "CNN", "Lightweight Models"],
-      outcome: "Published in IEEE Access 2024 and IFIP SEC 2022"
+      outcome: "Published in IEEE Access 2024 and IFIP SEC 2022",
+      image: digitalForensics
     }
   ];
 
@@ -90,7 +105,19 @@ const Projects = () => {
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Active Projects</h2>
         <div className="space-y-8">
           {activeProjects.map((project, index) => (
-            <AcademicCard key={index} variant="highlighted">
+            <AcademicCard key={index} variant="highlighted" className="overflow-hidden">
+              <div className="grid lg:grid-cols-3 gap-0">
+                <div className="lg:col-span-1">
+                  <div className="relative h-64 lg:h-full">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r lg:bg-gradient-to-t from-background/80 to-transparent" />
+                  </div>
+                </div>
+                <div className="lg:col-span-2 p-6">
               <AcademicCardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -132,8 +159,10 @@ const Projects = () => {
                       </Badge>
                     ))}
                   </div>
+                  </div>
+                </AcademicCardContent>
                 </div>
-              </AcademicCardContent>
+              </div>
             </AcademicCard>
           ))}
         </div>
@@ -144,7 +173,15 @@ const Projects = () => {
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Completed Projects</h2>
         <div className="grid lg:grid-cols-2 gap-6">
           {completedProjects.map((project, index) => (
-            <AcademicCard key={index}>
+            <AcademicCard key={index} className="overflow-hidden">
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={project.image} 
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+              </div>
               <AcademicCardHeader>
                 <div className="flex items-center gap-3 mb-2">
                   <AcademicCardTitle>{project.title}</AcademicCardTitle>

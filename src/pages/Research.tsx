@@ -3,37 +3,50 @@ import { AcademicCard, AcademicCardContent, AcademicCardDescription, AcademicCar
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
 
+// Import research images
+import quantumComputingLab from "@/assets/quantum-computing-lab.jpg";
+import cybersecurityPrivacy from "@/assets/cybersecurity-privacy.jpg";
+import federatedLearning from "@/assets/federated-learning.jpg";
+import digitalForensics from "@/assets/digital-forensics.jpg";
+import postQuantumCrypto from "@/assets/post-quantum-crypto.jpg";
+
 const Research = () => {
   const researchAreas = [
     {
       title: "Data Security and Privacy",
       description: "Research on privacy-preserving technologies, data protection methods, and secure data management systems.",
-      keywords: ["Data Privacy", "Privacy Enhancing Technologies", "Secure Data Management", "Privacy-Preserving Analytics"]
+      keywords: ["Data Privacy", "Privacy Enhancing Technologies", "Secure Data Management", "Privacy-Preserving Analytics"],
+      image: cybersecurityPrivacy
     },
     {
       title: "Secure and Privacy-Preserving ML",
       description: "Federated learning security, privacy-preserving machine learning, and defense against adversarial attacks.",
-      keywords: ["Federated Learning", "Privacy-Preserving ML", "Adversarial Defense", "Label Flipping Attacks"]
+      keywords: ["Federated Learning", "Privacy-Preserving ML", "Adversarial Defense", "Label Flipping Attacks"],
+      image: federatedLearning
     },
     {
       title: "Quantum-Resistant Systems",
       description: "Post-quantum cryptography, quantum-safe security protocols, and quantum-resistant system design.",
-      keywords: ["Post-Quantum Cryptography", "Quantum-Safe Protocols", "PQC", "Quantum-Resistant Security"]
+      keywords: ["Post-Quantum Cryptography", "Quantum-Safe Protocols", "PQC", "Quantum-Resistant Security"],
+      image: postQuantumCrypto
     },
     {
       title: "Quantum Computing",
       description: "Quantum algorithms, quantum architecture, quantum communication, and quantum applications for real-world problems.",
-      keywords: ["Quantum Algorithms", "Quantum Architecture", "Quantum Communication", "Quantum Applications"]
+      keywords: ["Quantum Algorithms", "Quantum Architecture", "Quantum Communication", "Quantum Applications"],
+      image: quantumComputingLab
     },
     {
       title: "Cybersecurity",
       description: "Intrusion detection, attack-resilient systems, digital forensics, and cybersecurity for critical infrastructure.",
-      keywords: ["Intrusion Detection", "Attack-Resilient Systems", "Digital Forensics", "Cybersecurity"]
+      keywords: ["Intrusion Detection", "Attack-Resilient Systems", "Digital Forensics", "Cybersecurity"],
+      image: cybersecurityPrivacy
     },
     {
       title: "Digital Forensics",
       description: "File fragment classification, deep learning for forensics, and advanced digital investigation techniques.",
-      keywords: ["File Fragment Classification", "Deep Learning Forensics", "Digital Investigation", "Forensic Analysis"]
+      keywords: ["File Fragment Classification", "Deep Learning Forensics", "Digital Investigation", "Forensic Analysis"],
+      image: digitalForensics
     }
   ];
 
@@ -78,7 +91,15 @@ const Research = () => {
         <h2 className="text-3xl font-serif font-semibold text-foreground mb-8">Research Thrusts</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {researchAreas.map((area, index) => (
-            <AcademicCard key={index} className="h-full">
+            <AcademicCard key={index} className="h-full overflow-hidden hover:shadow-lg transition-all duration-300">
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={area.image} 
+                  alt={area.title}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+              </div>
               <AcademicCardHeader>
                 <AcademicCardTitle>{area.title}</AcademicCardTitle>
               </AcademicCardHeader>
