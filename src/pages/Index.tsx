@@ -7,8 +7,8 @@ const Index = () => {
   const highlights = [
     {
       icon: <FlaskConical className="h-8 w-8 text-primary" />,
-      title: "Research",
-      description: "Cybersecurity, data privacy, quantum computing, and secure machine learning.",
+      title: "SPQ Group",
+      description: "Security, Privacy, and Quantum research group with cutting-edge projects and publications.",
       link: "/research"
     },
     {
@@ -16,12 +16,6 @@ const Index = () => {
       title: "Courses",
       description: "Data Privacy, Quantum Computing, AI, and Cybersecurity courses.",
       link: "/courses"
-    },
-    {
-      icon: <GraduationCap className="h-8 w-8 text-primary" />,
-      title: "Projects",
-      description: "Security & Privacy research, Quantum algorithms, and Privacy-preserving ML.",
-      link: "/projects"
     },
     {
       icon: <Users className="h-8 w-8 text-primary" />,
@@ -40,19 +34,18 @@ const Index = () => {
             Dr. Muhamad Felemban
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            Assistant Professor at KFUPM & Director of IRC-ISS
+            Assistant Professor at KFUPM
           </p>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            I am the director of the Interdisciplinary Research Center for Intelligent Secure Systems (IRC-ISS) 
-            at KFUPM. I am an assistant professor with the Computer Engineering Department and the Information and 
+            I am an assistant professor with the Computer Engineering Department and the Information and 
             Computer Science Department at KFUPM. My research focuses on Cybersecurity, particularly data privacy, 
-            quantum computing, and privacy-preserving machine learning.
+            quantum computing, and privacy-preserving machine learning through my Security, Privacy, and Quantum (SPQ) research group.
           </p>
         </div>
       </div>
 
       {/* Highlights Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {highlights.map((highlight, index) => (
           <Link key={index} to={highlight.link} className="group">
             <AcademicCard className="h-full hover:border-primary/30 transition-smooth">
