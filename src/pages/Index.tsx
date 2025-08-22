@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { BookOpen, Users, FlaskConical, GraduationCap } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import { AcademicCard, AcademicCardContent, AcademicCardDescription, AcademicCardHeader, AcademicCardTitle } from "@/components/ui/academic-card";
+import kfupmCampus from "@/assets/kfupm-campus.jpg";
 
 const Index = () => {
   const highlights = [
@@ -47,6 +48,15 @@ const Index = () => {
             Computer Science Department at KFUPM. My research focuses on Cybersecurity, particularly data privacy, 
             quantum computing, and privacy-preserving machine learning through my Security, Privacy, and Quantum (SPQ) research group.
           </p>
+        </div>
+        
+        {/* KFUPM Campus Image */}
+        <div className="mt-12 mb-8 max-w-4xl mx-auto">
+          <img 
+            src={kfupmCampus} 
+            alt="King Fahd University of Petroleum and Minerals campus" 
+            className="w-full h-64 md:h-80 object-cover rounded-lg shadow-lg"
+          />
         </div>
       </div>
 

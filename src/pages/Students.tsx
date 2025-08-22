@@ -38,14 +38,6 @@ const Students = () => {
       role: "Advisor"
     },
     {
-      name: "Nourah Al-Otaibi",
-      degree: "PhD",
-      department: "KFUPM",
-      research: "Edge-Assisted Detection and Mitigation of Label-Flipping Attacks in Federated Learning Systems",
-      year: "2021 - 2025",
-      role: "Advisor"
-    },
-    {
       name: "Ekhlas Zaid",
       degree: "MSc",
       department: "KFUPM",
@@ -88,6 +80,13 @@ const Students = () => {
   ];
 
   const recentGraduates = [
+    {
+      name: "Nourah Al-Otaibi",
+      degree: "PhD",
+      department: "KFUPM",
+      graduationYear: "2025",
+      thesis: "Edge-Assisted Detection and Mitigation of Label-Flipping Attacks in Federated Learning Systems"
+    },
     {
       name: "Abdulmunim Sa'ad",
       degree: "MSc",
