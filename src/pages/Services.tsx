@@ -37,6 +37,62 @@ const Services = () => {
     }
   ];
 
+  const invitedPresentations = [
+    {
+      title: "Blockchain: Fundamentals and Applications",
+      venue: "Wasla Tech @ Saudi Aramco EXPEC",
+      date: "February 2020"
+    },
+    {
+      title: "Introduction to Cybersecurity: Workshop",
+      venue: "IEEE Saudi Arabia Section",
+      date: "November 2019"
+    },
+    {
+      title: "Adaptive Intrusion Management for Database Management Systems",
+      venue: "KAUST",
+      date: "May 2019"
+    },
+    {
+      title: "Cybersecurity",
+      venue: "Culture and Arts Association in Dammam",
+      date: "April 2019"
+    },
+    {
+      title: "Data Driven Security",
+      venue: "IEEE Saudi Arabia Section",
+      date: "December 2018"
+    },
+    {
+      title: "Machine Learning for Cyber Security",
+      venue: "Wasla Tech @ Saudi Aramco EXPEC",
+      date: "October 2018"
+    },
+    {
+      title: "Data Protection and Data Science",
+      venue: "Sharqiya Data Geeks",
+      date: "October 2018"
+    }
+  ];
+
+  const committees = {
+    department: [
+      "Publicity committee",
+      "Industrial Relation committee", 
+      "Research committee"
+    ],
+    college: [
+      "Teaching and Advising Award committee (Chair)",
+      "Cybersecurity and Blockchain CX/MS committee"
+    ],
+    university: [
+      "Textbook committee",
+      "Honors Program committee",
+      "University Ranking committee",
+      "Undergraduate Research Committee"
+    ]
+  };
+
   const reviewerServices = [
     "IEEE Transactions on Dependable and Secure Computing (TDSC)",
     "IEEE Sensors",
@@ -138,6 +194,82 @@ const Services = () => {
         </AcademicCard>
       </div>
 
+      {/* Invited Presentations */}
+      <div className="mb-16">
+        <div className="flex items-center gap-3 mb-8">
+          <Users className="h-8 w-8 text-primary" />
+          <h2 className="text-3xl font-serif font-semibold text-foreground">Invited Presentations</h2>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6">
+          {invitedPresentations.map((presentation, index) => (
+            <AcademicCard key={index}>
+              <AcademicCardHeader>
+                <AcademicCardTitle className="text-base mb-2">{presentation.title}</AcademicCardTitle>
+                <AcademicCardDescription>{presentation.venue}</AcademicCardDescription>
+                <Badge variant="outline" className="mt-2 w-fit">{presentation.date}</Badge>
+              </AcademicCardHeader>
+            </AcademicCard>
+          ))}
+        </div>
+      </div>
+
+      {/* Committee Services */}
+      <div className="mb-16">
+        <div className="flex items-center gap-3 mb-8">
+          <Users className="h-8 w-8 text-primary" />
+          <h2 className="text-3xl font-serif font-semibold text-foreground">Committee Services</h2>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          <AcademicCard>
+            <AcademicCardHeader>
+              <AcademicCardTitle>Department Committees</AcademicCardTitle>
+            </AcademicCardHeader>
+            <AcademicCardContent>
+              <div className="space-y-2">
+                {committees.department.map((committee, index) => (
+                  <div key={index} className="flex items-center gap-2 p-2 bg-accent/20 rounded">
+                    <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
+                    <span className="text-sm">{committee}</span>
+                  </div>
+                ))}
+              </div>
+            </AcademicCardContent>
+          </AcademicCard>
+
+          <AcademicCard>
+            <AcademicCardHeader>
+              <AcademicCardTitle>College Committees</AcademicCardTitle>
+            </AcademicCardHeader>
+            <AcademicCardContent>
+              <div className="space-y-2">
+                {committees.college.map((committee, index) => (
+                  <div key={index} className="flex items-center gap-2 p-2 bg-accent/20 rounded">
+                    <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
+                    <span className="text-sm">{committee}</span>
+                  </div>
+                ))}
+              </div>
+            </AcademicCardContent>
+          </AcademicCard>
+
+          <AcademicCard>
+            <AcademicCardHeader>
+              <AcademicCardTitle>University Committees</AcademicCardTitle>
+            </AcademicCardHeader>
+            <AcademicCardContent>
+              <div className="space-y-2">
+                {committees.university.map((committee, index) => (
+                  <div key={index} className="flex items-center gap-2 p-2 bg-accent/20 rounded">
+                    <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
+                    <span className="text-sm">{committee}</span>
+                  </div>
+                ))}
+              </div>
+            </AcademicCardContent>
+          </AcademicCard>
+        </div>
+      </div>
+
       {/* Professional Service Summary */}
       <div className="max-w-4xl mx-auto">
         <AcademicCard variant="highlighted">
@@ -145,14 +277,18 @@ const Services = () => {
             <AcademicCardTitle className="text-center">Professional Service Impact</AcademicCardTitle>
           </AcademicCardHeader>
           <AcademicCardContent>
-            <div className="grid md:grid-cols-3 gap-6 text-center">
+            <div className="grid md:grid-cols-4 gap-6 text-center">
               <div>
                 <div className="text-3xl font-bold text-primary mb-2">4</div>
                 <div className="text-sm text-muted-foreground">Educational Programs</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-primary mb-2">1</div>
-                <div className="text-sm text-muted-foreground">Guest Editorships</div>
+                <div className="text-3xl font-bold text-primary mb-2">7</div>
+                <div className="text-sm text-muted-foreground">Invited Presentations</div>
+              </div>
+              <div>
+                <div className="text-3xl font-bold text-primary mb-2">9</div>
+                <div className="text-sm text-muted-foreground">Committee Memberships</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-primary mb-2">8</div>
