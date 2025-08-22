@@ -34,18 +34,18 @@ const Index = () => {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-accent/10 via-transparent to-primary/5 py-20 mb-16 border-b border-border/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-6 tracking-tight">
-            Dr. Alex Morgan
+      <div className="text-center mb-16">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-serif font-semibold text-foreground mb-6">
+            Dr. [Your Name]
           </h1>
-          <p className="text-xl text-primary font-semibold mb-6 tracking-wide">
-            Professor of Computer Science
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
+            Professor of Computer Science at [University Name]
           </p>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Advancing computational research at the intersection of machine learning, 
-            distributed systems, and computational biology. Dedicated to fostering 
-            innovation through rigorous scientific inquiry and collaborative research.
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Welcome to my academic homepage. I am a researcher passionate about 
+            computational methods, data science, and their applications to solving 
+            complex real-world problems. Explore my work, courses, and research projects.
           </p>
         </div>
       </div>
@@ -54,9 +54,9 @@ const Index = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         {highlights.map((highlight, index) => (
           <Link key={index} to={highlight.link} className="group">
-            <AcademicCard className="h-full hover:border-primary/40 transition-smooth">
+            <AcademicCard className="h-full hover:border-primary/30 transition-smooth">
               <AcademicCardHeader className="text-center">
-                <div className="mx-auto mb-4 p-4 rounded-full bg-gradient-accent border border-accent-foreground/20 w-fit group-hover:scale-110 transition-smooth">
+                <div className="mx-auto mb-4 p-3 rounded-full bg-accent w-fit group-hover:bg-primary/10 transition-smooth">
                   {highlight.icon}
                 </div>
                 <AcademicCardTitle className="group-hover:text-primary transition-smooth">

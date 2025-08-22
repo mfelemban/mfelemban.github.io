@@ -10,8 +10,8 @@ const AcademicCard = React.forwardRef<HTMLDivElement, AcademicCardProps>(
     <div
       ref={ref}
       className={cn(
-        "rounded-lg border border-border/50 bg-gradient-to-br from-card via-card to-accent/5 text-card-foreground transition-smooth hover:shadow-luxury hover:scale-[1.01]",
-        variant === "highlighted" && "border-primary/30 bg-gradient-to-br from-accent/10 via-card to-primary/5 shadow-elegant",
+        "rounded-lg border bg-card text-card-foreground transition-smooth hover:shadow-card",
+        variant === "highlighted" && "border-primary/20 bg-accent/30",
         className
       )}
       {...props}
