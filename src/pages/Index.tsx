@@ -34,12 +34,12 @@ const Index = () => {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <div className="bg-gradient-subtle py-16">
+      <div className="bg-gradient-to-br from-accent/10 via-transparent to-primary/5 py-20 mb-16 border-b border-border/30">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-6">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-foreground mb-6 tracking-tight">
             Dr. Alex Morgan
           </h1>
-          <p className="text-xl text-primary font-medium mb-6">
+          <p className="text-xl text-primary font-semibold mb-6 tracking-wide">
             Professor of Computer Science
           </p>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
@@ -54,9 +54,9 @@ const Index = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         {highlights.map((highlight, index) => (
           <Link key={index} to={highlight.link} className="group">
-            <AcademicCard className="h-full hover:border-primary/30 transition-smooth">
+            <AcademicCard className="h-full hover:border-primary/40 transition-smooth">
               <AcademicCardHeader className="text-center">
-                <div className="mx-auto mb-4 p-3 rounded-full bg-accent w-fit group-hover:bg-primary/10 transition-smooth">
+                <div className="mx-auto mb-4 p-4 rounded-full bg-gradient-accent border border-accent-foreground/20 w-fit group-hover:scale-110 transition-smooth">
                   {highlight.icon}
                 </div>
                 <AcademicCardTitle className="group-hover:text-primary transition-smooth">
