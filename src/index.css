@@ -142,4 +142,3 @@ All colors MUST be HSL.
     @apply bg-gradient-to-br from-card via-card to-accent/5 border border-border/50 shadow-card;
   }
 }
-}
