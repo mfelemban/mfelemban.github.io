@@ -37,7 +37,7 @@ const Index = () => {
       <div className="text-center mb-16">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-serif font-semibold text-foreground mb-6">
-            Dr. [Your Name]
+            Dr. Muhamad Felemban
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
             Professor of Computer Science at [University Name]

@@ -20,7 +20,7 @@ const Navigation = () => {
             to="/" 
             className="text-xl font-serif font-semibold text-foreground hover:text-primary transition-smooth"
           >
-            Dr. [Your Name]
+            Dr. Muhamad Felemban
           </Link>
           
           <div className="hidden md:flex space-x-8">
