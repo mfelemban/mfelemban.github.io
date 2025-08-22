@@ -174,6 +174,17 @@ const Publications = () => {
     }
   ];
 
+  const thesesAndOther = [
+    {
+      title: "Optimal node placement in underwater acoustic sensor network",
+      authors: "M Felemban",
+      venue: "PhD Thesis/Research",
+      year: "2011",
+      citations: 14,
+      link: "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:u5HHmVD_uO8C"
+    }
+  ];
+
   const preprints = [
     {
       title: "File fragment classification using light-weight convolutional neural networks",
@@ -237,7 +248,7 @@ const Publications = () => {
     </AcademicCard>
   );
 
-  const totalCitations = [...journalPublications, ...conferencePublications, ...preprints]
+  const totalCitations = [...journalPublications, ...conferencePublications, ...preprints, ...thesesAndOther]
     .reduce((sum, pub) => sum + pub.citations, 0);
 
   return (
@@ -268,7 +279,7 @@ const Publications = () => {
           </AcademicCard>
           <AcademicCard className="text-center">
             <AcademicCardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary mb-2">{journalPublications.length + conferencePublications.length}</div>
+              <div className="text-3xl font-bold text-primary mb-2">{journalPublications.length + conferencePublications.length + thesesAndOther.length}</div>
               <p className="text-sm text-muted-foreground">Publications</p>
             </AcademicCardContent>
           </AcademicCard>
@@ -298,6 +309,20 @@ const Publications = () => {
         </div>
         <div className="space-y-6">
           {conferencePublications
+            .sort((a, b) => parseInt(b.year) - parseInt(a.year))
+            .map((pub, index) => renderPublicationCard(pub, index, false))}
+        </div>
+      </div>
+
+      {/* Theses & Other Publications */}
+      <div className="mb-16">
+        <div className="flex items-center gap-3 mb-8">
+          <BookOpen className="h-6 w-6 text-primary" />
+          <h2 className="text-3xl font-serif font-semibold text-foreground">Theses & Other Publications</h2>
+          <Badge variant="default">{thesesAndOther.length}</Badge>
+        </div>
+        <div className="space-y-6">
+          {thesesAndOther
             .sort((a, b) => parseInt(b.year) - parseInt(a.year))
             .map((pub, index) => renderPublicationCard(pub, index, false))}
         </div>
