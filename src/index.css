@@ -8,99 +8,67 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 99%;
-    --foreground: 222 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 4.9%;
-
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 221 83% 65%;
-
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 84% 4.9%;
-
-    --muted: 210 40% 98%;
-    --muted-foreground: 215 16% 47%;
-
-    --accent: 221 83% 96%;
-    --accent-foreground: 221 83% 53%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%;
-
-    /* Academic design tokens */
-    --academic-blue: 221 83% 53%;
-    --academic-blue-light: 221 83% 96%;
-    --academic-gray: 215 16% 47%;
-    --academic-gray-light: 210 40% 98%;
+    /* Classic Academic Color Palette */
+    --background: 250 248 245;
+    --foreground: 25 23 22;
+    --card: 255 255 255;
+    --card-foreground: 25 23 22;
+    --popover: 255 255 255;
+    --popover-foreground: 25 23 22;
+    --primary: 29 78 137;
+    --primary-foreground: 248 250 252;
+    --primary-glow: 59 130 246;
+    --secondary: 120 113 108;
+    --secondary-foreground: 255 255 255;
+    --muted: 245 245 244;
+    --muted-foreground: 120 113 108;
+    --accent: 168 162 158;
+    --accent-foreground: 25 23 22;
+    --destructive: 127 29 29;
+    --destructive-foreground: 248 250 252;
+    --border: 231 229 228;
+    --input: 245 245 244;
+    --ring: 29 78 137;
     
-    /* Gradients */
+    /* Academic Design Tokens */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
     --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
-    
-    /* Shadows */
-    --shadow-elegant: 0 4px 20px -4px hsl(var(--primary) / 0.1);
-    --shadow-card: 0 2px 10px -2px hsl(var(--academic-gray) / 0.1);
-    
-    /* Transitions */
+    --shadow-elegant: 0 8px 32px -8px hsl(var(--foreground) / 0.1);
+    --shadow-card: 0 4px 16px -4px hsl(var(--foreground) / 0.1);
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 0.5rem;
-
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --background: 23 23 23;
+    --foreground: 250 248 245;
+    --card: 41 37 36;
+    --card-foreground: 250 248 245;
+    --popover: 41 37 36;
+    --popover-foreground: 250 248 245;
+    --primary: 96 165 250;
+    --primary-foreground: 23 23 23;
+    --primary-glow: 129 140 248;
+    --secondary: 87 83 78;
+    --secondary-foreground: 250 248 245;
+    --muted: 41 37 36;
+    --muted-foreground: 168 162 158;
+    --accent: 87 83 78;
+    --accent-foreground: 250 248 245;
+    --destructive: 127 29 29;
+    --destructive-foreground: 250 248 245;
+    --border: 87 83 78;
+    --input: 41 37 36;
+    --ring: 96 165 250;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -118,11 +86,11 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-crimson;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+    @apply font-playfair;
   }
 
   .shadow-elegant {

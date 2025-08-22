@@ -10,8 +10,8 @@ const AcademicCard = React.forwardRef<HTMLDivElement, AcademicCardProps>(
     <div
       ref={ref}
       className={cn(
-        "rounded-lg border bg-card text-card-foreground transition-smooth hover:shadow-card",
-        variant === "highlighted" && "border-primary/20 bg-accent/30",
+        "rounded-none border bg-card text-card-foreground transition-smooth hover:shadow-elegant border-l-4 border-l-primary",
+        variant === "highlighted" && "bg-gradient-to-r from-accent/10 to-transparent border-primary/30",
         className
       )}
       {...props}
@@ -38,7 +38,7 @@ const AcademicCardTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn("font-serif text-xl font-semibold leading-none tracking-tight", className)}
+    className={cn("font-playfair text-2xl font-semibold leading-tight tracking-tight", className)}
     {...props}
   />
 ));
