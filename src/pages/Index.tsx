@@ -53,8 +53,8 @@ const Index = () => {
         {/* KFUPM Campus Image */}
         <div className="mt-12 mb-8 max-w-4xl mx-auto">
           <img 
-            src={kfupmCampus} 
-            alt="King Fahd University of Petroleum and Minerals campus" 
+            src="/lovable-uploads/78e8c73f-cc7c-44cd-bc61-16aabe8eedc2.png" 
+            alt="KFUPM campus at night with iconic water tower" 
             className="w-full h-64 md:h-80 object-cover rounded-lg shadow-lg"
           />
         </div>
