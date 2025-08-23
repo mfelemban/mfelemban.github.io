@@ -3,6 +3,7 @@ import { BookOpen, Users, FlaskConical, GraduationCap } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
 import { AcademicCard, AcademicCardContent, AcademicCardDescription, AcademicCardHeader, AcademicCardTitle } from "@/components/ui/academic-card";
 import kfupmCampus from "@/assets/kfupm-campus.jpg";
+import kfupmBanner from "@/assets/kfupm-banner.jpg";
 
 const Index = () => {
   const highlights = [
@@ -34,6 +35,18 @@ const Index = () => {
 
   return (
     <PageLayout>
+      {/* Banner Section */}
+      <div className="relative -mt-12 mb-16">
+        <div className="w-full h-64 md:h-80 lg:h-96 overflow-hidden rounded-lg">
+          <img 
+            src={kfupmBanner} 
+            alt="KFUPM College of Petroleum Engineering & Geosciences" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="absolute inset-0 bg-black/20 rounded-lg"></div>
+      </div>
+
       {/* Hero Section */}
       <div className="text-center mb-16">
         <div className="max-w-4xl mx-auto">
