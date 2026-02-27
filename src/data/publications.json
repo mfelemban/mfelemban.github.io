@@ -1,0 +1,314 @@
+{
+  "h_index": 9,
+  "i10_index": 9,
+  "total_citations": 297,
+  "last_updated": "2026-02-28",
+  "publications": [
+    {
+      "title": "Lightweight and Efficient Post Quantum Key Encapsulation Mechanism Based on Q-Problem",
+      "authors": "Kara, Mostefa, Konstantinos Karampidis, Spyros Panagiotakis, Mohammad Hammoudeh, Muhamad Felemban, and Giorgos Papadourakis",
+      "year": "2025",
+      "venue": "Electronics",
+      "type": "journal",
+      "citations": 5,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:Tiz5es2fbqcC"
+    },
+    {
+      "title": "Unbounded Depth ElGamal-Based Asymmetric Updatable Encryption Technique",
+      "authors": "Kara, Mostefa, Ammar Boukrara, Mohammad Hammoudeh, Muhamad Felemban, and Samir Guediri",
+      "year": "2025",
+      "venue": "IEEE Open Journal of the Computer Society",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "An encrypted and signed plaintext symmetric cryptosystem",
+      "authors": "Kara, Mostefa, Mohammad Hammoudeh, Muhamad Felemban, and Konstantinos Karampidis",
+      "year": "2025",
+      "venue": "Computers and Electrical Engineering, 123",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Mitigation of oxide growth on aluminum thin films: The role of self-assembled monolayers in superconducting quantum circuits",
+      "authors": "Saleh, Omar A., Saleem G. Rao, Khan Alam, and Muhamad Felemban",
+      "year": "2025",
+      "venue": "AVS Quantum Science, 7(2)",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Dynamic spectrum sharing in heterogeneous wireless networks using deep reinforcement learning",
+      "authors": "Adebayo, Sulaimon Oyeniyi, Abdulaziz Barnawi, Tarek Sheltami, and Muhamad Felemban",
+      "year": "2025",
+      "venue": "Internet of Things, 32",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Edge-Assisted Label-Flipping Attack Detection in Federated Learning",
+      "authors": "AlOtaibi, Nourah S., Muhamad Felemban, and Sajjad Mahmood",
+      "year": "2024",
+      "venue": "IEEE Open Journal of the Communications Society",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "File Fragment Type Classification using Light-Weight Convolutional Neural Networks",
+      "authors": "Felemban, Muhamad, Mustafa Ghaleb, Kunwar Saaim, Saleh Al-Saleh, and Ahmad Almulhem",
+      "year": "2024",
+      "venue": "IEEE Access",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "A Systematic Literature Review on Vulnerabilities, Mitigation Techniques, and Attacks in Field-Programmable Gate Arrays",
+      "authors": "Alsuwaiyan, Ali, Aliyu Abubakar Habib, Ali Bello Imoukhuede, Mohamed Osman Omar, Md Al Maruf, Mansour Alqarni, Aiman El-Maleh, Abdulaziz Tabbakh, Muhamad Felemban, and Akramul Azim",
+      "year": "2024",
+      "venue": "Arabian Journal for Science and Engineering, 1-31",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Exploring The Human Response To Anger: Uncovering Insights Through Infrared Thermography And Experimental Psychology",
+      "authors": "Mohamed, Tarik N., Hassan Alsafar, and Muhamad Felemban",
+      "year": "2024",
+      "venue": "Acta Neuropsychologica, 22(3)",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Guard: Attack-Resilient Adaptive Load Balancing in Distributed Streaming Systems",
+      "authors": "Daghistani, Anas, Musab Khayat, Muhamad Felemban, Walid Aref and Arif Ghafoor",
+      "year": "2022",
+      "venue": "IEEE Transactions on Dependable and Secure Computing",
+      "type": "journal",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "A Modelling and Scheduling Tool for Crowd Movement in Complex Network",
+      "authors": "Felemban, Emad, Faizan Ur Rehman, Akhlaq Ahmad, and Muhamad Felemban",
+      "year": "2022",
+      "venue": "Intelligent Automation and Soft Computing",
+      "type": "journal",
+      "citations": 3,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:D03iK_w7-QYC"
+    },
+    {
+      "title": "Rule-Based Detection of False Data Injections Attacks against Optimal Power Flow in Power Systems",
+      "authors": "Umer, Sani, Muhamad Felemban",
+      "year": "2021",
+      "venue": "Sensors",
+      "type": "journal",
+      "citations": 19,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:cFHS6HbyZ2cC"
+    },
+    {
+      "title": "A Partition-Driven Integrated Security Architecture for Cyber-Physical Systems",
+      "authors": "Javed, Y., Muhamad Felemban, Tawfeq Shawly, Jason Kobes, and Arif Ghafoor",
+      "year": "2020",
+      "venue": "Computer, 53(3), 47-56",
+      "type": "journal",
+      "citations": 21,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:HoB7MX3m0LUC"
+    },
+    {
+      "title": "Threat Management in Data-centric IoT-Based Collaborative Systems",
+      "authors": "Felemban, Muhamad, Emad Felemban, Jason Kobes, and Arif Ghafoor",
+      "year": "2019",
+      "venue": "ACM Transactions on Internet Technology (TOIT), 19(3)",
+      "type": "journal",
+      "citations": 6,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:ZHo1McVdvXMC"
+    },
+    {
+      "title": "GroupCast: Preference-aware cooperative video streaming with scalable video coding",
+      "authors": "Elgabli, Anis, Muhamad Felemban, and Vaneet Aggarwal",
+      "year": "2019",
+      "venue": "IEEE/ACM Transactions on Networking",
+      "type": "journal",
+      "citations": 17,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:SeFeTyx0c_EC"
+    },
+    {
+      "title": "GiantClient: Video hotspot for multi-user streaming",
+      "authors": "Elgabli, Anis, Muhamad Felemban, and Vaneet Aggarwal",
+      "year": "2018",
+      "venue": "IEEE Transactions on Circuits and Systems for Video Technology",
+      "type": "journal",
+      "citations": 9,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:M05iB0D1s5AC"
+    },
+    {
+      "title": "A Privacy Mechanism for Access Controlled Graph Data",
+      "authors": "Arshad, M.U., Muhamad Felemban, Pervaiz, Z., Ghafoor, A. and Aref, W.G.",
+      "year": "2018",
+      "venue": "IEEE Transactions on Dependable and Secure Computing",
+      "type": "journal",
+      "citations": 3,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:70eg2SAEIzsC"
+    },
+    {
+      "title": "A Distributed Cloud Architecture for Mobile Multimedia Services",
+      "authors": "Muhamad Felemban, S. Basalamah, Arif Ghafoor",
+      "year": "2013",
+      "venue": "IEEE Network",
+      "type": "journal",
+      "citations": 53,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:9yKSN-GCB0IC"
+    },
+    {
+      "title": "Discovery of Quantum Algorithms Using Genetic Algorithms: Exponential Speedup via Random Sampling",
+      "authors": "Almuqbil, Tariq, and Muhamad Felemban",
+      "year": "2024",
+      "venue": "2024 IEEE International Conference on Quantum Computing and Engineering (QCE), 2, 444-445",
+      "type": "conference",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Enhancing Arabic Information Retrieval for Question Answering",
+      "authors": "Alghamdi, Muath, Mohammed Abushawarib, Mahmoud Ellouh, Mustafa Ghaleb, and Muhamad Felemban",
+      "year": "2023",
+      "venue": "Proceedings of the 7th International Conference on Future Networks and Distributed Systems, 366-371",
+      "type": "conference",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Variational Quantum Algorithms for Solving Vehicle Routing Problem",
+      "authors": "Mohammad Alsaiyari and Muhamad Felemban",
+      "year": "2023",
+      "venue": "2023 International Conference on Smart Computing and Application (ICSCA), 1-4",
+      "type": "conference",
+      "citations": 6,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:abG-DnoFyZgC"
+    },
+    {
+      "title": "Quantum Image Classification on NISQ Devices",
+      "authors": "Shuroog Al-Ogbi, Abdulrahman Ashour and Muhamad Felemban",
+      "year": "2022",
+      "venue": "2022 14th International Conference on Computational Intelligence and Communication Networks (CICN), 1-7",
+      "type": "conference",
+      "citations": 4,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:b0M2c_1WBrUC"
+    },
+    {
+      "title": "Realistic Face Masks Generation Using Generative Adversarial Networks",
+      "authors": "Khaled Butainy, Muhamad Felemban and Hamzah Luqman",
+      "year": "2022",
+      "venue": "2022 14th International Conference on Computational Intelligence and Communication Networks (CICN), 90-95",
+      "type": "conference",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "IoTZeroJar: Towards a Honeypot Architecture for Detection of Zero-Day Attacks in IoT",
+      "authors": "Mahmoud Ellouh, Mustafa Ghaleb and Muhamad Felemban",
+      "year": "2022",
+      "venue": "2022 14th International Conference on Computational Intelligence and Communication Networks (CICN), 765-771",
+      "type": "conference",
+      "citations": 9,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:_xSYboBqXhAC"
+    },
+    {
+      "title": "Lightweight File Fragments Classification using Depthwise Separable Convolution",
+      "authors": "Kunwar Saaim, Muhamad Felemban, Saleh Al-Saleh, Ahmed Al-Mulhem",
+      "year": "2022",
+      "venue": "37th International Conference on ICT Systems Security and Privacy Protection, IFIP SEC 2022",
+      "type": "conference",
+      "citations": 16,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:pyW8ca7W8N0C"
+    },
+    {
+      "title": "BeeCast: A Device-to-Device Collaborative Video Streaming System",
+      "authors": "Asaad Al-Ghamdi, Younes Balah, Mohammad Al-Bejadi, Muhamad Felemban and Y. Osais",
+      "year": "2022",
+      "venue": "2022 International Wireless Communications and Mobile Computing (IWCMC)",
+      "type": "conference",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Advanced Persistent False Data Injection Attacks Against Optimal Power Flow in Power Systems",
+      "authors": "S. Umar, Muhamad Felemban and Y. Osais",
+      "year": "2021",
+      "venue": "2021 International Wireless Communications and Mobile Computing (IWCMC)",
+      "type": "conference",
+      "citations": 3,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:yD5IFk8b50cC"
+    },
+    {
+      "title": "BeeCast: a collaborative video streaming system",
+      "authors": "Asaad Alghamdi, Younes Balah, Mohammad Albejadi, and Muhamad Felemban",
+      "year": "2020",
+      "venue": "Proceedings of the 26th Annual International Conference on Mobile Computing and Networking (MobiCom 2021), Article 63, 1-3",
+      "type": "conference",
+      "citations": 0,
+      "link": "#"
+    },
+    {
+      "title": "Challenges and opportunities for underwater sensor networks",
+      "authors": "AA Sheikh, E Felemban, M Felemban, SB Qaisar",
+      "year": "2016",
+      "venue": "2016 12th International Conference on Innovations in Information Technology (IIT)",
+      "type": "conference",
+      "citations": 29,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:35N4QoGY0k4C"
+    },
+    {
+      "title": "Optimal node placement in underwater wireless sensor networks",
+      "authors": "M Felamban, B Shihada, K Jamshaid",
+      "year": "2013",
+      "venue": "2013 IEEE 27th International Conference on Advanced Information Networking and Applications (AINA)",
+      "type": "conference",
+      "citations": 54,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:u-x6o8ySG0sC"
+    },
+    {
+      "title": "Energy-delay tradeoffs for underwater acoustic sensor networks",
+      "authors": "M Felemban, E Felemban",
+      "year": "2013",
+      "venue": "2013 First International Black Sea Conference on Communications and Networking (BlackSeaCom)",
+      "type": "conference",
+      "citations": 41,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:d1gkVwhDpl0C"
+    },
+    {
+      "title": "Optimal node placement in underwater acoustic sensor network",
+      "authors": "M Felemban",
+      "year": "2011",
+      "venue": "PhD Thesis",
+      "type": "thesis",
+      "citations": 14,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:u5HHmVD_uO8C"
+    },
+    {
+      "title": "File fragment classification using light-weight convolutional neural networks",
+      "authors": "M Ghaleb, K Saaim, M Felemban, S Al-Saleh, A Al-Mulhem",
+      "year": "2023",
+      "venue": "arXiv preprint arXiv:2305.00656",
+      "type": "preprint",
+      "citations": 7,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:NhqRSupF_l8C"
+    },
+    {
+      "title": "Design and evaluation of a data partitioning-based intrusion management architecture for database systems",
+      "authors": "M Felemban, Y Javeed, J Kobes, T Qadah, A Ghafoor, W Aref",
+      "year": "2018",
+      "venue": "arXiv preprint arXiv:1810.02061",
+      "type": "preprint",
+      "citations": 3,
+      "link": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ZyC2dJ8AAAAJ&citation_for_view=ZyC2dJ8AAAAJ:g5m5HwL7SMYC"
+    }
+  ]
+}
