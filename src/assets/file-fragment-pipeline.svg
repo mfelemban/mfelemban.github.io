@@ -1,0 +1,263 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" font-family="Georgia, 'Times New Roman', serif">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1a3660"/>
+    </marker>
+    <marker id="arrow-sm" markerWidth="6" markerHeight="6" refX="5" refY="2.5" orient="auto">
+      <path d="M0,0 L0,5 L6,2.5 z" fill="#4a7ab5"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="420" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a3660">
+    Lightweight File Fragment Classification via Depthwise Separable Convolutions
+  </text>
+  <line x1="60" y1="38" x2="840" y2="38" stroke="#1a3660" stroke-width="1.5"/>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- STAGE 1: Damaged Storage Media -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <g transform="translate(30, 65)">
+    <!-- Disk icon -->
+    <rect x="0" y="10" width="110" height="80" rx="2" fill="none" stroke="#1a3660" stroke-width="1.5"/>
+    <rect x="0" y="10" width="110" height="14" rx="2" fill="#1a3660"/>
+    <text x="55" y="21" text-anchor="middle" font-size="8" fill="#ffffff" letter-spacing="0.5">STORAGE MEDIA</text>
+
+    <!-- Fragmented blocks inside disk -->
+    <rect x="6"  y="30" width="20" height="12" rx="1" fill="#1a3660" opacity="0.8"/>
+    <rect x="30" y="30" width="14" height="12" rx="1" fill="#d0d8e8" stroke="#1a3660" stroke-width="0.7" stroke-dasharray="2,2"/>
+    <rect x="48" y="30" width="20" height="12" rx="1" fill="#1a3660" opacity="0.6"/>
+    <rect x="72" y="30" width="10" height="12" rx="1" fill="#d0d8e8" stroke="#1a3660" stroke-width="0.7" stroke-dasharray="2,2"/>
+    <rect x="86" y="30" width="18" height="12" rx="1" fill="#1a3660" opacity="0.7"/>
+
+    <rect x="6"  y="47" width="14" height="12" rx="1" fill="#d0d8e8" stroke="#1a3660" stroke-width="0.7" stroke-dasharray="2,2"/>
+    <rect x="24" y="47" width="24" height="12" rx="1" fill="#1a3660" opacity="0.5"/>
+    <rect x="52" y="47" width="16" height="12" rx="1" fill="#1a3660" opacity="0.9"/>
+    <rect x="72" y="47" width="32" height="12" rx="1" fill="#d0d8e8" stroke="#1a3660" stroke-width="0.7" stroke-dasharray="2,2"/>
+
+    <rect x="6"  y="64" width="32" height="12" rx="1" fill="#1a3660" opacity="0.7"/>
+    <rect x="42" y="64" width="18" height="12" rx="1" fill="#d0d8e8" stroke="#1a3660" stroke-width="0.7" stroke-dasharray="2,2"/>
+    <rect x="64" y="64" width="12" height="12" rx="1" fill="#1a3660" opacity="0.8"/>
+    <rect x="80" y="64" width="24" height="12" rx="1" fill="#1a3660" opacity="0.4"/>
+
+    <!-- Label below -->
+    <text x="55" y="107" text-anchor="middle" font-size="8.5" fill="#4a6080">Damaged / Wiped</text>
+    <text x="55" y="117" text-anchor="middle" font-size="8.5" fill="#4a6080">File System</text>
+
+    <!-- Legend items -->
+    <rect x="4" y="126" width="10" height="7" rx="1" fill="#1a3660" opacity="0.7"/>
+    <text x="18" y="133" font-size="7.5" fill="#4a6080">data blocks</text>
+    <rect x="60" y="126" width="10" height="7" rx="1" fill="none" stroke="#1a3660" stroke-width="0.7" stroke-dasharray="2,2"/>
+    <text x="74" y="133" font-size="7.5" fill="#4a6080">gaps</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <line x1="152" y1="130" x2="182" y2="130" stroke="#1a3660" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="167" y="124" text-anchor="middle" font-size="7" fill="#4a6080">extract</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- STAGE 2: Raw Fragment -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <g transform="translate(186, 75)">
+    <rect x="0" y="0" width="105" height="120" rx="2" fill="none" stroke="#1a3660" stroke-width="1.5"/>
+    <rect x="0" y="0" width="105" height="14" rx="2" fill="#1a3660"/>
+    <text x="52" y="11" text-anchor="middle" font-size="8" fill="#ffffff" letter-spacing="0.5">RAW FRAGMENT</text>
+
+    <!-- Hex bytes -->
+    <text x="8"  y="28" font-size="6.5" fill="#1a3660" font-family="monospace">89 50 4E 47 0D 0A 1A 0A</text>
+    <text x="8"  y="38" font-size="6.5" fill="#1a3660" font-family="monospace">00 00 00 0D 49 48 44 52</text>
+    <text x="8"  y="48" font-size="6.5" fill="#1a3660" font-family="monospace">00 00 04 00 00 00 03 00</text>
+    <text x="8"  y="58" font-size="6.5" fill="#4a7ab5" font-family="monospace">08 02 00 00 00 26 93 01</text>
+    <text x="8"  y="68" font-size="6.5" fill="#4a7ab5" font-family="monospace">D7 00 00 20 00 49 44 41</text>
+    <text x="8"  y="78" font-size="6.5" fill="#1a3660" font-family="monospace">54 78 9C EC DD 07 70 54</text>
+    <text x="8"  y="88" font-size="6.5" fill="#1a3660" font-family="monospace">D5 F5 F8 DF B4 D3 E6 4C</text>
+    <text x="8"  y="98" font-size="6.5" fill="#4a7ab5" font-family="monospace">26 91 1B A4 21 01 10 08</text>
+    <text x="8" y="108" font-size="6.5" fill="#1a3660" font-family="monospace">A2 05 08 2A 28 8A B8 8B</text>
+
+    <!-- Size label -->
+    <text x="52" y="130" text-anchor="middle" font-size="8" fill="#4a6080">4 096 bytes</text>
+    <text x="52" y="141" text-anchor="middle" font-size="8" fill="#4a6080">no headers / metadata</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <line x1="303" y1="130" x2="333" y2="130" stroke="#1a3660" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="318" y="124" text-anchor="middle" font-size="7" fill="#4a6080">encode</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- STAGE 3: CNN Architecture -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <g transform="translate(337, 58)">
+    <rect x="0" y="0" width="348" height="290" rx="2" fill="#f5f7fa" stroke="#1a3660" stroke-width="1.5"/>
+    <rect x="0" y="0" width="348" height="16" rx="2" fill="#1a3660"/>
+    <text x="174" y="11.5" text-anchor="middle" font-size="8.5" fill="#ffffff" letter-spacing="0.5">CNN ARCHITECTURE  ·  ~105 K parameters</text>
+
+    <!-- Layer 1: Embedding -->
+    <rect x="10" y="26" width="60" height="40" rx="1" fill="#1a3660" opacity="0.15" stroke="#1a3660" stroke-width="1"/>
+    <text x="40" y="43" text-anchor="middle" font-size="7.5" fill="#1a3660" font-weight="bold">Embedding</text>
+    <text x="40" y="54" text-anchor="middle" font-size="7" fill="#4a6080">256 d</text>
+    <text x="40" y="63" text-anchor="middle" font-size="7" fill="#4a6080">vocab 256</text>
+
+    <!-- Arrow -->
+    <line x1="71" y1="46" x2="84" y2="46" stroke="#1a3660" stroke-width="1.2" marker-end="url(#arrow-sm)"/>
+
+    <!-- Layer 2: Conv Block -->
+    <rect x="86" y="26" width="60" height="40" rx="1" fill="#1a3660" opacity="0.15" stroke="#1a3660" stroke-width="1"/>
+    <text x="116" y="43" text-anchor="middle" font-size="7.5" fill="#1a3660" font-weight="bold">Conv Block</text>
+    <text x="116" y="54" text-anchor="middle" font-size="7" fill="#4a6080">k=11, s=4</text>
+    <text x="116" y="63" text-anchor="middle" font-size="7" fill="#4a6080">BatchNorm</text>
+
+    <!-- Arrow -->
+    <line x1="147" y1="46" x2="159" y2="46" stroke="#1a3660" stroke-width="1.2" marker-end="url(#arrow-sm)"/>
+
+    <!-- Layer 3: Inception Block (DSC) — the main box -->
+    <rect x="161" y="22" width="120" height="100" rx="2" fill="#e8eef5" stroke="#1a3660" stroke-width="1.2"/>
+    <text x="221" y="35" text-anchor="middle" font-size="7.5" fill="#1a3660" font-weight="bold">Inception Block × 3</text>
+    <text x="221" y="44" text-anchor="middle" font-size="7" fill="#4a6080">(Depthwise Separable)</text>
+
+    <!-- Three parallel branches inside inception -->
+    <rect x="168" y="50" width="28" height="26" rx="1" fill="#1a3660" opacity="0.2" stroke="#1a3660" stroke-width="0.8"/>
+    <text x="182" y="62" text-anchor="middle" font-size="6.5" fill="#1a3660">DSC</text>
+    <text x="182" y="72" text-anchor="middle" font-size="6" fill="#4a6080">k=11</text>
+
+    <rect x="200" y="50" width="28" height="26" rx="1" fill="#1a3660" opacity="0.2" stroke="#1a3660" stroke-width="0.8"/>
+    <text x="214" y="62" text-anchor="middle" font-size="6.5" fill="#1a3660">DSC</text>
+    <text x="214" y="72" text-anchor="middle" font-size="6" fill="#4a6080">k=19</text>
+
+    <rect x="232" y="50" width="28" height="26" rx="1" fill="#1a3660" opacity="0.2" stroke="#1a3660" stroke-width="0.8"/>
+    <text x="246" y="62" text-anchor="middle" font-size="6.5" fill="#1a3660">DSC</text>
+    <text x="246" y="72" text-anchor="middle" font-size="6" fill="#4a6080">k=27</text>
+
+    <!-- Concat line -->
+    <line x1="168" y1="88" x2="260" y2="88" stroke="#1a3660" stroke-width="0.8"/>
+    <line x1="214" y1="76" x2="214" y2="88" stroke="#1a3660" stroke-width="0.8"/>
+    <line x1="182" y1="76" x2="182" y2="88" stroke="#1a3660" stroke-width="0.8"/>
+    <line x1="246" y1="76" x2="246" y2="88" stroke="#1a3660" stroke-width="0.8"/>
+    <text x="214" y="98" text-anchor="middle" font-size="6.5" fill="#4a6080">concat + 1×1 Conv + SE</text>
+    <text x="214" y="108" text-anchor="middle" font-size="6.5" fill="#4a6080">BatchNorm · ReLU</text>
+
+    <!-- Arrow from inception -->
+    <line x1="282" y1="72" x2="295" y2="72" stroke="#1a3660" stroke-width="1.2" marker-end="url(#arrow-sm)"/>
+
+    <!-- Global Avg Pool -->
+    <rect x="297" y="52" width="44" height="40" rx="1" fill="#1a3660" opacity="0.15" stroke="#1a3660" stroke-width="1"/>
+    <text x="319" y="68" text-anchor="middle" font-size="7" fill="#1a3660" font-weight="bold">Global</text>
+    <text x="319" y="78" text-anchor="middle" font-size="7" fill="#1a3660" font-weight="bold">Avg Pool</text>
+    <text x="319" y="88" text-anchor="middle" font-size="6.5" fill="#4a6080">+ Dropout</text>
+
+    <!-- Efficiency metrics bar -->
+    <rect x="10" y="138" width="328" height="62" rx="1" fill="#ffffff" stroke="#c8d4e4" stroke-width="1"/>
+    <text x="174" y="152" text-anchor="middle" font-size="8" fill="#1a3660" font-weight="bold">Efficiency vs. FiFTy Baseline</text>
+
+    <!-- Parameters -->
+    <text x="60" y="170" text-anchor="middle" font-size="8.5" fill="#1a3660" font-weight="bold">4×</text>
+    <text x="60" y="181" text-anchor="middle" font-size="7" fill="#4a6080">fewer params</text>
+    <text x="60" y="191" text-anchor="middle" font-size="7" fill="#4a6080">~105 K vs 400 K</text>
+
+    <!-- Speed -->
+    <text x="174" y="170" text-anchor="middle" font-size="8.5" fill="#1a3660" font-weight="bold">15×</text>
+    <text x="174" y="181" text-anchor="middle" font-size="7" fill="#4a6080">faster (GPU)</text>
+    <text x="174" y="191" text-anchor="middle" font-size="7" fill="#4a6080">24× faster (CPU)</text>
+
+    <!-- FLOPs -->
+    <text x="295" y="170" text-anchor="middle" font-size="8.5" fill="#1a3660" font-weight="bold">85–95%</text>
+    <text x="295" y="181" text-anchor="middle" font-size="7" fill="#4a6080">FLOPs reduction</text>
+    <text x="295" y="191" text-anchor="middle" font-size="7" fill="#4a6080">via DSC factorization</text>
+
+    <!-- Dividers -->
+    <line x1="113" y1="148" x2="113" y2="194" stroke="#c8d4e4" stroke-width="0.8"/>
+    <line x1="236" y1="148" x2="236" y2="194" stroke="#c8d4e4" stroke-width="0.8"/>
+
+    <!-- Accuracy display -->
+    <rect x="10" y="212" width="328" height="68" rx="1" fill="#1a3660" opacity="0.06" stroke="#c8d4e4" stroke-width="1"/>
+    <text x="174" y="228" text-anchor="middle" font-size="8" fill="#1a3660" font-weight="bold">Accuracy on FFT-75 Benchmark</text>
+
+    <!-- Scenario bars -->
+    <rect x="18" y="238" width="140" height="10" rx="1" fill="#c8d4e4"/>
+    <rect x="18" y="238" width="111" height="10" rx="1" fill="#1a3660" opacity="0.7"/>
+    <text x="164" y="247" font-size="7.5" fill="#1a3660">79.3%</text>
+    <text x="18" y="258" font-size="7" fill="#4a6080">75 file types · 4 096 B</text>
+
+    <rect x="18" y="264" width="140" height="10" rx="1" fill="#c8d4e4"/>
+    <rect x="18" y="264" width="140" height="10" rx="1" fill="#1a3660" opacity="0.9"/>
+    <text x="164" y="273" font-size="7.5" fill="#1a3660">99.7%</text>
+    <text x="18" y="284" font-size="7" fill="#4a6080">2-class scenarios</text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <line x1="697" y1="130" x2="727" y2="130" stroke="#1a3660" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="712" y="124" text-anchor="middle" font-size="7" fill="#4a6080">classify</text>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- STAGE 4: File Type Categories Output -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <g transform="translate(730, 65)">
+    <rect x="0" y="0" width="138" height="220" rx="2" fill="none" stroke="#1a3660" stroke-width="1.5"/>
+    <rect x="0" y="0" width="138" height="14" rx="2" fill="#1a3660"/>
+    <text x="69" y="10.5" text-anchor="middle" font-size="8" fill="#ffffff" letter-spacing="0.5">11 FILE CATEGORIES</text>
+    <text x="69" y="23.5" text-anchor="middle" font-size="7.5" fill="#4a6080">75 distinct types</text>
+
+    <!-- Category list -->
+    <g font-size="8" fill="#1a3660">
+      <rect x="8"  y="30" width="122" height="14" rx="1" fill="#1a3660" opacity="0.08"/>
+      <text x="14" y="41">📦 Archive</text>
+      <text x="100" y="41" text-anchor="end" font-size="7" fill="#4a6080">zip, 7z, rar…</text>
+
+      <rect x="8"  y="46" width="122" height="14" rx="1" fill="#1a3660" opacity="0.04"/>
+      <text x="14" y="57">🎵 Audio</text>
+      <text x="100" y="57" text-anchor="end" font-size="7" fill="#4a6080">mp3, flac, wav…</text>
+
+      <rect x="8"  y="62" width="122" height="14" rx="1" fill="#1a3660" opacity="0.08"/>
+      <text x="14" y="73">🖼 Bitmap</text>
+      <text x="100" y="73" text-anchor="end" font-size="7" fill="#4a6080">png, jpg, bmp…</text>
+
+      <rect x="8"  y="78" width="122" height="14" rx="1" fill="#1a3660" opacity="0.04"/>
+      <text x="14" y="89">⚙ Executable</text>
+      <text x="100" y="89" text-anchor="end" font-size="7" fill="#4a6080">exe, elf, dll…</text>
+
+      <rect x="8"  y="94" width="122" height="14" rx="1" fill="#1a3660" opacity="0.08"/>
+      <text x="14" y="105">📄 Human-readable</text>
+      <text x="100" y="105" text-anchor="end" font-size="7" fill="#4a6080">txt, html, xml…</text>
+
+      <rect x="8"  y="110" width="122" height="14" rx="1" fill="#1a3660" opacity="0.04"/>
+      <text x="14" y="121">📊 Office</text>
+      <text x="100" y="121" text-anchor="end" font-size="7" fill="#4a6080">docx, xlsx, pptx…</text>
+
+      <rect x="8"  y="126" width="122" height="14" rx="1" fill="#1a3660" opacity="0.08"/>
+      <text x="14" y="137">📰 Published</text>
+      <text x="100" y="137" text-anchor="end" font-size="7" fill="#4a6080">pdf, ps, epub…</text>
+
+      <rect x="8"  y="142" width="122" height="14" rx="1" fill="#1a3660" opacity="0.04"/>
+      <text x="14" y="153">📷 Raw Image</text>
+      <text x="100" y="153" text-anchor="end" font-size="7" fill="#4a6080">cr2, nef, arw…</text>
+
+      <rect x="8"  y="158" width="122" height="14" rx="1" fill="#1a3660" opacity="0.08"/>
+      <text x="14" y="169">🔷 Vector</text>
+      <text x="100" y="169" text-anchor="end" font-size="7" fill="#4a6080">svg, ai, eps…</text>
+
+      <rect x="8"  y="174" width="122" height="14" rx="1" fill="#1a3660" opacity="0.04"/>
+      <text x="14" y="185">🎬 Video</text>
+      <text x="100" y="185" text-anchor="end" font-size="7" fill="#4a6080">mp4, avi, mkv…</text>
+
+      <rect x="8"  y="190" width="122" height="14" rx="1" fill="#1a3660" opacity="0.08"/>
+      <text x="14" y="201">🔧 Miscellaneous</text>
+      <text x="100" y="201" text-anchor="end" font-size="7" fill="#4a6080">other…</text>
+    </g>
+  </g>
+
+  <!-- Bottom caption -->
+  <text x="450" y="368" text-anchor="middle" font-size="8" fill="#6a7e96">
+    Felemban et al. · IEEE Access 2024 · Saaim, Felemban et al. · IFIP SEC 2022
+  </text>
+  <text x="450" y="380" text-anchor="middle" font-size="7.5" fill="#6a7e96">
+    No file headers, extensions, or metadata used — classification is purely from raw binary byte sequences
+  </text>
+
+  <!-- Stage labels at bottom -->
+  <text x="85"  y="395" text-anchor="middle" font-size="7.5" fill="#1a3660" font-weight="bold">① Storage</text>
+  <text x="239" y="395" text-anchor="middle" font-size="7.5" fill="#1a3660" font-weight="bold">② Fragment</text>
+  <text x="511" y="395" text-anchor="middle" font-size="7.5" fill="#1a3660" font-weight="bold">③ Lightweight CNN (DSC-SE)</text>
+  <text x="799" y="395" text-anchor="middle" font-size="7.5" fill="#1a3660" font-weight="bold">④ Classification</text>
+</svg>
