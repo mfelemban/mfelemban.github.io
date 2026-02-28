@@ -2,102 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
-
 @layer base {
   :root {
-    --background: 0 0% 99%;
-    --foreground: 222 84% 4.9%;
+    /* Formal academia palette — deep navy + white */
+    --background: 0 0% 100%;
+    --foreground: 215 28% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 84% 4.9%;
+    --card-foreground: 215 28% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 4.9%;
+    --popover-foreground: 215 28% 13%;
 
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 98%;
-    --primary-glow: 221 83% 65%;
+    --primary: 214 60% 22%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 214 60% 35%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 84% 4.9%;
+    --secondary: 214 20% 96%;
+    --secondary-foreground: 215 28% 13%;
 
-    --muted: 210 40% 98%;
+    --muted: 214 20% 96%;
     --muted-foreground: 215 16% 47%;
 
-    --accent: 221 83% 96%;
-    --accent-foreground: 221 83% 53%;
+    --accent: 38 65% 45%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%;
+    --border: 214 20% 88%;
+    --input: 214 20% 88%;
+    --ring: 214 60% 22%;
 
-    /* Academic design tokens */
-    --academic-blue: 221 83% 53%;
-    --academic-blue-light: 221 83% 96%;
+    --academic-blue: 214 60% 22%;
+    --academic-blue-light: 214 20% 96%;
     --academic-gray: 215 16% 47%;
-    --academic-gray-light: 210 40% 98%;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
-    
-    /* Shadows */
-    --shadow-elegant: 0 4px 20px -4px hsl(var(--primary) / 0.1);
-    --shadow-card: 0 2px 10px -2px hsl(var(--academic-gray) / 0.1);
-    
-    /* Transitions */
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --academic-gray-light: 214 20% 96%;
 
-    --radius: 0.5rem;
+    --shadow-elegant: 0 1px 4px -1px hsl(214 60% 22% / 0.1);
+    --shadow-card: 0 1px 3px -1px hsl(214 20% 75% / 0.25);
+    --transition-smooth: all 0.2s ease;
+
+    /* Very slight radius for formal document look */
+    --radius: 0.125rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
@@ -119,29 +94,15 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-sans;
+    font-size: 15px;
+    line-height: 1.7;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
 
-  .shadow-elegant {
-    box-shadow: var(--shadow-elegant);
-  }
-
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
-
-  .transition-smooth {
-    transition: var(--transition-smooth);
-  }
-
-  .gradient-primary {
-    background: var(--gradient-primary);
-  }
-
-  .gradient-subtle {
-    background: var(--gradient-subtle);
-  }
+  .shadow-elegant { box-shadow: var(--shadow-elegant); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .transition-smooth { transition: var(--transition-smooth); }
 }

@@ -10,8 +10,8 @@ const AcademicCard = React.forwardRef<HTMLDivElement, AcademicCardProps>(
     <div
       ref={ref}
       className={cn(
-        "rounded-lg border bg-card text-card-foreground transition-smooth hover:shadow-card",
-        variant === "highlighted" && "border-primary/20 bg-accent/30",
+        "border border-border bg-card text-card-foreground transition-smooth",
+        variant === "highlighted" && "border-l-[3px] border-l-primary bg-primary/[0.02]",
         className
       )}
       {...props}
@@ -24,21 +24,17 @@ const AcademicCardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
+  <div ref={ref} className={cn("flex flex-col space-y-1.5 p-5", className)} {...props} />
 ));
 AcademicCardHeader.displayName = "AcademicCardHeader";
 
 const AcademicCardTitle = React.forwardRef<
-  HTMLParagraphElement,
+  HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
   <h3
     ref={ref}
-    className={cn("font-serif text-xl font-semibold leading-none tracking-tight", className)}
+    className={cn("font-serif text-lg font-semibold leading-snug tracking-tight", className)}
     {...props}
   />
 ));
@@ -48,11 +44,7 @@ const AcademicCardDescription = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
-    {...props}
-  />
+  <p ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
 ));
 AcademicCardDescription.displayName = "AcademicCardDescription";
 
@@ -60,7 +52,7 @@ const AcademicCardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+  <div ref={ref} className={cn("p-5 pt-0", className)} {...props} />
 ));
 AcademicCardContent.displayName = "AcademicCardContent";
 

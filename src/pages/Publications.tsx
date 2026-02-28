@@ -1,7 +1,5 @@
+import { ExternalLink } from "lucide-react";
 import PageLayout from "@/components/PageLayout";
-import { AcademicCard, AcademicCardContent, AcademicCardDescription, AcademicCardHeader, AcademicCardTitle } from "@/components/ui/academic-card";
-import { Badge } from "@/components/ui/badge";
-import { ExternalLink, BookOpen, Award } from "lucide-react";
 import publicationsData from "@/data/publications.json";
 
 type Publication = {
@@ -14,200 +12,129 @@ type Publication = {
   link: string;
 };
 
-const allPublications: Publication[] = publicationsData.publications as Publication[];
+const all = publicationsData.publications as Publication[];
 
-const journalPublications = allPublications.filter(p => p.type === "journal");
-const conferencePublications = allPublications.filter(p => p.type === "conference");
-const thesesAndOther = allPublications.filter(p => p.type === "thesis");
-const preprints = allPublications.filter(p => p.type === "preprint");
+const journals = [...all.filter((p) => p.type === "journal")].sort(
+  (a, b) => parseInt(b.year) - parseInt(a.year)
+);
+const conferences = [...all.filter((p) => p.type === "conference")].sort(
+  (a, b) => parseInt(b.year) - parseInt(a.year)
+);
+const theses = all.filter((p) => p.type === "thesis");
+const preprints = all.filter((p) => p.type === "preprint");
 
-const Publications = () => {
-  const academicProfiles = [
-    {
-      name: "Google Scholar",
-      url: "https://scholar.google.com/citations?user=ZyC2dJ8AAAAJ&hl=en&oi=ao",
-      icon: "🎓"
-    },
-    {
-      name: "DBLP",
-      url: "https://dblp.org/pid/135/7413.html",
-      icon: "📚"
-    },
-    {
-      name: "PURE at KFUPM",
-      url: "https://pure.kfupm.edu.sa/en/persons/mohammad-felemban",
-      icon: "🏛️"
-    },
-    {
-      name: "ResearchGate",
-      url: "#",
-      icon: "🔬"
-    }
-  ];
+const PubEntry = ({
+  pub,
+  num,
+}: {
+  pub: Publication;
+  num: number;
+}) => (
+  <li className="flex gap-4 border-b border-border pb-4 last:border-0">
+    <span className="text-xs text-muted-foreground w-7 shrink-0 pt-0.5 text-right">[{num}]</span>
+    <div className="flex-1 min-w-0">
+      <p className="text-sm text-foreground leading-relaxed">
+        {pub.authors}.{" "}
+        {pub.link !== "#" ? (
+          <a
+            href={pub.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-primary hover:underline inline-flex items-center gap-1"
+          >
+            {pub.title}
+            <ExternalLink className="h-3 w-3 shrink-0" />
+          </a>
+        ) : (
+          <span className="font-medium">{pub.title}</span>
+        )}
+        {pub.venue && (
+          <>
+            . <em className="text-muted-foreground">{pub.venue}</em>
+          </>
+        )}
+        {", "}{pub.year}.
+        {pub.citations > 0 && (
+          <span className="ml-2 text-xs text-muted-foreground">
+            ({pub.citations} citations)
+          </span>
+        )}
+      </p>
+    </div>
+  </li>
+);
 
-  const renderPublicationCard = (pub: Publication, index: number) => (
-    <AcademicCard key={index} className="hover:shadow-lg transition-all duration-300">
-      <AcademicCardHeader>
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <AcademicCardTitle className="mb-3 leading-relaxed">
-              {pub.title}
-            </AcademicCardTitle>
-            <AcademicCardDescription className="mb-3">
-              {pub.authors}
-            </AcademicCardDescription>
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-foreground">
-                {pub.venue ? `${pub.venue}, ${pub.year}` : pub.year}
-              </p>
-              <div className="flex items-center gap-3">
-                <Badge variant="secondary" className="text-xs">
-                  <Award className="h-3 w-3 mr-1" />
-                  {pub.citations} citations
-                </Badge>
-                <Badge variant="outline" className="text-xs">
-                  {pub.year}
-                </Badge>
-              </div>
-            </div>
-          </div>
-          {pub.link !== "#" && (
-            <a
-              href={pub.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-4 text-primary hover:text-primary-glow transition-smooth"
-              aria-label="View publication"
-            >
-              <ExternalLink className="h-5 w-5" />
-            </a>
-          )}
-        </div>
-      </AcademicCardHeader>
-    </AcademicCard>
-  );
+type SectionProps = { title: string; pubs: Publication[]; offset?: number };
 
-  const renderSection = (title: string, pubs: Publication[]) => {
-    if (pubs.length === 0) return null;
-    return (
-      <div className="mb-16">
-        <div className="flex items-center gap-3 mb-8">
-          <BookOpen className="h-6 w-6 text-primary" />
-          <h2 className="text-3xl font-serif font-semibold text-foreground">{title}</h2>
-          <Badge variant="default">{pubs.length}</Badge>
-        </div>
-        <div className="space-y-6">
-          {[...pubs]
-            .sort((a, b) => parseInt(b.year) - parseInt(a.year))
-            .map((pub, index) => renderPublicationCard(pub, index))}
-        </div>
-      </div>
-    );
-  };
-
+const PubSection = ({ title, pubs, offset = 0 }: SectionProps) => {
+  if (!pubs.length) return null;
   return (
-    <PageLayout
-      title="Publications"
-      subtitle="Research publications in cybersecurity, privacy, and quantum computing"
-    >
-      {/* Academic Profiles */}
-      <div className="mb-16">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8 text-center">
-          Academic Profiles
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {academicProfiles.map((profile, index) => (
-            <a
-              key={index}
-              href={profile.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group"
-            >
-              <AcademicCard className="h-full text-center hover:border-primary/30 transition-smooth">
-                <AcademicCardContent className="pt-6">
-                  <div className="text-4xl mb-3">{profile.icon}</div>
-                  <h3 className="font-medium text-foreground group-hover:text-primary transition-smooth">
-                    {profile.name}
-                  </h3>
-                </AcademicCardContent>
-              </AcademicCard>
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Statistics Overview */}
-      <div className="mb-8">
-        <div className="grid md:grid-cols-4 gap-6">
-          <AcademicCard className="text-center">
-            <AcademicCardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary mb-2">{publicationsData.total_citations}</div>
-              <p className="text-sm text-muted-foreground">Total Citations</p>
-            </AcademicCardContent>
-          </AcademicCard>
-          <AcademicCard className="text-center">
-            <AcademicCardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary mb-2">{publicationsData.h_index}</div>
-              <p className="text-sm text-muted-foreground">h-index</p>
-            </AcademicCardContent>
-          </AcademicCard>
-          <AcademicCard className="text-center">
-            <AcademicCardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary mb-2">{publicationsData.i10_index}</div>
-              <p className="text-sm text-muted-foreground">i10-index</p>
-            </AcademicCardContent>
-          </AcademicCard>
-          <AcademicCard className="text-center">
-            <AcademicCardContent className="pt-6">
-              <div className="text-3xl font-bold text-primary mb-2">
-                {journalPublications.length + conferencePublications.length + thesesAndOther.length}
-              </div>
-              <p className="text-sm text-muted-foreground">Publications</p>
-            </AcademicCardContent>
-          </AcademicCard>
-        </div>
-        <p className="text-xs text-muted-foreground text-center mt-3">
-          Last updated: {publicationsData.last_updated}
-        </p>
-      </div>
-
-      {renderSection("Journal Publications", journalPublications)}
-      {renderSection("Conference Publications", conferencePublications)}
-      {renderSection("Theses & Other Publications", thesesAndOther)}
-      {renderSection("Preprints & Working Papers", preprints)}
-
-      {/* Research Impact */}
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-serif font-semibold text-foreground mb-8 text-center">
-          Research Impact
-        </h2>
-        <AcademicCard variant="highlighted">
-          <AcademicCardContent className="pt-6">
-            <div className="space-y-4 text-muted-foreground leading-relaxed">
-              <p>
-                My research spans three critical areas in modern computing: cybersecurity, privacy-preserving
-                technologies, and quantum computing. With over {publicationsData.total_citations} citations and
-                an h-index of {publicationsData.h_index}, my work has made significant contributions to these
-                rapidly evolving fields.
-              </p>
-              <p>
-                Key research achievements include pioneering work in underwater sensor networks, developing
-                privacy-preserving federated learning systems, and advancing quantum algorithms for practical
-                applications. My publications appear in top-tier venues including IEEE Transactions, ACM
-                Transactions, and premier international conferences.
-              </p>
-              <p>
-                Recent focus areas include post-quantum cryptography, secure machine learning, and quantum
-                computing applications for real-world problems in collaboration with industry partners like
-                Saudi Aramco.
-              </p>
-            </div>
-          </AcademicCardContent>
-        </AcademicCard>
-      </div>
-    </PageLayout>
+    <section className="mb-12">
+      <h2 className="font-serif text-2xl font-bold text-primary border-b-2 border-primary pb-3 mb-6 flex items-center gap-3">
+        {title}
+        <span className="text-base font-normal text-muted-foreground">({pubs.length})</span>
+      </h2>
+      <ol className="space-y-4">
+        {pubs.map((p, i) => (
+          <PubEntry key={i} pub={p} num={offset + i + 1} />
+        ))}
+      </ol>
+    </section>
   );
 };
+
+const Publications = () => (
+  <PageLayout
+    title="Publications"
+    subtitle="Research publications in cybersecurity, privacy, and quantum computing"
+  >
+    {/* Stats row */}
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-px border border-border mb-12 bg-border">
+      {[
+        { value: publicationsData.total_citations, label: "Total Citations" },
+        { value: publicationsData.h_index, label: "h-index" },
+        { value: publicationsData.i10_index, label: "i10-index" },
+        { value: journals.length + conferences.length + theses.length, label: "Publications" },
+      ].map((s) => (
+        <div key={s.label} className="bg-background text-center py-5 px-4">
+          <p className="font-serif font-bold text-3xl text-primary">{s.value}</p>
+          <p className="text-xs text-muted-foreground mt-1">{s.label}</p>
+        </div>
+      ))}
+    </div>
+    <p className="text-xs text-muted-foreground mb-10 -mt-8 text-right">
+      Source: Google Scholar · Last updated: {publicationsData.last_updated}
+    </p>
+
+    {/* Academic Profiles */}
+    <section className="mb-12">
+      <h2 className="font-serif text-2xl font-bold text-primary border-b-2 border-primary pb-3 mb-5">
+        Academic Profiles
+      </h2>
+      <div className="flex flex-wrap gap-4 text-sm">
+        {[
+          { label: "Google Scholar", href: "https://scholar.google.com/citations?user=ZyC2dJ8AAAAJ&hl=en&oi=ao" },
+          { label: "DBLP", href: "https://dblp.org/pid/135/7413.html" },
+          { label: "PURE at KFUPM", href: "https://pure.kfupm.edu.sa/en/persons/mohammad-felemban" },
+        ].map((p) => (
+          <a
+            key={p.label}
+            href={p.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1 text-primary hover:underline"
+          >
+            {p.label} <ExternalLink className="h-3 w-3" />
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <PubSection title="Journal Publications" pubs={journals} />
+    <PubSection title="Conference Publications" pubs={conferences} offset={journals.length} />
+    <PubSection title="Theses" pubs={theses} offset={journals.length + conferences.length} />
+    <PubSection title="Preprints & Working Papers" pubs={preprints} offset={journals.length + conferences.length + theses.length} />
+  </PageLayout>
+);
 
 export default Publications;

@@ -1,305 +1,143 @@
 import PageLayout from "@/components/PageLayout";
-import { AcademicCard, AcademicCardContent, AcademicCardDescription, AcademicCardHeader, AcademicCardTitle } from "@/components/ui/academic-card";
-import { Badge } from "@/components/ui/badge";
-import { BookOpen, Users, Eye, GraduationCap } from "lucide-react";
 
-const Services = () => {
-  const educationalPrograms = [
-    {
-      title: "Cybersecurity and Blockchain MX",
-      institution: "KFUPM",
-      description: "Master's extension program focusing on advanced cybersecurity and blockchain technologies"
-    },
-    {
-      title: "High-Performance and Cloud Computing MX",
-      institution: "KFUPM", 
-      description: "Master's extension program covering high-performance computing and cloud infrastructure"
-    },
-    {
-      title: "Quantum Information and Computing MX",
-      institution: "KFUPM",
-      description: "Master's extension program in quantum computing and quantum information sciences"
-    },
-    {
-      title: "Wireless Communication and Networking MX",
-      institution: "KFUPM",
-      description: "Master's extension program in wireless communications and network technologies"
-    }
-  ];
+const educationalPrograms = [
+  { title: "Cybersecurity and Blockchain MX", description: "Master's extension program on advanced cybersecurity and blockchain technologies." },
+  { title: "High-Performance and Cloud Computing MX", description: "Master's extension program covering HPC and cloud infrastructure." },
+  { title: "Quantum Information and Computing MX", description: "Master's extension program in quantum computing and quantum information sciences." },
+  { title: "Wireless Communication and Networking MX", description: "Master's extension program in wireless communications and network technologies." },
+];
 
-  const editorialServices = [
-    {
-      role: "Guest Editor",
-      title: "Enhanced Cyber-Physical Security in IoT",
-      journal: "Information, MDPI",
-      year: "2022",
-      type: "Special Issue"
-    }
-  ];
+const editorial = [
+  { role: "Guest Editor", title: "Enhanced Cyber-Physical Security in IoT", journal: "Information, MDPI", year: "2022", type: "Special Issue" },
+];
 
-  const invitedPresentations = [
-    {
-      title: "Blockchain: Fundamentals and Applications",
-      venue: "Wasla Tech @ Saudi Aramco EXPEC",
-      date: "February 2020"
-    },
-    {
-      title: "Introduction to Cybersecurity: Workshop",
-      venue: "IEEE Saudi Arabia Section",
-      date: "November 2019"
-    },
-    {
-      title: "Adaptive Intrusion Management for Database Management Systems",
-      venue: "KAUST",
-      date: "May 2019"
-    },
-    {
-      title: "Cybersecurity",
-      venue: "Culture and Arts Association in Dammam",
-      date: "April 2019"
-    },
-    {
-      title: "Data Driven Security",
-      venue: "IEEE Saudi Arabia Section",
-      date: "December 2018"
-    },
-    {
-      title: "Machine Learning for Cyber Security",
-      venue: "Wasla Tech @ Saudi Aramco EXPEC",
-      date: "October 2018"
-    },
-    {
-      title: "Data Protection and Data Science",
-      venue: "Sharqiya Data Geeks",
-      date: "October 2018"
-    }
-  ];
+const presentations = [
+  { title: "Blockchain: Fundamentals and Applications", venue: "Wasla Tech @ Saudi Aramco EXPEC", date: "February 2020" },
+  { title: "Introduction to Cybersecurity: Workshop", venue: "IEEE Saudi Arabia Section", date: "November 2019" },
+  { title: "Adaptive Intrusion Management for Database Management Systems", venue: "KAUST", date: "May 2019" },
+  { title: "Cybersecurity", venue: "Culture and Arts Association in Dammam", date: "April 2019" },
+  { title: "Data Driven Security", venue: "IEEE Saudi Arabia Section", date: "December 2018" },
+  { title: "Machine Learning for Cyber Security", venue: "Wasla Tech @ Saudi Aramco EXPEC", date: "October 2018" },
+  { title: "Data Protection and Data Science", venue: "Sharqiya Data Geeks", date: "October 2018" },
+];
 
-  const committees = {
-    department: [
-      "Publicity committee",
-      "Industrial Relation committee", 
-      "Research committee"
-    ],
-    college: [
-      "Teaching and Advising Award committee (Chair)",
-      "Cybersecurity and Blockchain CX/MS committee"
-    ],
-    university: [
-      "Textbook committee",
-      "Honors Program committee",
-      "University Ranking committee",
-      "Undergraduate Research Committee"
-    ]
-  };
-
-  const reviewerServices = [
-    "IEEE Transactions on Dependable and Secure Computing (TDSC)",
-    "IEEE Sensors",
-    "IEEE Communication Letters", 
-    "Journal of Sensors",
-    "ACM Computing Survey",
-    "Computer and Security",
-    "IEEE Computer",
-    "Doctoral Symposium Workshop MIDDLEWARE 2019"
-  ];
-
-  return (
-    <PageLayout 
-      title="Services"
-      subtitle="Educational programs, editorial activities, and professional service contributions"
-    >
-      {/* Educational Programs Development */}
-      <div className="mb-16">
-        <div className="flex items-center gap-3 mb-8">
-          <GraduationCap className="h-8 w-8 text-primary" />
-          <h2 className="text-3xl font-serif font-semibold text-foreground">Educational Programs Development</h2>
-        </div>
-        <div className="grid md:grid-cols-2 gap-6">
-          {educationalPrograms.map((program, index) => (
-            <AcademicCard key={index} variant="highlighted">
-              <AcademicCardHeader>
-                <AcademicCardTitle className="flex items-start justify-between">
-                  <span className="flex-1">{program.title}</span>
-                  <Badge variant="secondary" className="ml-2">{program.institution}</Badge>
-                </AcademicCardTitle>
-              </AcademicCardHeader>
-              <AcademicCardContent>
-                <AcademicCardDescription>
-                  {program.description}
-                </AcademicCardDescription>
-              </AcademicCardContent>
-            </AcademicCard>
-          ))}
-        </div>
-      </div>
-
-      {/* Guest Editor */}
-      <div className="mb-16">
-        <div className="flex items-center gap-3 mb-8">
-          <BookOpen className="h-8 w-8 text-primary" />
-          <h2 className="text-3xl font-serif font-semibold text-foreground">Guest Editor</h2>
-        </div>
-        <div className="grid gap-6">
-          {editorialServices.map((service, index) => (
-            <AcademicCard key={index}>
-              <AcademicCardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <AcademicCardTitle>{service.title}</AcademicCardTitle>
-                    <AcademicCardDescription className="mt-2">
-                      {service.journal}
-                    </AcademicCardDescription>
-                  </div>
-                  <div className="flex gap-2 ml-4">
-                    <Badge variant="outline">{service.type}</Badge>
-                    <Badge variant="secondary">{service.year}</Badge>
-                  </div>
-                </div>
-              </AcademicCardHeader>
-              <AcademicCardContent>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Users className="h-4 w-4" />
-                  <span>Role: {service.role}</span>
-                </div>
-              </AcademicCardContent>
-            </AcademicCard>
-          ))}
-        </div>
-      </div>
-
-      {/* Reviewer Services */}
-      <div className="mb-16">
-        <div className="flex items-center gap-3 mb-8">
-          <Eye className="h-8 w-8 text-primary" />
-          <h2 className="text-3xl font-serif font-semibold text-foreground">Reviewer Services</h2>
-        </div>
-        <AcademicCard>
-          <AcademicCardHeader>
-            <AcademicCardTitle>Peer Review Activities</AcademicCardTitle>
-            <AcademicCardDescription>
-              Providing expert peer review for leading journals and conferences in cybersecurity, computing, and networking
-            </AcademicCardDescription>
-          </AcademicCardHeader>
-          <AcademicCardContent>
-            <div className="grid md:grid-cols-2 gap-3">
-              {reviewerServices.map((service, index) => (
-                <div key={index} className="flex items-center gap-2 p-3 bg-accent/20 rounded-lg">
-                  <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
-                  <span className="text-sm text-foreground">{service}</span>
-                </div>
-              ))}
-            </div>
-          </AcademicCardContent>
-        </AcademicCard>
-      </div>
-
-      {/* Invited Presentations */}
-      <div className="mb-16">
-        <div className="flex items-center gap-3 mb-8">
-          <Users className="h-8 w-8 text-primary" />
-          <h2 className="text-3xl font-serif font-semibold text-foreground">Invited Presentations</h2>
-        </div>
-        <div className="grid md:grid-cols-2 gap-6">
-          {invitedPresentations.map((presentation, index) => (
-            <AcademicCard key={index}>
-              <AcademicCardHeader>
-                <AcademicCardTitle className="text-base mb-2">{presentation.title}</AcademicCardTitle>
-                <AcademicCardDescription>{presentation.venue}</AcademicCardDescription>
-                <Badge variant="outline" className="mt-2 w-fit">{presentation.date}</Badge>
-              </AcademicCardHeader>
-            </AcademicCard>
-          ))}
-        </div>
-      </div>
-
-      {/* Committee Services */}
-      <div className="mb-16">
-        <div className="flex items-center gap-3 mb-8">
-          <Users className="h-8 w-8 text-primary" />
-          <h2 className="text-3xl font-serif font-semibold text-foreground">Committee Services</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          <AcademicCard>
-            <AcademicCardHeader>
-              <AcademicCardTitle>Department Committees</AcademicCardTitle>
-            </AcademicCardHeader>
-            <AcademicCardContent>
-              <div className="space-y-2">
-                {committees.department.map((committee, index) => (
-                  <div key={index} className="flex items-center gap-2 p-2 bg-accent/20 rounded">
-                    <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
-                    <span className="text-sm">{committee}</span>
-                  </div>
-                ))}
-              </div>
-            </AcademicCardContent>
-          </AcademicCard>
-
-          <AcademicCard>
-            <AcademicCardHeader>
-              <AcademicCardTitle>College Committees</AcademicCardTitle>
-            </AcademicCardHeader>
-            <AcademicCardContent>
-              <div className="space-y-2">
-                {committees.college.map((committee, index) => (
-                  <div key={index} className="flex items-center gap-2 p-2 bg-accent/20 rounded">
-                    <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
-                    <span className="text-sm">{committee}</span>
-                  </div>
-                ))}
-              </div>
-            </AcademicCardContent>
-          </AcademicCard>
-
-          <AcademicCard>
-            <AcademicCardHeader>
-              <AcademicCardTitle>University Committees</AcademicCardTitle>
-            </AcademicCardHeader>
-            <AcademicCardContent>
-              <div className="space-y-2">
-                {committees.university.map((committee, index) => (
-                  <div key={index} className="flex items-center gap-2 p-2 bg-accent/20 rounded">
-                    <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></div>
-                    <span className="text-sm">{committee}</span>
-                  </div>
-                ))}
-              </div>
-            </AcademicCardContent>
-          </AcademicCard>
-        </div>
-      </div>
-
-      {/* Professional Service Summary */}
-      <div className="max-w-4xl mx-auto">
-        <AcademicCard variant="highlighted">
-          <AcademicCardHeader>
-            <AcademicCardTitle className="text-center">Professional Service Impact</AcademicCardTitle>
-          </AcademicCardHeader>
-          <AcademicCardContent>
-            <div className="grid md:grid-cols-4 gap-6 text-center">
-              <div>
-                <div className="text-3xl font-bold text-primary mb-2">4</div>
-                <div className="text-sm text-muted-foreground">Educational Programs</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary mb-2">7</div>
-                <div className="text-sm text-muted-foreground">Invited Presentations</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary mb-2">9</div>
-                <div className="text-sm text-muted-foreground">Committee Memberships</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary mb-2">8</div>
-                <div className="text-sm text-muted-foreground">Reviewer Services</div>
-              </div>
-            </div>
-          </AcademicCardContent>
-        </AcademicCard>
-      </div>
-    </PageLayout>
-  );
+const committees = {
+  Department: ["Publicity Committee", "Industrial Relation Committee", "Research Committee"],
+  College: ["Teaching and Advising Award Committee (Chair)", "Cybersecurity and Blockchain CX/MS Committee"],
+  University: ["Textbook Committee", "Honors Program Committee", "University Ranking Committee", "Undergraduate Research Committee"],
 };
+
+const reviewerServices = [
+  "IEEE Transactions on Dependable and Secure Computing (TDSC)",
+  "IEEE Sensors",
+  "IEEE Communication Letters",
+  "Journal of Sensors",
+  "ACM Computing Survey",
+  "Computer and Security",
+  "IEEE Computer",
+  "Doctoral Symposium, MIDDLEWARE 2019",
+];
+
+const SectionHeading = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="font-serif text-2xl font-bold text-primary border-b-2 border-primary pb-3 mb-6">
+    {children}
+  </h2>
+);
+
+const Services = () => (
+  <PageLayout
+    title="Services"
+    subtitle="Educational programs, editorial activities, and professional service"
+  >
+    {/* Educational Programs */}
+    <section className="mb-12">
+      <SectionHeading>Educational Programs Development</SectionHeading>
+      <div className="grid md:grid-cols-2 gap-3">
+        {educationalPrograms.map((p, i) => (
+          <div key={i} className="border border-border border-l-[3px] border-l-primary p-4">
+            <p className="font-semibold text-sm text-foreground mb-1">{p.title}</p>
+            <p className="text-xs text-muted-foreground">{p.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Guest Editor */}
+    <section className="mb-12">
+      <SectionHeading>Guest Editor</SectionHeading>
+      <div className="space-y-3">
+        {editorial.map((e, i) => (
+          <div key={i} className="border border-border p-4 flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <p className="font-semibold text-sm text-foreground">{e.title}</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                {e.journal} · {e.type}
+              </p>
+            </div>
+            <span className="text-xs border border-border px-2 py-0.5 text-muted-foreground shrink-0">{e.year}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Reviewer Services */}
+    <section className="mb-12">
+      <SectionHeading>Reviewer Services</SectionHeading>
+      <div className="grid md:grid-cols-2 gap-1.5">
+        {reviewerServices.map((r, i) => (
+          <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground py-1 border-b border-border last:border-0">
+            <span className="w-1.5 h-1.5 bg-primary rounded-full shrink-0" />
+            {r}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Invited Presentations */}
+    <section className="mb-12">
+      <SectionHeading>Invited Presentations</SectionHeading>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm border-collapse">
+          <thead>
+            <tr className="border-b-2 border-foreground text-left">
+              <th className="py-2 pr-6 font-semibold text-foreground">Title</th>
+              <th className="py-2 pr-6 font-semibold text-foreground">Venue</th>
+              <th className="py-2 font-semibold text-foreground w-32">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {presentations.map((p, i) => (
+              <tr key={i} className="border-b border-border">
+                <td className="py-2.5 pr-6 text-foreground">{p.title}</td>
+                <td className="py-2.5 pr-6 text-muted-foreground">{p.venue}</td>
+                <td className="py-2.5 text-muted-foreground">{p.date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {/* Committees */}
+    <section>
+      <SectionHeading>Committee Service</SectionHeading>
+      <div className="grid md:grid-cols-3 gap-4">
+        {Object.entries(committees).map(([level, items]) => (
+          <div key={level} className="border border-border p-4">
+            <p className="font-semibold text-sm text-foreground mb-3">{level} Level</p>
+            <ul className="space-y-1.5">
+              {items.map((c, i) => (
+                <li key={i} className="flex items-start gap-2 text-xs text-muted-foreground">
+                  <span className="mt-1.5 w-1.5 h-1.5 bg-primary rounded-full shrink-0" />
+                  {c}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  </PageLayout>
+);
 
 export default Services;
