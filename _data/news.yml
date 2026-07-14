@@ -1,4 +1,16 @@
 # Latest news. Newest first. Each entry: date + body (HTML allowed).
+
+- date: June 2026
+  note: Another Research Grant Award
+  body: >-
+    Dr. Felemban was awarded a research grant titled "Quantum Algorithm Design and Emulation for Seismic Wave Modeling" by Saudi Aramco with SAR 650,000 for 18 months. 
+- date: November 2025
+  note: Best Paper Award
+  body: >-
+    Our paper titled "Exaggeration-based Fake Cybersecurity News Detection" recieved the best paper award at the 1st ACM Workshop on Deepfake, Deception, and Disinformation Security (D3S 2025) 
+    held in conjunction with ACM CCS 2025 in Taipei, Taiwan. Congratulations to Abdullah E. Felemban, who conducted this work while at KFUPM in Summer 2025 as part of the 
+    Inbound Summer Research Program. 
+    [<a href="https://sites.google.com/view/3d-sec2025/">Workshop website</a>]
 - date: April 2025
   note: World Quantum Day
   body: >-
