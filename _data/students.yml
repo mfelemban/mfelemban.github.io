@@ -1,97 +1,288 @@
-graduate:
-  - name: Hind Baagel
-    dept: ICS, KFUPM
-    role: PhD, advisor
-    topic: PQC
+# Students, grouped. Each group renders as its own table on /students/.
+# Entry fields: name, affiliation, years, project.
 
-  - name: Eid Al-Dawsari
-    dept: ICS, KFUPM
-    role: MSc advisor
-    topic: Quantum Computing
+groups:
+  - title: Current Graduate Students
+    students:
+      - name: Urooj Ghani
+        affiliation: PhD, KFUPM
+        years: 2026–present
+        project: Quantum Software Engineering
 
-  - name: Maram Al-Qahtani
-    dept: ICS, KFUPM
-    role: MSc advisor
-    topic: Federated Unlearning
+      - name: Bushra Alowaiid
+        affiliation: PhD, KFUPM
+        years: 2025–present
+        project: Distributed Quantum Computing
 
-  - name: Soha Sandoukah
-    dept: COE, KFUPM
-    role: PhD, advisor
-    topic: Secure and Privacy-Preserving FL using GAN
+      - name: Hind Baagel
+        affiliation: PhD, KFUPM
+        years: 2024–present
+        project: Post-Quantum Cryptography
 
-  - name: Nourah Alotaibi
-    dept: ICS, KFUPM
-    role: PhD co-advisor
-    topic: LFAs on Federated Learning
+      - name: Lina Alharbi
+        affiliation: PhD, KFUPM
+        years: 2024–present
+        project: Practical Private Set Intersection
 
-  - name: Mustafa Alghafli
-    dept: COE, KFUPM
-    role: MS Thesis, advisor
-    topic: Updatable Multi-party Private Set Intersection
+      - name: Soha Sandoukah
+        affiliation: PhD, KFUPM
+        years: 2023–present
+        project: Robust and Secure Federated Learning
 
-  - name: Abdulmumin Saad
-    dept: COE, KFUPM
-    role: MSc advisor
-    topic: Communication-Efficient FL for Personal Assistant Applications
-    year: 2024
+      - name: Abdulmjeed Al-Othman
+        affiliation: MSc, KFUPM
+        years: 2024–present
+        project: Post-Quantum Cryptography Migration
 
-  - name: Shuroog Al-Ogbi
-    dept: COE, KFUPM
-    role: MSc advisor
-    topic: Accelerating Non-Linear PDEs using Quantum Computing
-    year: 2024
+  - title: Graduated Students
+    students:
+      - name: Nourah Al-Otaibi
+        affiliation: PhD, KFUPM
+        years: 2021–2025
+        project: Edge-Assisted Detection and Mitigation of Label-Flipping Attacks in Federated Learning Systems
 
-  - name: Sani Umar
-    dept: COE, KFUPM
-    role: MS Thesis, advisor
-    topic: Cybersecurity of Power Grids
-    year: 2020
+      - name: Ekhlas Zaid
+        affiliation: MSc, KFUPM
+        years: 2025–2026
+        project: Backdoor Attack on Federated Learning
 
-  - name: Mohammad Alakhras
-    dept: COE, KFUPM
-    role: Directed research
-    topic: WSN Sink Node Anonymization Using Network Coding
-    year: 2020
+      - name: Maram Al-Qahtani
+        affiliation: MSc, KFUPM
+        years: 2024–2025
+        project: Machine Unlearning
 
-undergraduate:
-  - name: Mohammed Al-Bejadi
-    dept: COE, KFUPM
-    role: Undergraduate Research Advisor (graduated Fall 2019)
-    topic: Collaborative Video Streaming
+      - name: Abdulmunim Sa'ad
+        affiliation: MSc, KFUPM
+        years: 2023–2024
+        project: Federated Learning based Mobile Application
 
-  - name: Asaad Alghamdi
-    dept: ICS, KFUPM
-    role: Undergraduate Research Advisor (graduated Spring 2020, now MS student at KAUST)
-    topic: Collaborative Video Streaming
+      - name: Shurooq Al-Oqbi
+        affiliation: MSc, KFUPM
+        years: 2023–2024
+        project: Quantum Algorithms for Solving Partial Differential Equations
 
-  - name: Abdulkarim Alaweet
-    dept: COE, KFUPM
-    role: Undergraduate Research Advisor (graduated Fall 2019, now at Saudi Aramco)
-    topic: File Fragment Classification Using Deep Learning
+      - name: Mustafa Al-Ghafli
+        affiliation: MSc, KFUPM
+        years: 2021–present
+        project: Private Set Intersection in Mobile Crowdsensing
 
-  - name: Mohammad Khiami
-    dept: COE, KFUPM
-    role: Undergraduate Research Advisor (graduated Spring 2020)
-    topic: Write-Efficient LSM-based Merkle Tree
+      - name: Sani Umar
+        affiliation: MSc, KFUPM
+        years: 2021
+        project: Modeling and Detecting False Data Injection Attacks in Smart Grids
 
-  - name: Kunwar Saaim
-    dept: Aligarh Muslim University
-    role: Directed research
-    topic: File Fragment Classification Using Deep Learning
+      - name: Mohammad AlAkhras
+        affiliation: MEng, KFUPM
+        years: 2021
+        project: Efficient Network Coding in Wireless Sensor Network
 
-  - name: Othman Kisha
-    dept: COE, KFUPM
-    role: Undergraduate Research Advisor
-    topic: Privacy Requirements for Contact Tracing Applications
+  - title: MX Graduate Students
+    students:
+      - name: Tariq AlMuqbil
+        affiliation: QIC MX, KFUPM
+        years: 2024
+        project: Quantum Circuit Generator using Evolutionary Algorithms
 
-  - name: Khaled Alzahrani
-    dept: Physics, KFUPM
-    role: Undergraduate Research Advisor
+      - name: Maha Al-Otaibi
+        affiliation: QIC MX, KFUPM
+        years: 2024
+        project: Battery Revenue Optimization using Quantum Computing
 
-  - name: Khaled Albutainy
-    dept: COE, KFUPM
-    role: Undergraduate Research Advisor
+      - name: Abdulrahman Alajmi
+        affiliation: QIC MX, KFUPM
+        years: 2024
+        project: Quantum Random Number Generator
 
-  - name: Khalid Alshehri
-    dept: MATH, KFUPM
-    role: Undergraduate Research Advisor
+      - name: Abdulhadi Alzaidy
+        affiliation: QIC MX, KFUPM
+        years: 2024
+        project: Quantum Random Number Generator
+
+      - name: Ahoud Alhawash
+        affiliation: QIC MX, KFUPM
+        years: 2024
+        project: Quantum Algorithms for PDEs
+
+      - name: Mohammad Al-Saiyari
+        affiliation: QIC MX, KFUPM
+        years: 2022
+        project: Quantum Optimization for Vehicle Routing Problem
+
+      - name: Rokiya Ghandour
+        affiliation: QIC MX, KFUPM
+        years: 2022
+        project: Quantum Computing Application in Finance
+
+      - name: Mays Miajan
+        affiliation: QIC MX, KFUPM
+        years: 2022
+        project: Quantum Computing Application in Finance
+
+      - name: Joud Awadh
+        affiliation: QIC MX, KFUPM
+        years: 2022
+        project: Quantum Computing Application in Finance
+
+      - name: Shuroog Al-Ogbi
+        affiliation: QIC MX, KFUPM
+        years: 2022
+        project: Quantum Support Vector Machines
+
+      - name: Bashayer Al-Nahdi
+        affiliation: QIC MX, KFUPM
+        years: 2022
+        project: Quantum Random Number Generator
+
+      - name: Maryam Baabdullah
+        affiliation: QIC MX, KFUPM
+        years: 2021
+        project: Quantum Support Vector Machines
+
+      - name: Sarah Al-Wadaah
+        affiliation: QIC MX, KFUPM
+        years: 2021
+        project: Feasibility of using Quantum Computing in Seismic Image Processing
+
+  - title: Undergraduate Students Advising
+    students:
+      - name: Mohammad Serag
+        affiliation: COE, KFUPM
+        years: 2025
+        project: Prompt Anonymization
+
+      - name: Abdullah Emad Felemban
+        affiliation: CS, OSU
+        years: 2025
+        project: Exaggeration-based Security Fake News Detection
+
+      - name: Joud Zamzami
+        affiliation: CS, UMass
+        years: 2025
+        project: Distributed Quantum Computing
+
+      - name: Mariam Alsowaidan
+        affiliation: Kuwait
+        years: 2025
+        project: Cybersecurity
+
+      - name: Talal Al-Towaijri
+        affiliation: CS, IAU
+        years: 2024
+        project: Quantum Algorithms for VRP
+
+      - name: Zahra Homoud
+        affiliation: EE, Leeds University
+        years: 2024
+        project: Light-Weight Deep Learning
+
+      - name: Osamah Al-Karnawi
+        affiliation: COE, KFUPM
+        years: 2024
+        project: DGA-based Domains Detection
+
+      - name: Amer Mosalli
+        affiliation: COE, KFUPM
+        years: 2023
+        project: Event Detection Using Edge-based Vehicle Dashcams
+
+      - name: Khaled AlShehri
+        affiliation: Math, KFUPM
+        years: 2022
+        project: Private Set Intersection using Lattice-based Cryptography
+
+      - name: Khaled Al-Butainy
+        affiliation: COE, KFUPM
+        years: 2022
+        project: Masking Unmasked Faces Using GANs Based Models
+
+      - name: Kunwar Saaim
+        affiliation: COE, Aligarh Muslim University, India
+        years: 2022
+        project: File Fragment Classification Using Deep Learning
+
+      - name: Khaled Al-Zahrani
+        affiliation: Physics, KFUPM
+        years: 2021
+        project: Increasing Fidelity of IBM Q Swap Gates
+
+      - name: Othman Kisha
+        affiliation: COE, KFUPM
+        years: 2021
+        project: Privacy Requirements for Contact Tracing Applications
+
+      - name: Mohammad Khiami
+        affiliation: COE, KFUPM
+        years: 2020
+        project: Write-Efficient LSM-based Merkle Trees
+
+      - name: Abdulkarim Al-Alweet
+        affiliation: COE, KFUPM
+        years: 2020
+        project: File Fragment Classification Using Deep Learning
+
+      - name: Asaad Al-Ghamdi
+        affiliation: ICS, KFUPM
+        years: 2020
+        project: "BeeCast: A Collaborative Video Streaming System — 1st runner up, ACM SRC Undergraduate track 2021"
+
+      - name: Mohammad Al-Bejadi
+        affiliation: COE, KFUPM
+        years: 2020
+        project: Collaborative Video Streaming — 1st runner up, KAUST WEP Undergraduate Research Competition 2021
+
+  - title: Undergraduate Students Mentoring
+    students:
+      - name: Ghanima Boutaiban
+        affiliation: CS, GUST
+        years: Summer 2023
+
+      - name: Yousef AbuShabaan
+        affiliation: CS, GUST
+        years: Summer 2023
+
+      - name: Abduljawad Mohammad
+        affiliation: ICS, KFUPM
+        years: SURE 2021
+        project: Masking Unmasked Faces Using GANs Based Models
+
+      - name: Amaan Izhar
+        affiliation: ICS, KFUPM
+        years: SURE 2021
+        project: Emotional Interpretation using Voice Recognition
+
+      - name: Mujtaba Siddiqui
+        affiliation: ISE, KFUPM
+        years: SURE 2021
+        project: Simulation of COVID-19 in KFUPM Campus
+
+      - name: Sultan Al-Garbi
+        affiliation: ICS, KFUPM, India
+        years: SURE 2021
+        project: Federated Learning
+
+      - name: Mahmoud Ellouh
+        affiliation: COE, KFUPM
+        years: SURE 2021
+        project: "ZeroJar: IoT Honeypot for Zero-day Attacks Detection"
+
+      - name: Murtada Al-Hasan
+        affiliation: ISE, KFUPM
+        years: SURE 2021
+        project: Dynamic Class Scheduling with COVID-19 Constraints
+
+      - name: Hassan Al-Saffar
+        affiliation: EE, KFUPM
+        years: SURE 2021
+        project: Emotional Recognition Using Thermal Pictures
+
+  - title: High School Students Mentoring
+    students:
+      - name: Tala Al-Mulla
+        affiliation: Dhahran
+        years: Ibdaa 2021 Finalist
+        project: Modeling and Simulation of University Class Schedules with COVID-19 Constraints
+
+      - name: Hussain AlSaif
+        affiliation: Dhahran
+        years: Ibdaa 2022 Finalist
+        project: Using Reinforcement Learning in Quantum Error Correction Codes

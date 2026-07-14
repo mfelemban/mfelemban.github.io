@@ -1,4 +1,76 @@
+professional:
+  - role: Academic Advisor, SIMAQ
+    period: January 2026 – present
+  - role: Co-Founder and Board Member, SQCA
+    period: October 2024 – present
+  - role: Quantum Technology Project Member, C4IR-WEF
+    period: January 2024 – present
+
+editorial:
+  - role: Editorial Editor
+    detail: Discover Internet of Things
+    period: 2026
+  - role: Guest Editor
+    detail: Special Issue "Enhanced Cyber-Physical Security in IoT", Information, MDPI
+    period: 2022
+
+programs:
+  - Cybersecurity and Blockchain MX (KFUPM)
+  - High-Performance and Cloud Computing MX (KFUPM)
+  - Quantum Information and Computing MX (KFUPM)
+  - Wireless Communication and Networking MX (KFUPM)
+
+reviewer:
+  - IEEE TDSC
+  - IEEE Sensors
+  - IEEE Communication Letters
+  - Journal of Sensors
+  - ACM Computing Surveys
+  - Computers and Security
+  - IEEE Computer
+  - Doctoral Symposium Workshop, MIDDLEWARE 2019
+
 talks:
+  - title: "Bridging the Gap Between Academia and Industry: Turning Research Solutions into Commercial Products"
+    date: April 2025
+    venue: World Quantum Day 2025, C4IR, The Garage, Riyadh (moderator)
+    url: https://www.youtube.com/watch?v=f558DvjnsoA
+
+  - title: From Classical to Quantum Computing
+    date: November 2024
+    venue: College of Petroleum and Geosciences, KFUPM
+
+  - title: "Undergraduate Research: How to Start?"
+    date: November 2024
+    venue: KFUPM
+
+  - title: Quantum Technology in Saudi Arabia
+    date: October 2024
+    venue: Digital Technology Forum 2024, CST (panelist)
+    url: https://www.youtube.com/watch?v=3Sxc0Axycoc
+
+  - title: Quantum Computing Program at KFUPM
+    date: October 2024
+    venue: EXPEC ARC, Saudi Aramco
+
+  - title: From Classical to Quantum Computing
+    date: October 2021
+    venue: Physics Department, KFUPM
+
+  - title: AI and Data Privacy
+    date: June 2021
+    venue: Thakaa Center
+    url: https://youtu.be/64CGhm7mcWQ
+
+  - title: From Classical to Quantum Computing
+    date: March 2021
+    venue: COE Talks Series, KFUPM
+    url: https://www.youtube.com/watch?v=sA1cWTZuyWQ
+
+  - title: From Classical to Quantum Computing
+    date: February 2021
+    venue: Aramco EXPEC Computing Center
+
   - title: "Blockchain: Fundamentals and Applications"
     date: February 2020
     venue: Wasla Tech @ Saudi Aramco EXPEC
@@ -24,13 +96,13 @@ talks:
     date: December 2018
     venue: IEEE Saudi Arabia Section
 
-  - title: Machine Learning for Cyber Security
-    date: October 2018
-    venue: Wasla Tech @ Saudi Aramco EXPEC
-
   - title: Adaptive Intrusion Management for Database Management Systems
     date: November 2018
     venue: COE Graduate Seminar Course, KFUPM
+
+  - title: Machine Learning for Cyber Security
+    date: October 2018
+    venue: Wasla Tech @ Saudi Aramco EXPEC
 
   - title: Data Protection and Data Science
     date: October 2018

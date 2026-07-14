@@ -9,7 +9,11 @@ baseurl: ""
 profile:
   name: Muhamad Felemban
   photo: /assets/img/photo.jpg
+  cv: /files/Muhamad-Felemban-CV.pdf
   email: mfelemban 'at' kfupm dot edu dot sa
+  interests: >-
+    Data Security and Privacy, Secure and Intelligent Systems,
+    Quantum Computing, and Post-Quantum Security
   positions:
     - Director, IRC-ISS
     - Assistant Professor
@@ -42,6 +46,7 @@ nav:
     url: /services/
 
 links:
+  faculty: https://faculty.kfupm.edu.sa/COE/mfelemban/
   scholar: https://scholar.google.com/citations?user=ZyC2dJ8AAAAJ&hl=en
   dblp: https://dblp.uni-trier.de/pers/hd/f/Felemban:Muhamad
   pure: https://pure.kfupm.edu.sa/en/publications/?search=Muhamad+Felemban&pageSize=25&showAdvanced=false&allConcepts=true&inferConcepts=true&searchBy=PartOfNameOrTitle

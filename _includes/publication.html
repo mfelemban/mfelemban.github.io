@@ -12,4 +12,5 @@ The author name configured as `me:` in _config.yml is bolded automatically.
     {% if pub.url %}<a href="{{ pub.url }}">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}.
   </span>
   {% if pub.venue %}<em class="pub-venue">{{ pub.venue }}</em>{% endif %}{% if pub.details %}, {{ pub.details }}{% endif %}{% if pub.year %}, {{ pub.year }}{% endif %}.
+  {% if pub.award %}<span class="pub-award">{{ pub.award }}</span>{% endif %}
 </li>

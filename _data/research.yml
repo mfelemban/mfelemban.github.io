@@ -6,22 +6,47 @@ thrusts:
   - Quantum-resistant systems
   - Quantum computing
 
+# Funded research grants, newest first.
+grants:
+  - title: Quantum Algorithm Design and Emulation for Seismic Wave Modeling
+    role: PI
+    amount: SAR 700,000
+    funder: Saudi Aramco
+    period: 2026–2028
+
+  - title: Novel Passwordless User Authentication System for Quantum Computing Environment
+    role: Co-I
+    amount: SAR 800,000
+    funder: PSDSARC
+    period: 2025–2028
+
+  - title: Using Quantum Computing for Reservoir Simulation
+    role: PI
+    amount: SAR 300,000
+    funder: Saudi Aramco
+    period: 2025–2026
+
+  - title: Robust, Privacy Preserving Surveillance System for COVID-19
+    role: PI
+    funder: KACST
+    period: 2020–2021
+    url: https://dssl-kfupm.github.io/PSM/
+
+  - title: Design and Implementation of Adaptive Intrusion Management System
+    role: PI
+    funder: DSR, KFUPM
+    period: 2020–2021
+
+  - title: Collaborative Video Streaming
+    role: PI
+    funder: DSR, KFUPM
+    period: 2020–2021
+
 projects:
   - title: "BeeCast: Design and Implementation of Device-to-Device Collaborative Video Streaming System"
     funder: Undergraduate Research, KFUPM
     role: Advisor
     status: Completed
-
-  - title: Design and Implementation of Adaptive Intrusion Management
-    funder: Startup Fund, KFUPM
-    role: PI
-    status: Completed
-
-  - title: Robust, Privacy Preserving Surveillance System
-    funder: KACST
-    role: PI
-    status: Completed
-    url: https://dssl-kfupm.github.io/PSM/
 
   - title: "Adaptive Intrusion Management System (AIMS I): Towards Attack-Resilient DBMS"
     funder: Northrop Grumman

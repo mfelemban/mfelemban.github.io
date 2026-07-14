@@ -6,6 +6,9 @@ permalink: /research/
 
 <p class="group-name">{{ site.data.research.group }}</p>
 
+<h2>Research Interests</h2>
+<p>{{ site.profile.interests }}</p>
+
 <h2>Research Thrusts</h2>
 <ul class="thrusts">
   {% for t in site.data.research.thrusts %}
@@ -13,7 +16,21 @@ permalink: /research/
   {% endfor %}
 </ul>
 
-<h2>Projects</h2>
+<h2>Research Grants</h2>
+<ul class="grants">
+  {% for g in site.data.research.grants %}
+    <li>
+      <span class="grant-title">
+        {% if g.url %}<a href="{{ g.url }}">{{ g.title }}</a>{% else %}{{ g.title }}{% endif %}
+      </span>
+      <span class="grant-meta">
+        {{ g.role }}{% if g.amount %} · {{ g.amount }}{% endif %}{% if g.funder %} · {{ g.funder }}{% endif %}{% if g.period %} · {{ g.period }}{% endif %}
+      </span>
+    </li>
+  {% endfor %}
+</ul>
+
+<h2>Previous Projects</h2>
 <ol class="projects">
   {% for p in site.data.research.projects %}
     <li>

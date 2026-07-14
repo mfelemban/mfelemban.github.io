@@ -1,13 +1,88 @@
-# Publications, grouped by type. To add a paper, add one entry to the right list.
-# Fields: authors, title, venue, details, year, url (all optional except title).
+# Publications, grouped by type, newest first.
+# To add a paper, add one entry to the right list.
+# Fields: authors, title, venue, details, year, url, award (all optional except title).
 # Occurrences of the name in _config.yml `me:` are bolded automatically.
 
 journals:
+  - authors: R. Alfageer, M. Ghaleb, W. Aljoby, M. Felemban
+    title: A Multi-Stage Learning Framework for Detecting Known and Novel Attacks in the Internet of Medical Things
+    venue: IEEE Access
+    details: 14, pp. 48312–48326
+    year: 2026
+
+  - authors: O. A. Saleh, S. G. Rao, M. Alghadeer, A. A. Omar, M. Felemban
+    title: Optimizing Interface Dielectric Loss in Superconducting Coplanar Waveguide Resonators for Improved Quantum Circuit Coherence
+    venue: Technologies
+    details: "14, no. 2: 128"
+    year: 2026
+
+  - authors: A. Sa'ad, M. Felemban, A. Tabbakh
+    title: "CEFEEL: Communication-Efficient Federated Learning for Personal Assistant Applications"
+    venue: IEEE Open Journal of the Computer Society
+    year: 2025
+
+  - authors: A. A. Abudaqa, K. Alshehri, M. Felemban
+    title: On the Homomorphic Properties of Kyber and McEliece with Application to Post-Quantum Private Set Intersection
+    venue: Cryptography
+    details: "9, no. 4: 66"
+    year: 2025
+
+  - authors: M. Kara, K. Karampidis, S. Panagiotakis, M. Hammoudeh, M. Felemban, G. Papadourakis
+    title: Lightweight and Efficient Post Quantum Key Encapsulation Mechanism Based on Q-Problem
+    venue: Electronics
+    year: 2025
+
+  - authors: M. Kara, A. Boukrara, M. Hammoudeh, M. Felemban, S. Guediri
+    title: Unbounded Depth ElGamal-Based Asymmetric Updatable Encryption Technique
+    venue: IEEE Open Journal of the Computer Society
+    year: 2025
+
+  - authors: M. Kara, M. Hammoudeh, M. Felemban, K. Karampidis
+    title: An Encrypted and Signed Plaintext Symmetric Cryptosystem
+    venue: Computers and Electrical Engineering
+    details: "123"
+    year: 2025
+
+  - authors: O. A. Saleh, S. G. Rao, K. Alam, M. Felemban
+    title: "Mitigation of Oxide Growth on Aluminum Thin Films: The Role of Self-Assembled Monolayers in Superconducting Quantum Circuits"
+    venue: AVS Quantum Science
+    details: "7, no. 2"
+    year: 2025
+
+  - authors: S. O. Adebayo, A. Barnawi, T. Sheltami, M. Felemban
+    title: Dynamic Spectrum Sharing in Heterogeneous Wireless Networks Using Deep Reinforcement Learning
+    venue: Internet of Things
+    details: "32"
+    year: 2025
+
+  - authors: N. S. AlOtaibi, M. Felemban, S. Mahmood
+    title: Edge-Assisted Label-Flipping Attack Detection in Federated Learning
+    venue: IEEE Open Journal of the Communications Society
+    year: 2024
+
+  - authors: M. Felemban, M. Ghaleb, K. Saaim, S. Al-Saleh, A. Almulhem
+    title: File Fragment Type Classification using Light-Weight Convolutional Neural Networks
+    venue: IEEE Access
+    year: 2024
+
+  - authors: A. Alsuwaiyan, A. A. Habib, A. B. Imoukhuede, M. O. Omar, M. A. Maruf, M. Alqarni, A. El-Maleh, A. Tabbakh, M. Felemban, A. Azim
+    title: A Systematic Literature Review on Vulnerabilities, Mitigation Techniques, and Attacks in Field-Programmable Gate Arrays
+    venue: Arabian Journal for Science and Engineering
+    details: pp. 1–31
+    year: 2024
+
+  - authors: T. N. Mohamed, H. Alsafar, M. Felemban
+    title: "Exploring the Human Response to Anger: Uncovering Insights Through Infrared Thermography and Experimental Psychology"
+    venue: Acta Neuropsychologica
+    details: "22, no. 3"
+    year: 2024
+    url: https://actaneuropsychologica.com/resources/html/article/details?id=623817&language=en
+
   - authors: A. Daghistani, M. Khayat, M. Felemban, W. G. Aref, A. Ghafoor
     title: "Guard: Attack-Resilient Adaptive Load Balancing in Distributed Streaming Systems"
     venue: IEEE Transactions on Dependable and Secure Computing
     details: "doi: 10.1109/TDSC.2021.3123071"
-    year: 2021
+    year: 2022
 
   - authors: E. Felemban, F. U. Rehman, A. Ahmad, M. Felemban
     title: A Modelling and Scheduling Tool for Crowd Movement in Complex Network
@@ -19,12 +94,12 @@ journals:
   - authors: S. Umar, M. Felemban
     title: Rule-Based Detection of False Data Injection Attacks against Optimal Power Flow in Power Systems
     venue: Sensors
-    details: "21, no. 7: 2478, doi: 10.3390/s21072478"
+    details: "21, no. 7: 2478"
     year: 2021
     url: https://www.mdpi.com/1424-8220/21/7/2478
 
   - authors: Y. Javed, M. Felemban, T. Shawly, J. Kobes, A. Ghafoor
-    title: A Partition-Driven Integrated Security Architecture for Cyberphysical Systems
+    title: A Partition-Driven Integrated Security Architecture for Cyber-Physical Systems
     venue: Computer
     details: vol. 53, no. 3, pp. 47–56
     year: 2020
@@ -53,7 +128,7 @@ journals:
   - authors: M. U. Arshad, M. Felemban, Z. Pervaiz, A. Ghafoor, W. G. Aref
     title: A Privacy Mechanism for Access Controlled Graph Data
     venue: IEEE Transactions on Dependable and Secure Computing
-    year: 2017
+    year: 2018
     url: https://ieeexplore.ieee.org/abstract/document/7946157/
 
   - authors: M. Ghaleb, E. Felemban, A. Sheikh, M. Felemban
@@ -68,15 +143,82 @@ journals:
     url: https://ieeexplore.ieee.org/abstract/document/6616111/
 
 conferences:
+  - authors: A. Felemban, M. Ghaleb, M. Felemban
+    title: Exaggeration-based Fake Cybersecurity News Detection
+    venue: 1st ACM Workshop on Deepfake, Deception, and Disinformation Security
+    details: pp. 1–4
+    year: 2025
+    award: Best Paper Award
+
+  - authors: S. A. Al-Ogbi, M. Felemban
+    title: Solving Computational Fluid Dynamic Problems Using Quantum Computing
+    venue: SPE Middle East Oil and Gas Show and Conference, SPE
+    details: p. D031S108R004
+    year: 2025
+
+  - authors: M. Ellouh, R. Jalali, M. Felemban
+    title: "FalconAI: Cloud-based Automatic Execution of AI Workflows"
+    venue: 3rd International Conference on Foundation and Large Language Models (FLLM), IEEE
+    details: pp. 58–61
+    year: 2025
+
+  - authors: T. Almuqbil, M. Felemban
+    title: "Discovery of Quantum Algorithms Using Genetic Algorithms: Exponential Speedup via Random Sampling"
+    venue: IEEE International Conference on Quantum Computing and Engineering (QCE)
+    details: vol. 2, pp. 444–445
+    year: 2024
+
+  - authors: M. Alghamdi, M. Abushawarib, M. Ellouh, M. Ghaleb, M. Felemban
+    title: Enhancing Arabic Information Retrieval for Question Answering
+    venue: 7th International Conference on Future Networks and Distributed Systems
+    details: pp. 366–371
+    year: 2023
+
+  - authors: M. Alsaiyari, M. Felemban
+    title: Variational Quantum Algorithms for Solving Vehicle Routing Problem
+    venue: International Conference on Smart Computing and Application (ICSCA), Hail, Saudi Arabia
+    details: "pp. 1–4, doi: 10.1109/ICSCA57840.2023.10087522"
+    year: 2023
+
+  - authors: S. Al-Ogbi, A. Ashour, M. Felemban
+    title: Quantum Image Classification on NISQ Devices
+    venue: 14th International Conference on Computational Intelligence and Communication Networks (CICN), Al-Khobar, Saudi Arabia
+    details: pp. 1–7
+    year: 2022
+
+  - authors: K. Butainy, M. Felemban, H. Luqman
+    title: Realistic Face Masks Generation Using Generative Adversarial Networks
+    venue: 14th International Conference on Computational Intelligence and Communication Networks (CICN), Al-Khobar, Saudi Arabia
+    details: "pp. 90–95, doi: 10.1109/CICN56167.2022.10008304"
+    year: 2022
+
+  - authors: M. Ellouh, M. Ghaleb, M. Felemban
+    title: "IoTZeroJar: Towards a Honeypot Architecture for Detection of Zero-Day Attacks in IoT"
+    venue: 14th International Conference on Computational Intelligence and Communication Networks (CICN), Al-Khobar, Saudi Arabia
+    details: "pp. 765–771, doi: 10.1109/CICN56167.2022.10008323"
+    year: 2022
+
+  - authors: K. Saaim, M. Felemban, S. Al-Saleh, A. Al-Mulhem
+    title: Lightweight File Fragments Classification using Depthwise Separable Convolution
+    venue: 37th International Conference on ICT Systems Security and Privacy Protection (IFIP SEC), Copenhagen, Denmark
+    year: 2022
+    url: https://link.springer.com/chapter/10.1007/978-3-031-06975-8_12
+
+  - authors: A. Al-Ghamdi, Y. Balah, M. Felemban, Y. Osais
+    title: "BeeCast: A Device-to-Device Collaborative Video Streaming System"
+    venue: International Wireless Communications and Mobile Computing (IWCMC)
+    year: 2022
+
   - authors: S. Umar, M. Felemban, Y. Osais
     title: Advanced Persistent False Data Injection Attacks Against Optimal Power Flow in Power Systems
     venue: International Wireless Communications and Mobile Computing (IWCMC)
     details: "pp. 469–474, doi: 10.1109/IWCMC51323.2021.9498982"
     year: 2021
 
-  - authors: A. Alghamdi, Y. Balah, M. Felemban, M. Albejadi
+  - authors: A. Alghamdi, Y. Balah, M. Albejadi, M. Felemban
     title: "BeeCast: A Collaborative Video Streaming System"
-    venue: MobiCom, Demo track
+    venue: 26th Annual International Conference on Mobile Computing and Networking (MobiCom), ACM
+    details: Article 63, pp. 1–3
     year: 2020
     url: https://dl.acm.org/doi/10.1145/3372224.3417314
 
@@ -99,13 +241,12 @@ conferences:
 
 theses:
   - authors: M. Felemban
-    title: Design and Evaluation of Adaptive Intrusion Management Systems for Database Systems
-    venue: PhD Thesis, Purdue University
-    details: August 2018
+    title: Designing and Development of Adaptive Intrusion Management for Cyber-Based Systems
+    venue: PhD Dissertation, Purdue University
     year: 2018
 
   - authors: M. Felemban
-    title: Optimal Node Placement in Underwater Acoustic Sensor Network
+    title: Optimal Node Placement in Underwater Acoustic Sensor Networks
     venue: MS Thesis, KAUST
     year: 2011
     url: http://repository.kaust.edu.sa/kaust/handle/10754/209373

@@ -4,6 +4,36 @@ title: Services
 permalink: /services/
 ---
 
+<h2>Professional Service</h2>
+<ul class="roles">
+  {% for r in site.data.services.professional %}
+    <li>
+      <span class="role-title">{{ r.role }}</span>
+      <span class="role-meta">{{ r.period }}</span>
+    </li>
+  {% endfor %}
+</ul>
+
+<h2>Editorial</h2>
+<ul class="roles">
+  {% for r in site.data.services.editorial %}
+    <li>
+      <span class="role-title">{{ r.role }}</span>
+      <span class="role-meta">{{ r.detail }} ({{ r.period }})</span>
+    </li>
+  {% endfor %}
+</ul>
+
+<h2>Educational Programs Development</h2>
+<ul>
+  {% for p in site.data.services.programs %}
+    <li>{{ p }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Reviewer</h2>
+<p>{{ site.data.services.reviewer | join: " · " }}</p>
+
 <h2>Invited Presentations</h2>
 <ul class="talks">
   {% for t in site.data.services.talks %}

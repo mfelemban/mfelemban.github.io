@@ -4,52 +4,28 @@ title: Students
 permalink: /students/
 ---
 
-<h2>Graduate</h2>
-<div class="table-wrap">
-  <table class="people">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Department</th>
-        <th>Role</th>
-        <th>Topic</th>
-        <th>Year</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for s in site.data.students.graduate %}
+{% for group in site.data.students.groups %}
+  <h2>{{ group.title }}</h2>
+  <div class="table-wrap">
+    <table class="people">
+      <thead>
         <tr>
-          <td>{{ s.name }}</td>
-          <td>{{ s.dept }}</td>
-          <td>{{ s.role }}</td>
-          <td>{{ s.topic }}</td>
-          <td>{{ s.year | default: "—" }}</td>
+          <th>Name</th>
+          <th>Affiliation</th>
+          <th>Years</th>
+          <th>Project</th>
         </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-<h2>Undergraduate</h2>
-<div class="table-wrap">
-  <table class="people">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Department</th>
-        <th>Role</th>
-        <th>Topic</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for s in site.data.students.undergraduate %}
-        <tr>
-          <td>{{ s.name }}</td>
-          <td>{{ s.dept }}</td>
-          <td>{{ s.role }}</td>
-          <td>{{ s.topic | default: "—" }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        {% for s in group.students %}
+          <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ s.affiliation }}</td>
+            <td>{{ s.years }}</td>
+            <td>{{ s.project | default: "—" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endfor %}
