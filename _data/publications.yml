@@ -4,6 +4,29 @@
 # Occurrences of the name in _config.yml `me:` are bolded automatically.
 
 journals:
+  - authors: A. A. Al-Saggaf, M. Felemban
+    title: "ISNR-PQC: Isometry Noise Resilience Post Quantum Cryptography Primitive"
+    venue: Scientific Reports
+    year: 2026
+    url: https://doi.org/10.1038/s41598-026-59117-2
+    doi: 10.1038/s41598-026-59117-2
+
+  - authors: S. Almutairi, A. Alenaizan, A. Al-Sayoud, J. Beck, S. Lardhi, S. Al-Ogbi, M. Felemban
+    title: Quantum Computing for Computational Sciences
+    venue: IEEE Transactions on Quantum Engineering
+    details: vol. 7, Art. no. 3103728
+    year: 2026
+    url: https://doi.org/10.1109/TQE.2026.3697204
+    doi: 10.1109/TQE.2026.3697204
+
+  - authors: S. Sandouka, M. Felemban
+    title: "FedGB: A Generator-Based Federated Learning Against Reconstruction Attacks"
+    venue: IEEE Open Journal of the Computer Society
+    details: vol. 7, pp. 1260–1271
+    year: 2026
+    url: https://doi.org/10.1109/OJCS.2026.3700901
+    doi: 10.1109/OJCS.2026.3700901
+
   - authors: R. Alfageer, M. Ghaleb, W. Aljoby, M. Felemban
     title: A Multi-Stage Learning Framework for Detecting Known and Novel Attacks in the Internet of Medical Things
     venue: IEEE Access
