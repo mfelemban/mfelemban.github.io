@@ -1,0 +1,59 @@
+name: Sync publications
+
+# Checks OpenAlex for new papers every Monday and opens a pull request if it
+# finds any. Nothing reaches the live site until you merge that PR — OpenAlex
+# matches authors automatically and does occasionally misattribute a paper.
+#
+# You can also trigger a check by hand from the Actions tab at any time.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays, 06:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Sync publications from OpenAlex
+        run: python3 scripts/sync_publications.py | tee sync-output.txt
+
+      - name: Build PR body
+        run: |
+          {
+            echo 'These papers are on OpenAlex but not yet on the site.'
+            echo
+            echo '```'
+            cat sync-output.txt
+            echo '```'
+            echo
+            echo '**Please check each one is actually yours.** OpenAlex matches authors'
+            echo 'automatically and sometimes attributes another researcher'"'"'s paper to you.'
+            echo 'If one is wrong, close this PR, add its DOI to `_data/publications_ignore.yml`,'
+            echo 'and it will never be suggested again.'
+          } > pr-body.md
+          cat pr-body.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: sync/publications
+          base: main
+          add-paths: _data/publications.yml
+          commit-message: "Add new publications from OpenAlex"
+          title: "New publications found on OpenAlex"
+          body-path: pr-body.md
+          delete-branch: true

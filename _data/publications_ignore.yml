@@ -1,0 +1,11 @@
+# Papers that scripts/sync_publications.py must never add to publications.yml.
+#
+# OpenAlex matches authors automatically, so it occasionally attributes someone
+# else's paper to you. List those here — by DOI (preferred) or exact title — and
+# the sync will skip them permanently instead of re-adding them every week.
+
+dois: []
+  # - 10.1234/example.2026.5678
+
+titles: []
+  # - Some Paper That Is Not Actually Mine
