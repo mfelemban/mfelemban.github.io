@@ -1,0 +1,15 @@
+{% comment %}
+Renders one publication entry. Expects `include.pub`.
+The author name configured as `me:` in _config.yml is bolded automatically.
+{% endcomment %}
+{% assign pub = include.pub %}
+{% capture bold_me %}<strong>{{ site.me }}</strong>{% endcapture %}
+<li class="pub">
+  {% if pub.authors %}
+    <span class="pub-authors">{{ pub.authors | replace: site.me, bold_me }}.</span>
+  {% endif %}
+  <span class="pub-title">
+    {% if pub.url %}<a href="{{ pub.url }}">{{ pub.title }}</a>{% else %}{{ pub.title }}{% endif %}.
+  </span>
+  {% if pub.venue %}<em class="pub-venue">{{ pub.venue }}</em>{% endif %}{% if pub.details %}, {{ pub.details }}{% endif %}{% if pub.year %}, {{ pub.year }}{% endif %}.
+</li>

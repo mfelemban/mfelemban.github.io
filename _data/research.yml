@@ -1,0 +1,59 @@
+group: Security, Privacy, and Quantum (SPQ) Group
+
+thrusts:
+  - Data security and privacy
+  - Secure and privacy-preserving ML
+  - Quantum-resistant systems
+  - Quantum computing
+
+projects:
+  - title: "BeeCast: Design and Implementation of Device-to-Device Collaborative Video Streaming System"
+    funder: Undergraduate Research, KFUPM
+    role: Advisor
+    status: Completed
+
+  - title: Design and Implementation of Adaptive Intrusion Management
+    funder: Startup Fund, KFUPM
+    role: PI
+    status: Completed
+
+  - title: Robust, Privacy Preserving Surveillance System
+    funder: KACST
+    role: PI
+    status: Completed
+    url: https://dssl-kfupm.github.io/PSM/
+
+  - title: "Adaptive Intrusion Management System (AIMS I): Towards Attack-Resilient DBMS"
+    funder: Northrop Grumman
+    role: Research Assistant
+    status: Completed
+    url: http://multimedia.ecn.purdue.edu/AIMS/
+
+  - title: "Adaptive Intrusion Management System (AIMS II): Developing Benchmarking for Malicious Transaction Workload"
+    funder: Northrop Grumman
+    role: Research Assistant
+    status: Completed
+
+  - title: Adaptive Threat Management (ATM) for Cyber-Physical Systems
+    funder: Northrop Grumman
+    role: Research Assistant
+    status: Completed
+
+  - title: Optimized Robust Video Streaming in Cellular Network
+    role: Researcher
+    status: Completed
+
+  - title: Risk-Resilient Resource Management in Cloud Computing
+    role: Research Assistant
+    status: Completed
+
+  - title: Security and Privacy Preserving Data Mining and Management for Distributed Domains
+    funder: "NSF TC: Medium"
+    role: Research Assistant
+    status: Completed
+
+  - title: "CoralSense: Underwater Acoustic Network"
+    funder: KACST-NSTIP
+    role: PhD student
+    status: Completed
+    url: http://emadfelemban.org/coralsense

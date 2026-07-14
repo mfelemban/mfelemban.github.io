@@ -1,0 +1,13 @@
+<nav class="site-nav" aria-label="Main">
+  <ul>
+    {% for item in site.nav %}
+      {% assign target = item.url | relative_url %}
+      <li>
+        <a href="{{ target }}"{% if page.url == item.url %} class="current" aria-current="page"{% endif %}>{{ item.title }}</a>
+      </li>
+    {% endfor %}
+    <li class="nav-external">
+      <a href="{{ site.links.irc_iss }}">IRC-ISS &#8599;</a>
+    </li>
+  </ul>
+</nav>

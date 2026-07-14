@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% if page.title and page.title != site.title %}{{ page.title }} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}" />
+  <link rel="icon" href="{{ '/assets/img/photo.jpg' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+</head>
+<body>
+
+<a class="skip-link" href="#content">Skip to content</a>
+
+<div class="page">
+  <header class="site-header">
+    <div class="site-title">
+      <h1><a href="{{ '/' | relative_url }}">{{ site.profile.name }}</a></h1>
+      <p class="site-section">{{ page.title }}</p>
+    </div>
+    {% include nav.html %}
+  </header>
+
+  <div class="site-body{% if page.sidebar %} has-sidebar{% endif %}">
+    <main id="content" class="content">
+      {{ content }}
+    </main>
+
+    {% if page.sidebar %}{% include sidebar.html %}{% endif %}
+  </div>
+
+  {% include footer.html %}
+</div>
+
+</body>
+</html>

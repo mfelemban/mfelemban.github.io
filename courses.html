@@ -1,0 +1,20 @@
+---
+layout: default
+title: Courses
+permalink: /courses/
+---
+
+<ul class="courses">
+  {% for c in site.data.courses %}
+    <li>
+      <h2 class="course-code">{{ c.code }} <span class="course-title">{{ c.title }}</span></h2>
+      <ul class="terms">
+        {% for t in c.terms %}
+          <li>
+            {% if t.url %}<a href="{{ t.url }}">{{ t.name }}</a>{% else %}{{ t.name | default: t }}{% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ul>

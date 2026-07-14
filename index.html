@@ -1,0 +1,37 @@
+---
+layout: default
+title: Home
+sidebar: true
+---
+
+<p>
+  I am the director of the
+  <a href="{{ site.links.irc_iss }}">Interdisciplinary Research Center for Intelligent Secure Systems (IRC-ISS)</a>
+  at KFUPM. I am an assistant professor with the
+  <a href="https://coe.kfupm.edu.sa/">Computer Engineering Department</a> and the
+  <a href="https://ics.kfupm.edu.sa/">Information and Computer Science Department</a> at
+  <a href="http://www.kfupm.edu.sa">KFUPM</a>. My research focuses on cybersecurity. In
+  particular, I work on research problems related to data privacy. More recently, I
+  started to develop an interest in research relating data security and privacy to
+  quantum computing. For more details, see my
+  <a href="{{ '/research/' | relative_url }}">research interests</a>.
+</p>
+
+<p>
+  I earned my PhD in Electrical and Computer Engineering from Purdue University in 2018.
+  My advisor was Prof. Arif Ghafoor. Prior to that, I earned my MS degree from KAUST and
+  my Bachelor degree from KFUPM in 2011 and 2008, respectively. I am a member of
+  <a href="{{ site.links.dssl }}">the Dependable and Secure Systems Lab</a> at KFUPM.
+</p>
+
+<h2>Latest news</h2>
+
+<dl class="news">
+  {% for item in site.data.news %}
+    <dt>
+      {{ item.date }}
+      {% if item.note %}<span class="news-note">({{ item.note }})</span>{% endif %}
+    </dt>
+    <dd>{{ item.body }}</dd>
+  {% endfor %}
+</dl>

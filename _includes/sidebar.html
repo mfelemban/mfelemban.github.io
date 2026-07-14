@@ -1,0 +1,36 @@
+<aside class="sidebar">
+  <img class="portrait" src="{{ site.profile.photo | relative_url }}" alt="Muhamad Felemban" />
+
+  <h3>Email</h3>
+  <p>{{ site.profile.email }}</p>
+
+  <h3>Position</h3>
+  <p>
+    {% for p in site.profile.positions %}{{ p }}{% unless forloop.last %}<br />{% endunless %}{% endfor %}
+  </p>
+
+  <h3>Affiliations</h3>
+  <p>
+    {% for a in site.profile.affiliations %}{{ a }}{% unless forloop.last %}<br />{% endunless %}{% endfor %}
+  </p>
+
+  <h3>Office</h3>
+  <p>{{ site.profile.office }}</p>
+
+  <h3>Phone</h3>
+  <p>{{ site.profile.phone }}</p>
+
+  {% if site.profile.teaching %}
+    <h3>Currently teaching ({{ site.profile.teaching.term }})</h3>
+    <p>
+      {% for c in site.profile.teaching.courses %}{{ c }}{% unless forloop.last %}<br />{% endunless %}{% endfor %}
+    </p>
+  {% endif %}
+
+  <h3>Elsewhere</h3>
+  <p class="sidebar-links">
+    <a href="{{ site.links.scholar }}">Google Scholar</a><br />
+    <a href="{{ site.links.dblp }}">DBLP</a><br />
+    <a href="{{ site.links.pure }}">KFUPM Pure</a>
+  </p>
+</aside>

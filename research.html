@@ -1,0 +1,28 @@
+---
+layout: default
+title: Research
+permalink: /research/
+---
+
+<p class="group-name">{{ site.data.research.group }}</p>
+
+<h2>Research Thrusts</h2>
+<ul class="thrusts">
+  {% for t in site.data.research.thrusts %}
+    <li>{{ t }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Projects</h2>
+<ol class="projects">
+  {% for p in site.data.research.projects %}
+    <li>
+      {% if p.url %}<a href="{{ p.url }}">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}
+      <span class="project-meta">
+        {% if p.funder %}[{{ p.funder }}]{% endif %}
+        {% if p.role %}&lt;{{ p.role }}&gt;{% endif %}
+        {% if p.status %}({{ p.status }}){% endif %}
+      </span>
+    </li>
+  {% endfor %}
+</ol>

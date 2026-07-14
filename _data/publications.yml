@@ -1,0 +1,131 @@
+# Publications, grouped by type. To add a paper, add one entry to the right list.
+# Fields: authors, title, venue, details, year, url (all optional except title).
+# Occurrences of the name in _config.yml `me:` are bolded automatically.
+
+journals:
+  - authors: A. Daghistani, M. Khayat, M. Felemban, W. G. Aref, A. Ghafoor
+    title: "Guard: Attack-Resilient Adaptive Load Balancing in Distributed Streaming Systems"
+    venue: IEEE Transactions on Dependable and Secure Computing
+    details: "doi: 10.1109/TDSC.2021.3123071"
+    year: 2021
+
+  - authors: E. Felemban, F. U. Rehman, A. Ahmad, M. Felemban
+    title: A Modelling and Scheduling Tool for Crowd Movement in Complex Network
+    venue: Intelligent Automation and Soft Computing
+    details: 31, no. 3, pp. 1361–1375
+    year: 2022
+    url: https://www.techscience.com/iasc/v31n3/44839
+
+  - authors: S. Umar, M. Felemban
+    title: Rule-Based Detection of False Data Injection Attacks against Optimal Power Flow in Power Systems
+    venue: Sensors
+    details: "21, no. 7: 2478, doi: 10.3390/s21072478"
+    year: 2021
+    url: https://www.mdpi.com/1424-8220/21/7/2478
+
+  - authors: Y. Javed, M. Felemban, T. Shawly, J. Kobes, A. Ghafoor
+    title: A Partition-Driven Integrated Security Architecture for Cyberphysical Systems
+    venue: Computer
+    details: vol. 53, no. 3, pp. 47–56
+    year: 2020
+
+  - authors: M. Felemban, E. Felemban, J. Kobes, A. Ghafoor
+    title: Threat Management in Data-centric IoT-Based Collaborative Systems
+    venue: ACM Transactions on Internet Technology (TOIT)
+    details: 19, no. 3, pp. 1–19
+    year: 2019
+    url: https://dl.acm.org/doi/abs/10.1145/3323232
+
+  - authors: A. Elgabli, M. Felemban, V. Aggarwal
+    title: "GroupCast: Preference-aware Cooperative Video Streaming with Scalable Video Coding"
+    venue: IEEE/ACM Transactions on Networking
+    details: 27, no. 3, pp. 1138–1150
+    year: 2019
+    url: https://ieeexplore.ieee.org/abstract/document/8705362/
+
+  - authors: A. Elgabli, M. Felemban, V. Aggarwal
+    title: "GiantClient: Video Hotspot for Multi-user Streaming"
+    venue: IEEE Transactions on Circuits and Systems for Video Technology
+    details: 29, no. 9, pp. 2833–2843
+    year: 2018
+    url: https://ieeexplore.ieee.org/abstract/document/8466907/
+
+  - authors: M. U. Arshad, M. Felemban, Z. Pervaiz, A. Ghafoor, W. G. Aref
+    title: A Privacy Mechanism for Access Controlled Graph Data
+    venue: IEEE Transactions on Dependable and Secure Computing
+    year: 2017
+    url: https://ieeexplore.ieee.org/abstract/document/7946157/
+
+  - authors: M. Ghaleb, E. Felemban, A. Sheikh, M. Felemban
+    title: Design and Performance Analysis of Underwater Acoustic Sensor Networks
+    venue: Journal of Computational and Theoretical Nanoscience
+    year: 2017
+
+  - authors: M. Felemban, S. Basalamah, A. Ghafoor
+    title: A Distributed Cloud Architecture for Mobile Multimedia Services
+    venue: IEEE Network
+    year: 2013
+    url: https://ieeexplore.ieee.org/abstract/document/6616111/
+
+conferences:
+  - authors: S. Umar, M. Felemban, Y. Osais
+    title: Advanced Persistent False Data Injection Attacks Against Optimal Power Flow in Power Systems
+    venue: International Wireless Communications and Mobile Computing (IWCMC)
+    details: "pp. 469–474, doi: 10.1109/IWCMC51323.2021.9498982"
+    year: 2021
+
+  - authors: A. Alghamdi, Y. Balah, M. Felemban, M. Albejadi
+    title: "BeeCast: A Collaborative Video Streaming System"
+    venue: MobiCom, Demo track
+    year: 2020
+    url: https://dl.acm.org/doi/10.1145/3372224.3417314
+
+  - authors: A. A. Sheikh, E. Felemban, M. Felemban, S. B. Qaisar
+    title: Challenges and Opportunities for Underwater Sensor Networks
+    venue: 12th International Conference on Innovations in Information Technology (IIT)
+    year: 2016
+
+  - authors: M. Felemban, B. Shihada, K. Jamshaid
+    title: Optimal Node Placement in Underwater Wireless Sensor Networks
+    venue: 27th IEEE International Conference on Advanced Information Networking and Applications (AINA)
+    year: 2013
+    url: http://ieeexplore.ieee.org/abstract/document/6531795/
+
+  - authors: M. Felemban, E. Felemban
+    title: Energy-delay Tradeoffs for Underwater Acoustic Sensor Networks
+    venue: First International Black Sea Conference on Communications and Networking (BlackSeaCom), IEEE
+    year: 2013
+    url: http://ieeexplore.ieee.org/abstract/document/6623379/
+
+theses:
+  - authors: M. Felemban
+    title: Design and Evaluation of Adaptive Intrusion Management Systems for Database Systems
+    venue: PhD Thesis, Purdue University
+    details: August 2018
+    year: 2018
+
+  - authors: M. Felemban
+    title: Optimal Node Placement in Underwater Acoustic Sensor Network
+    venue: MS Thesis, KAUST
+    year: 2011
+    url: http://repository.kaust.edu.sa/kaust/handle/10754/209373
+
+reports:
+  - authors: Y. Javed, M. Felemban, T. Shawly, J. Kobes, A. Ghafoor
+    title: A Partition-Driven Integrated Security Architecture for Cyber-Physical Systems
+    venue: "arXiv preprint arXiv:1901.03018"
+    year: 2019
+    url: https://arxiv.org/abs/1901.03018
+
+  - authors: M. Felemban, Y. Javed, J. Kobes, T. Qadah, A. Ghafoor, W. Aref
+    title: Design and Evaluation of a Data Partitioning-Based Intrusion Management Architecture for Database Systems
+    venue: "arXiv preprint arXiv:1809.10998v1"
+
+  - authors: A. Elgabli, M. Felemban, V. Aggarwal
+    title: "GroupCast: Preference-Aware Cooperative Video Streaming with Scalable Video Coding"
+    venue: "arXiv preprint arXiv:1809.10998v1"
+
+  - authors: A. Almutairi, M. Felemban, A. Ghafoor
+    title: Risk-Aware Sensitive Properties Driven Resource Management in Cloud Datacenter
+    venue: CERIAS Technical Report
+    year: 2015

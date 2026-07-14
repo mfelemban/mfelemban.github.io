@@ -1,0 +1,59 @@
+title: Muhamad Felemban
+description: >-
+  Assistant Professor of Computer Engineering and Information & Computer Science
+  at KFUPM, and Director of the Interdisciplinary Research Center for
+  Intelligent Secure Systems (IRC-ISS).
+url: "https://mfelemban.github.io"
+baseurl: ""
+
+profile:
+  name: Muhamad Felemban
+  photo: /assets/img/photo.jpg
+  email: mfelemban 'at' kfupm dot edu dot sa
+  positions:
+    - Director, IRC-ISS
+    - Assistant Professor
+  affiliations:
+    - Computer Engineering Department, KFUPM
+    - Information and Computer Science, KFUPM
+    - Interdisciplinary Research Center for Intelligent Secure Systems, KFUPM
+  office: 22 - 214
+  phone: 860-2940
+  teaching:
+    term: Spring 2025
+    courses:
+      - COE 530: Quantum Computer & Architecture
+
+# Author-name variants that get bolded automatically in publication lists.
+me: M. Felemban
+
+nav:
+  - title: Home
+    url: /
+  - title: Publications
+    url: /publications/
+  - title: Students
+    url: /students/
+  - title: Courses
+    url: /courses/
+  - title: Research
+    url: /research/
+  - title: Services
+    url: /services/
+
+links:
+  scholar: https://scholar.google.com/citations?user=ZyC2dJ8AAAAJ&hl=en
+  dblp: https://dblp.uni-trier.de/pers/hd/f/Felemban:Muhamad
+  pure: https://pure.kfupm.edu.sa/en/publications/?search=Muhamad+Felemban&pageSize=25&showAdvanced=false&allConcepts=true&inferConcepts=true&searchBy=PartOfNameOrTitle
+  irc_iss: https://ri.kfupm.edu.sa/iss
+  dssl: https://dssl-kfupm.github.io/
+
+markdown: kramdown
+permalink: pretty
+
+exclude:
+  - _legacy
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor

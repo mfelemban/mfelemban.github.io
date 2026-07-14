@@ -1,0 +1,437 @@
+/* Muhamad Felemban — site styles.
+   Replaces style.css, custom.css, publications.css, style_courses.css and
+   kfupm-bs-400.css. */
+
+:root {
+  --ink: #1c1c1c;
+  --muted: #6b6b6b;
+  --rule: #d9d9d9;
+  --accent: #12507a;
+  --accent-soft: #eef4f8;
+  --bg: #f4f4f2;
+  --panel: #ffffff;
+  --max: 1080px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: 0.5rem 0.75rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+}
+
+/* Page frame */
+
+.page {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 1rem 3rem;
+}
+
+/* Header */
+
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2rem;
+}
+
+.site-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 2rem 0 1.25rem;
+}
+
+.site-title h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.site-title h1 a {
+  color: var(--ink);
+}
+
+.site-title h1 a:hover {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.site-section {
+  margin: 0;
+  font-size: 1.25rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.site-section::before {
+  content: "/ ";
+}
+
+/* Nav */
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0.75rem;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding: 0.25rem 0;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom-color: var(--rule);
+}
+
+.site-nav a.current {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+.nav-external a {
+  font-weight: 400;
+}
+
+/* Body layout */
+
+.site-body.has-sidebar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 3rem;
+  align-items: start;
+}
+
+.content {
+  min-width: 0;
+}
+
+.content > :first-child {
+  margin-top: 0;
+}
+
+.content h2 {
+  margin: 2.25rem 0 0.75rem;
+  padding-bottom: 0.35rem;
+  font-size: 1.3rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.content p {
+  margin: 0 0 1rem;
+}
+
+.lede {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.subtle {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+/* Sidebar */
+
+.sidebar {
+  padding: 1.25rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  position: sticky;
+  top: 1rem;
+}
+
+.portrait {
+  display: block;
+  width: 100%;
+  max-width: 180px;
+  margin: 0 auto 1rem;
+  border-radius: 4px;
+}
+
+.sidebar h3 {
+  margin: 1.1rem 0 0.2rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sidebar h3:first-of-type {
+  margin-top: 0;
+}
+
+.sidebar p {
+  margin: 0;
+}
+
+/* News */
+
+.news {
+  margin: 0;
+}
+
+.news dt {
+  margin-top: 1.25rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+.news-note {
+  display: block;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.news dd {
+  margin: 0.25rem 0 0;
+  padding: 0 0 1.25rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.news dd:last-child {
+  border-bottom: 0;
+}
+
+/* Publications */
+
+.pub-list {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.pub {
+  margin-bottom: 0.9rem;
+}
+
+.pub-authors {
+  color: var(--ink);
+}
+
+.pub-venue {
+  color: var(--muted);
+}
+
+/* Tables */
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table.people {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+table.people th,
+table.people td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule);
+}
+
+table.people th {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+table.people tbody tr:hover {
+  background: var(--accent-soft);
+}
+
+/* Courses */
+
+.courses {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.courses > li {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.course-code {
+  margin: 0 0 0.35rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.05rem;
+}
+
+.course-title {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.terms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.terms li {
+  padding: 0.15rem 0.6rem;
+  background: var(--accent-soft);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* Research */
+
+.group-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 1.25rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+.thrusts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.thrusts li {
+  padding: 0.9rem;
+  text-align: center;
+  font-weight: 600;
+  background: var(--accent-soft);
+  border-radius: 6px;
+}
+
+.projects {
+  padding-left: 1.5rem;
+}
+
+.projects li {
+  margin-bottom: 0.75rem;
+}
+
+.project-meta {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Services */
+
+.talks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.talks li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.talk-title {
+  display: block;
+  font-weight: 600;
+}
+
+.talk-meta,
+.talk-media {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+/* Footer */
+
+.site-footer {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Small screens */
+
+@media (max-width: 800px) {
+  .site-body.has-sidebar {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .sidebar {
+    position: static;
+    order: -1;
+  }
+
+  .site-title h1 {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,79 @@
+﻿#content>.publication {
+	width: 100%;
+	padding-bottom: 0;
+	margin-bottom: 1em;
+	border-bottom: solid 1px;
+}
+
+#content>h1 {
+	width: 100%;
+	font-size: 1.2em;
+	padding: 0;
+	margin: 0;
+	margin-bottom: .2em;
+	font-weight: bold;
+	border-bottom: solid 2px;
+}
+
+.publication>.header {
+	padding-top: 0em;
+}
+
+.publication>.header>h1 {
+	padding: 0;
+	margin: 0;	
+	font-size: 1em;
+	font-weight: normal;
+}
+
+.publication>.header ul {
+	padding: 0;
+	margin: 0;
+	padding-left: 1em;
+	list-style: square;
+}
+.publication>.header li {
+	padding: 0;
+	margin: 0;
+	font-size: .8em;
+}
+
+.publication>.header li.acceptance {
+	font-style: italic;
+}
+
+.publication>.footer {
+}
+
+.publication>.footer>ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.publication>.footer>ul>li {
+	padding: 0;
+	margin: 0;
+	padding-right: 10px;
+	padding-left: 0px;
+	display: inline;
+	font-size: .8em;
+}
+
+/* Tweaks for selected publications on home page */
+
+.selectedpubs>.publication {
+	width: 100%;
+	padding-bottom: 0;
+	margin-bottom: 0.5em;
+	border-bottom: 0px;
+}
+
+.selectedpubs>.publication>.header li.acceptance {
+	font-style: italic;
+	display: none;
+}
+
+.selectedpubs>.publication>.footer {
+	display: none;
+}

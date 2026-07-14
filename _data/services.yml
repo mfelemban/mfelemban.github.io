@@ -1,0 +1,57 @@
+talks:
+  - title: "Blockchain: Fundamentals and Applications"
+    date: February 2020
+    venue: Wasla Tech @ Saudi Aramco EXPEC
+
+  - title: "Introduction to Cybersecurity: Workshop"
+    date: November 2019
+    venue: IEEE Saudi Arabia Section
+
+  - title: Adaptive Intrusion Management for Database Management Systems
+    date: May 2019
+    venue: KAUST
+
+  - title: Cybersecurity
+    date: April 2019
+    venue: Culture and Arts Association in Dammam
+    media:
+      - text: link1
+        url: https://www.okaz.com.sa/culture/na/1718661
+      - text: link2
+        url: http://www.alriyadh.com/1750924
+
+  - title: Data Driven Security
+    date: December 2018
+    venue: IEEE Saudi Arabia Section
+
+  - title: Machine Learning for Cyber Security
+    date: October 2018
+    venue: Wasla Tech @ Saudi Aramco EXPEC
+
+  - title: Adaptive Intrusion Management for Database Management Systems
+    date: November 2018
+    venue: COE Graduate Seminar Course, KFUPM
+
+  - title: Data Protection and Data Science
+    date: October 2018
+    venue: Sharqiya Data Geeks
+    url: https://www.youtube.com/watch?v=4NGm2iz1rNA
+
+committees:
+  - scope: Department Committees
+    items:
+      - Publicity committee
+      - Industrial Relations committee
+      - Research committee
+
+  - scope: College Committees
+    items:
+      - Teaching and Advising Award committee (Chair)
+      - Cybersecurity and Blockchain CX/MS committee
+
+  - scope: University Committees
+    items:
+      - Textbook committee
+      - Honors Program committee
+      - University Ranking committee
+      - Undergraduate Research committee

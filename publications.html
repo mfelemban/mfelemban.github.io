@@ -1,0 +1,40 @@
+---
+layout: default
+title: Publications
+permalink: /publications/
+---
+
+<p class="lede">
+  For a full record of publications:
+  [<a href="{{ site.links.scholar }}">Scholar</a>]
+  [<a href="{{ site.links.dblp }}">DBLP</a>]
+  [<a href="{{ site.links.pure }}">Pure</a>]
+</p>
+
+<h2>Journals</h2>
+<ol class="pub-list">
+  {% for pub in site.data.publications.journals %}
+    {% include publication.html pub=pub %}
+  {% endfor %}
+</ol>
+
+<h2>Conferences</h2>
+<ol class="pub-list">
+  {% for pub in site.data.publications.conferences %}
+    {% include publication.html pub=pub %}
+  {% endfor %}
+</ol>
+
+<h2>Theses</h2>
+<ol class="pub-list">
+  {% for pub in site.data.publications.theses %}
+    {% include publication.html pub=pub %}
+  {% endfor %}
+</ol>
+
+<h2>Technical Reports / arXiv Papers <span class="subtle">(non-peer reviewed)</span></h2>
+<ol class="pub-list">
+  {% for pub in site.data.publications.reports %}
+    {% include publication.html pub=pub %}
+  {% endfor %}
+</ol>

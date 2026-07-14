@@ -1,0 +1,260 @@
+﻿body {
+	margin: 0 0;
+	padding: 15px 0;
+	background-color: #888888;
+	font-family: helvetica;
+	font-size: 0.8em;
+	text-align: center;
+}
+
+
+.main_container {
+  height: 46px;
+  width: auto;
+  padding: 3px;
+  margin: 2px;
+  max-width: 300px;
+  background-color: #555555;
+  align-content: center;
+}
+.container_inner {
+  height: auto;
+  border: none;
+  background-color: #555555;
+  max-width: 290px;
+  vertical-align: center;
+  padding-top: 12px;
+  padding-left: 10px;
+  align-content: center;
+}
+ .num_tiles {
+  width:30px;
+  height: 30px;
+  background-color: #888888;
+  color: #ffffff;
+  font-size: 22px;
+  text-align: center;
+  line-height: 20px;
+  padding: 3px;
+  margin: 1.5px;
+  font-family: verdana;
+  vertical-align: center;
+}
+
+#content p {
+	margin: 0;
+	padding: 0;
+	padding-bottom: 1em;
+}
+
+body>div {
+	margin: 0 auto;
+	width: 792px;
+	padding: 15px 15px 15px 15px;
+	background-color: #444444;
+	text-align: left;
+}
+
+body>div>div.outer {
+	padding: 0px;
+	margin: 2px;
+	background-color: #FFFFFF;
+}
+
+div#header {
+	padding: 0;
+	margin: 0;
+	background-color: #FFFFFF;
+	vertical-align: center;
+	margin-bottom: 0;
+}
+
+#header h1 {
+	margin: 0;
+	padding: 10px;
+	font-size: 36px;
+	vertical-align: center;
+	width: 274px;
+	float: left;
+	text-align: center;
+}
+
+table{
+    table-layout: fixed;
+}
+
+td{
+    word-wrap:break-word
+}
+#header h2 {
+	margin: 0;
+	font-size: 36px;
+	padding: 10px;
+	width: 274px;
+	font-weight: normal;
+	position: relative;
+	vertical-align: center;
+	text-align: left;
+	float: left;
+}
+
+#rightbar {
+	position: relative;
+	float: right;
+	width: 198px; /* 4 extra px to account for width of borders */
+	border-left: 1px solid #888888;
+}
+
+.sidebox {
+	background-color: #FFFFFF;
+	font-weight: bold;
+	color: #888888;
+	font-size: 1em;
+	text-align: left;
+	padding: 15px 15px;
+	padding-left: 25px;
+	border-bottom: 1px solid #888888;
+}
+
+.sidebox img {
+	padding: 0;
+	margin: 0;
+	margin-left: -10px;
+	width: 167px;
+	border: 1px solid #888888;
+}
+
+.sidebox h3 {
+	color: black;
+	margin: 0;
+	margin-left: -10px;
+	padding: 0;
+	font-size: 1em;
+}
+
+.sidebox>ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.sidebox>ul>li {
+	padding-top: 10px;
+}
+
+.sidebox>ul>li>span {
+	display: block;
+	margin-left: -10px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+a {
+	color: #444444	;
+	text-decoration: none;
+}
+
+a:hover {
+	color: blue;
+}
+
+div#main {
+ word-wrap: normal;  
+}
+
+div#leftbar {
+	/* width should be 10.4 em. I switched it to 10.7 to account for the 3px border of the child box */
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+div#linkbar {
+}
+
+#linkbar>ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	width: 589px;
+	border-top: 1px solid #888888;
+}
+
+#linkbar ul li {
+	margin: 0;
+	font-size: 1.3em;
+	font-weight: bold;
+	float: left;
+	width: 117px;
+	border-left: 1px solid #888888;
+	border-bottom: 1px solid #888888;
+	text-align: center;
+}
+
+#linkbar ul li a {
+	width: 100%;
+	display: block;
+}
+
+#linkbar ul li a:hover {
+	background: #888888;
+	color: #FFFFFF;
+}
+
+#linkbar ul li:first-child {
+	padding-left: 0;
+	border-left: 0;
+}
+
+div#content {
+	float: left;
+	width: 549px;
+	margin-top: 0;
+	font-size: 1.2em;
+	padding: 20px;
+	 word-wrap: normal;  
+}
+
+#content a {
+	color: blue;
+}
+
+#content a:hover {
+	text-decoration: underline;
+}
+
+div#footer {
+	clear: both;
+	text-align: center;
+	color: #888888;
+}
+
+#content>ul {
+	margin: 0;
+	list-style: square;
+	margin-bottom: 1em;
+}
+
+#content li {
+	margin: 0;
+}
+
+#content>h1 {
+	font-size: 1.2em;
+	padding: 0;
+	margin: 0;
+}
+
+#content>h2 {
+	font-size: 1em;
+	padding: 0;
+	margin: 0;
+}
+
+#content .marquee {
+	margin-top: 0px;
+	margin-bottom: 5px;
+	padding: 5px;
+	font-size: .8em;
+	border: dashed 1px #888888;
+}

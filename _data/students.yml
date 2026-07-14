@@ -1,0 +1,97 @@
+graduate:
+  - name: Hind Baagel
+    dept: ICS, KFUPM
+    role: PhD, advisor
+    topic: PQC
+
+  - name: Eid Al-Dawsari
+    dept: ICS, KFUPM
+    role: MSc advisor
+    topic: Quantum Computing
+
+  - name: Maram Al-Qahtani
+    dept: ICS, KFUPM
+    role: MSc advisor
+    topic: Federated Unlearning
+
+  - name: Soha Sandoukah
+    dept: COE, KFUPM
+    role: PhD, advisor
+    topic: Secure and Privacy-Preserving FL using GAN
+
+  - name: Nourah Alotaibi
+    dept: ICS, KFUPM
+    role: PhD co-advisor
+    topic: LFAs on Federated Learning
+
+  - name: Mustafa Alghafli
+    dept: COE, KFUPM
+    role: MS Thesis, advisor
+    topic: Updatable Multi-party Private Set Intersection
+
+  - name: Abdulmumin Saad
+    dept: COE, KFUPM
+    role: MSc advisor
+    topic: Communication-Efficient FL for Personal Assistant Applications
+    year: 2024
+
+  - name: Shuroog Al-Ogbi
+    dept: COE, KFUPM
+    role: MSc advisor
+    topic: Accelerating Non-Linear PDEs using Quantum Computing
+    year: 2024
+
+  - name: Sani Umar
+    dept: COE, KFUPM
+    role: MS Thesis, advisor
+    topic: Cybersecurity of Power Grids
+    year: 2020
+
+  - name: Mohammad Alakhras
+    dept: COE, KFUPM
+    role: Directed research
+    topic: WSN Sink Node Anonymization Using Network Coding
+    year: 2020
+
+undergraduate:
+  - name: Mohammed Al-Bejadi
+    dept: COE, KFUPM
+    role: Undergraduate Research Advisor (graduated Fall 2019)
+    topic: Collaborative Video Streaming
+
+  - name: Asaad Alghamdi
+    dept: ICS, KFUPM
+    role: Undergraduate Research Advisor (graduated Spring 2020, now MS student at KAUST)
+    topic: Collaborative Video Streaming
+
+  - name: Abdulkarim Alaweet
+    dept: COE, KFUPM
+    role: Undergraduate Research Advisor (graduated Fall 2019, now at Saudi Aramco)
+    topic: File Fragment Classification Using Deep Learning
+
+  - name: Mohammad Khiami
+    dept: COE, KFUPM
+    role: Undergraduate Research Advisor (graduated Spring 2020)
+    topic: Write-Efficient LSM-based Merkle Tree
+
+  - name: Kunwar Saaim
+    dept: Aligarh Muslim University
+    role: Directed research
+    topic: File Fragment Classification Using Deep Learning
+
+  - name: Othman Kisha
+    dept: COE, KFUPM
+    role: Undergraduate Research Advisor
+    topic: Privacy Requirements for Contact Tracing Applications
+
+  - name: Khaled Alzahrani
+    dept: Physics, KFUPM
+    role: Undergraduate Research Advisor
+
+  - name: Khaled Albutainy
+    dept: COE, KFUPM
+    role: Undergraduate Research Advisor
+
+  - name: Khalid Alshehri
+    dept: MATH, KFUPM
+    role: Undergraduate Research Advisor

@@ -1,0 +1,32 @@
+---
+layout: default
+title: Services
+permalink: /services/
+---
+
+<h2>Invited Presentations</h2>
+<ul class="talks">
+  {% for t in site.data.services.talks %}
+    <li>
+      <span class="talk-title">
+        {% if t.url %}<a href="{{ t.url }}">&ldquo;{{ t.title }}&rdquo;</a>{% else %}&ldquo;{{ t.title }}&rdquo;{% endif %}
+      </span>
+      <span class="talk-meta">{{ t.date }}, {{ t.venue }}</span>
+      {% if t.media %}
+        <span class="talk-media">
+          (media:
+          {% for m in t.media %}<a href="{{ m.url }}">{{ m.text }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %})
+        </span>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+{% for c in site.data.services.committees %}
+  <h2>{{ c.scope }}</h2>
+  <ul>
+    {% for item in c.items %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+{% endfor %}

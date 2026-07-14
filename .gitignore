@@ -1,0 +1,11 @@
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+vendor/
+Gemfile.lock
+.DS_Store
+
+# Legacy Microsoft FrontPage metadata — kept on disk, not worth publishing
+_legacy/_vti_cnf/
+_legacy/_vti_pvt/

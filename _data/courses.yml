@@ -1,0 +1,89 @@
+# Courses taught. Each entry: code, title, terms (list).
+# A term may be a plain string, or {name: ..., url: ...} to link a course page.
+
+- code: SEC 595
+  title: Special Topics in Information Assurance and Security (Encrypted Computing)
+  terms:
+    - Fall 2024
+
+- code: COE 292
+  title: Introduction to AI
+  terms:
+    - Spring 2024
+    - Spring 2023
+
+- code: COE 530
+  title: Quantum Computer & Architecture
+  terms:
+    - Spring 2025
+    - Spring 2023
+    - Summer 2022
+    - Spring 2022
+    - Spring 2021
+
+- code: COE 531
+  title: Quantum Communication
+  terms:
+    - Spring 2024
+    - Summer 2022
+    - Summer 2021
+
+- code: COE 520
+  title: Queueing Theory and Network Applications
+  terms:
+    - Fall 2023
+    - Fall 2022
+
+- code: COE 523
+  title: Distributed Computing
+  terms:
+    - Fall 2021
+
+- code: COE 466
+  title: Quantum Architecture and Algorithms
+  terms:
+    - Fall 2024
+    - Fall 2020
+
+- code: COE 526
+  title: Data Privacy
+  terms:
+    - Fall 2020
+
+- code: COE 426
+  title: Data Privacy
+  terms:
+    - Fall 2022
+    - Fall 2020
+    - Fall 2019 (offered as COE 449, Special Topics — Privacy Enhancing Technology)
+
+- code: COE 497
+  title: Undergraduate Research Course
+  terms:
+    - Fall 2020
+    - Spring 2020
+    - Fall 2019
+
+- code: COE 445
+  title: Internet Information Services
+  terms:
+    - Spring 2020
+    - Spring 2019
+
+- code: COE 241
+  title: Data and Computer Communication
+  terms:
+    - Spring 2021
+
+- code: ISE 361
+  title: Fundamentals of Database Systems
+  terms:
+    - Spring 2019
+    - Fall 2018
+
+- code: ICS 103
+  title: Computer Programming
+  terms:
+    - Spring 2020
+    - Fall 2019
+    - Spring 2011
