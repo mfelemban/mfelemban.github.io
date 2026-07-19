@@ -35,7 +35,7 @@ permalink: /research/
   {% for p in site.data.research.research_projects %}
     <article class="project-card">
       <div class="project-card-figure">
-        <h3>{{ p.title }}</h3>
+        <h3>{{ p.title }}</h3><br>
         <img src="{{ p.image | relative_url }}" alt="{{ p.image_alt }}" loading="lazy">
       </div>
       <div class="project-card-body">
