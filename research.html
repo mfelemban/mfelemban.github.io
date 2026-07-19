@@ -36,9 +36,9 @@ permalink: /research/
     <article class="project-card">
       <div class="project-card-figure">
         <h3>{{ p.title }}</h3>
+        <img src="{{ p.image | relative_url }}" alt="{{ p.image_alt }}" loading="lazy">
       </div>
       <div class="project-card-body">
-        <img src="{{ p.image | relative_url }}" alt="{{ p.image_alt }}" loading="lazy">
         <p class="project-objective">{{ p.objective }}</p>
         <h4>Publications</h4>
         <ul class="project-papers">
