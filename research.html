@@ -21,7 +21,7 @@ permalink: /research/
   {% for g in site.data.research.grants %}
     <li>
       <span class="grant-title">
-        {% if g.url %}<a href="{{ g.url }}">{{ g.title }}</a>{% else %}{{ g.title }}{% endif %}
+        {% if g.url %}<a href="{{ g.url }}" width="400" height="600">{{ g.title }}</a>{% else %}{{ g.title }}{% endif %}
       </span>
       <span class="grant-meta">
         {{ g.role }}{% if g.amount %} · {{ g.amount }}{% endif %}{% if g.funder %} · {{ g.funder }}{% endif %}{% if g.period %} · {{ g.period }}{% endif %}
