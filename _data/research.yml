@@ -148,6 +148,62 @@ research_projects:
     collaborators:
       - Muhammad Alsaiyari (Saudi Aramco)
 
+  - title: Post-Quantum Cryptography
+    image: /assets/img/projects/post-quantum-cryptography.png
+    image_alt: Updatable encryption illustration showing a ciphertext re-encrypted from an old key to new keys via update tokens without decryption
+    objective: >-
+      Large-scale quantum computers will break the public-key cryptosystems that
+      secure today's communications, so this project designs cryptographic schemes
+      that remain secure against quantum adversaries. ISNR-PQC, a lattice-based
+      noise-resilient primitive built on the Learning with Errors assumption and
+      NIST FIPS 203, derives reliable cryptographic keys from inherently noisy
+      sources such as biometric measurements. Companion work studies the homomorphic
+      properties of the Kyber and Classic-McEliece KEMs and applies them to
+      post-quantum private set intersection, and proposes a lightweight key
+      encapsulation mechanism based on the Q-problem, a new quantum-resistant
+      hardness assumption. On the key-management side, the project develops an
+      unbounded-depth ElGamal-based asymmetric updatable encryption scheme that
+      rotates keys without ever decrypting the data, along with an encrypted and
+      signed plaintext symmetric cryptosystem that provides confidentiality and
+      authenticity in one construction.
+    papers:
+      - title: 'ISNR-PQC: Isometry Noise Resilience Post Quantum Cryptography Primitive'
+        authors: A. A. Al-Saggaf, M. Felemban
+        venue: Scientific Reports
+        year: 2026
+        url: https://doi.org/10.1038/s41598-026-59117-2
+      - title: On the Homomorphic Properties of Kyber and McEliece with Application to Post-Quantum Private Set Intersection
+        authors: A. A. Abudaqa, K. Alshehri, M. Felemban
+        venue: Cryptography
+        year: 2025
+        url: https://doi.org/10.3390/cryptography9040066
+      - title: Lightweight and Efficient Post Quantum Key Encapsulation Mechanism Based on Q-Problem
+        authors: M. Kara, K. Karampidis, S. Panagiotakis, M. Hammoudeh, M. Felemban, G. Papadourakis
+        venue: Electronics
+        year: 2025
+        url: https://doi.org/10.3390/electronics14040728
+      - title: Unbounded Depth ElGamal-Based Asymmetric Updatable Encryption Technique
+        authors: M. Kara, A. Boukrara, M. Hammoudeh, M. Felemban, S. Guediri
+        venue: IEEE Open Journal of the Computer Society
+        year: 2025
+        url: https://doi.org/10.1109/ojcs.2025.3551877
+      - title: An Encrypted and Signed Plaintext Symmetric Cryptosystem
+        authors: M. Kara, M. Hammoudeh, M. Felemban, K. Karampidis
+        venue: Computers and Electrical Engineering
+        year: 2025
+        url: https://doi.org/10.1016/j.compeleceng.2025.110244
+    collaborators:
+      - Alawi Al-Saggaf
+      - Mostefa Kara
+      - Mohammad Hammoudeh
+      - Anas Abudaqa
+      - Khaled Alshehri
+      - Konstantinos Karampidis
+      - Spyros Panagiotakis
+      - Giorgos Papadourakis
+      - Ammar Boukrara
+      - Samir Guediri
+
 projects:
   - title: "BeeCast: Design and Implementation of Device-to-Device Collaborative Video Streaming System"
     funder: Undergraduate Research, KFUPM
