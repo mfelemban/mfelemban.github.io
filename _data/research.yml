@@ -42,6 +42,112 @@ grants:
     funder: DSR, KFUPM
     period: 2020–2021
 
+# Active research projects, rendered as cards on /research/.
+# One entry per subfolder of the "Research Projects" folder.
+research_projects:
+  - title: Federated Learning Security and Privacy
+    image: /assets/img/projects/federated-learning-security-privacy.png
+    image_alt: Client-edge-cloud federated learning architecture showing data collection, local training, edge and cloud model aggregation
+    objective: >-
+      Federated learning keeps raw data on client devices, yet the model updates it
+      exchanges remain an attack surface. This project studies both sides of that
+      surface. On the robustness side, it develops edge-assisted frameworks for early
+      detection of label-flipping (data-poisoning) attacks in client-edge-cloud
+      architectures, including explainable-AI techniques that combine Grad-CAM with
+      clustering to expose malicious client updates, together with mitigation
+      strategies that exclude or mask poisoned gradients. On the privacy side, FedGB,
+      a generator-based federated learning framework built on conditional GANs, shares
+      only the generator with the server to defend against gradient reconstruction
+      attacks while maintaining competitive accuracy.
+    papers:
+      - title: Edge-Assisted Label-Flipping Attack Detection in Federated Learning
+        authors: N. S. AlOtaibi, M. Felemban, S. Mahmood
+        venue: IEEE Open Journal of the Communications Society
+        year: 2024
+        url: https://doi.org/10.1109/ojcoms.2024.3496872
+      - title: Edge-Based Detection of Label Flipping Attacks in Federated Learning Using Explainable AI
+        authors: N. S. AlOtaibi, M. Felemban, S. Mahmood
+        venue: IEEE/ACM International Workshop on Software Vulnerability Management (SVM)
+        year: 2025
+        url: https://doi.org/10.1109/SVM66695.2025.00005
+      - title: 'FedGB: A Generator-Based Federated Learning Against Reconstruction Attacks'
+        authors: S. Sandouka, M. Felemban
+        venue: IEEE Open Journal of the Computer Society
+        year: 2026
+        url: https://doi.org/10.1109/OJCS.2026.3700901
+    students:
+      - Nourah AlOtaibi (PhD)
+      - Soha Sandouka (PhD)
+    collaborators:
+      - Sajjad Mahmood
+
+  - title: Federated Learning Applications
+    image: /assets/img/projects/federated-learning-applications.png
+    image_alt: CEFEEL framework diagram showing on-device training of a personal assistant model and aggregation on a remote server
+    objective: >-
+      This project brings federated and deep learning to real applications where data
+      is sensitive and compute is constrained. CEFEEL, a communication-efficient
+      federated learning framework for smartphone personal assistants, freezes model
+      parameters that converge early to cut communication and computation without
+      sacrificing accuracy. Companion efforts apply the same efficiency lens to other
+      domains: light-weight file-fragment classifiers built on depthwise separable
+      convolutions enable real-time file carving in digital forensics, and a
+      multi-stage learning framework detects both known and novel (zero-day) attacks
+      in Internet of Medical Things networks with an explicit reject option for
+      unseen behavior.
+    papers:
+      - title: 'CEFEEL: Communication-Efficient Federated Learning for Personal Assistant Applications'
+        authors: A. Sa'ad, M. Felemban, A. Tabbakh
+        venue: IEEE Open Journal of the Computer Society
+        year: 2025
+        url: https://doi.org/10.1109/ojcs.2025.3624806
+      - title: A Multi-Stage Learning Framework for Detecting Known and Novel Attacks in the Internet of Medical Things
+        authors: R. Alfageer, M. Ghaleb, W. Aljoby, M. Felemban
+        venue: IEEE Access
+        year: 2026
+        url: https://doi.org/10.1109/access.2026.3677553
+      - title: File Fragment Type Classification using Light-Weight Convolutional Neural Networks
+        authors: M. Felemban, M. Ghaleb, K. Saaim, S. Al-Saleh, A. Almulhem
+        venue: IEEE Access
+        year: 2024
+        url: https://doi.org/10.1109/access.2024.3486180
+      - title: Lightweight File Fragments Classification using Depthwise Separable Convolution
+        authors: K. Saaim, M. Felemban, S. Al-Saleh, A. Al-Mulhem
+        venue: 37th International Conference on ICT Systems Security and Privacy Protection (IFIP SEC)
+        year: 2022
+        url: https://link.springer.com/chapter/10.1007/978-3-031-06975-8_12
+    students:
+      - Abdulmumin Sa'ad (MSc)
+      - Razan Alfageer (MSc)
+      - Kunwar Saaim
+    collaborators:
+      - Abdulaziz Tabbakh
+      - Mustafa Ghaleb
+      - Walid Aljoby
+      - Saleh Al-Saleh
+      - Ahmad Almulhem
+
+  - title: Quantum Algorithms and Applications
+    image: /assets/img/projects/quantum-algorithms-applications.png
+    image_alt: Variational quantum algorithm loop with a parameterized quantum circuit, measurement apparatus, and classical parameter updates
+    objective: >-
+      This project investigates what near-term quantum computers can contribute to
+      computationally hard, industrially relevant problems. It evaluates variational
+      quantum algorithms — the Variational Quantum Eigensolver (VQE) and the Quantum
+      Approximate Optimization Algorithm (QAOA) — on combinatorial optimization tasks
+      such as the vehicle routing problem, characterizing the practical limits of
+      today's NISQ devices against classical optimizers. Building on funded work with
+      Saudi Aramco, the group is extending quantum algorithm design and emulation to
+      reservoir simulation and seismic-wave modeling.
+    papers:
+      - title: Variational Quantum Algorithms for Solving Vehicle Routing Problem
+        authors: M. Alsaiyari, M. Felemban
+        venue: International Conference on Smart Computing and Application (ICSCA)
+        year: 2023
+        url: https://doi.org/10.1109/ICSCA57840.2023.10087522
+    collaborators:
+      - Muhammad Alsaiyari (Saudi Aramco)
+
 projects:
   - title: "BeeCast: Design and Implementation of Device-to-Device Collaborative Video Streaming System"
     funder: Undergraduate Research, KFUPM

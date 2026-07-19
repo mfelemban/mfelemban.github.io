@@ -53,6 +53,12 @@ journals:
   year: 2025
   url: https://doi.org/10.1109/ojcs.2025.3624806
   doi: 10.1109/ojcs.2025.3624806
+- authors: N. S. AlOtaibi, M. Felemban, S. Mahmood
+  title: Edge-Based Detection of Label Flipping Attacks in Federated Learning Using Explainable AI
+  venue: IEEE/ACM 3rd International Workshop on Software Vulnerability Management (SVM)
+  year: 2025
+  url: https://doi.org/10.1109/SVM66695.2025.00005
+  doi: 10.1109/SVM66695.2025.00005
 - authors: A. A. Abudaqa, K. Alshehri, M. Felemban
   title: On the Homomorphic Properties of Kyber and McEliece with Application to Post-Quantum Private
     Set Intersection

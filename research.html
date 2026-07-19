@@ -30,6 +30,35 @@ permalink: /research/
   {% endfor %}
 </ul>
 
+<h2>Research Projects</h2>
+<div class="project-cards">
+  {% for p in site.data.research.research_projects %}
+    <article class="project-card">
+      <div class="project-card-figure">
+        <img src="{{ p.image | relative_url }}" alt="{{ p.image_alt }}" loading="lazy">
+      </div>
+      <div class="project-card-body">
+        <h3>{{ p.title }}</h3>
+        <p class="project-objective">{{ p.objective }}</p>
+        <h4>Publications</h4>
+        <ul class="project-papers">
+          {% for paper in p.papers %}
+            <li>
+              <a href="{{ paper.url }}">{{ paper.title }}</a>
+              <span class="paper-meta">{{ paper.authors }} · {{ paper.venue }}, {{ paper.year }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <p class="project-people">
+          {% if p.students %}<strong>Students:</strong> {{ p.students | join: ", " }}{% endif %}
+          {% if p.students and p.collaborators %}<br>{% endif %}
+          {% if p.collaborators %}<strong>Collaborators:</strong> {{ p.collaborators | join: ", " }}{% endif %}
+        </p>
+      </div>
+    </article>
+  {% endfor %}
+</div>
+
 <h2>Previous Projects</h2>
 <ol class="projects">
   {% for p in site.data.research.projects %}

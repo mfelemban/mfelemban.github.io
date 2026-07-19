@@ -58,6 +58,7 @@ permalink: pretty
 
 exclude:
   - _legacy
+  - Research Projects
   - README.md
   - Gemfile
   - Gemfile.lock

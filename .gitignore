@@ -3,8 +3,12 @@ _site/
 .jekyll-metadata
 .sass-cache/
 vendor/
+.bundle/
 Gemfile.lock
 .DS_Store
+
+# Source PDFs for project cards — not published
+Research Projects/
 
 # Legacy Microsoft FrontPage metadata — kept on disk, not worth publishing
 _legacy/_vti_cnf/
