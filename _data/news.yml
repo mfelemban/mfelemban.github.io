@@ -1,12 +1,12 @@
 # Latest news. Newest first. Each entry: date + body (HTML allowed).
 
 - date: August 2026
-  note: GTalk 
+  note: GTalk, Saudi Aramco
   body: >-
     Dr. Felemban delivered a talk titled "Solving PDEs Using Quantum Computing" to GTalk Session in Saudi Aramco. 
 
 - date: August 2026
-  note: QTalk 
+  note: QTalk, QSaudi 
   body: >-
     Dr. Felemban delivered a talk titled "Solving PDEs Using Quantum Computing" to QSaudi Arabia. 
     
