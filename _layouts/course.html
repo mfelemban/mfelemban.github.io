@@ -1,0 +1,124 @@
+---
+layout: default
+---
+{% comment %}
+  Course page. Content comes from _data/teaching/<page.course>.yml.
+  Lecture file paths are relative to the course's `materials` folder.
+{% endcomment %}
+{% assign c = site.data.teaching[page.course] %}
+
+<p class="course-heading">
+  <span class="course-heading-code">{{ c.code }}</span>
+  {{ c.title }}
+  <span class="subtle">{{ c.term }} · {{ c.department }}</span>
+</p>
+
+<h2>Course Information</h2>
+<dl class="course-info">
+  {% for i in c.info %}
+    <dt>{{ i.label }}</dt>
+    <dd>{{ i.value }}</dd>
+  {% endfor %}
+  <dt>Syllabus</dt>
+  <dd><a href="{{ c.syllabus | uri_escape | relative_url }}">Download (PDF)</a></dd>
+</dl>
+
+<h3>Description</h3>
+<p>{{ c.description }}</p>
+
+<h3>Objectives</h3>
+<ul>
+  {% for o in c.objectives %}<li>{{ o }}</li>{% endfor %}
+</ul>
+
+<h3>Learning Outcomes</h3>
+<p>After taking this course, students will have the ability to:</p>
+<ol>
+  {% for o in c.outcomes %}<li>{{ o }}</li>{% endfor %}
+</ol>
+
+<h3>Evaluation</h3>
+<div class="table-wrap">
+  <table class="people evaluation">
+    <tbody>
+      {% for e in c.evaluation %}
+        <tr><td>{{ e.item }}</td><td>{{ e.weight }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if c.projects %}
+  <h3>Suggested Projects</h3>
+  {% for p in c.projects %}
+    <p class="course-subhead">{{ p.title }}</p>
+    <ul>
+      {% for i in p.items %}<li>{{ i }}</li>{% endfor %}
+    </ul>
+  {% endfor %}
+{% endif %}
+
+<h2>Lectures</h2>
+{% for t in c.topics %}
+  <h3>{{ t.title }}</h3>
+  <div class="table-wrap">
+    <table class="people lectures">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Lecture</th>
+          {% unless c.no_handouts %}<th>Handout</th>{% endunless %}
+          <th>Slides</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for l in t.lectures %}
+          <tr>
+            <td>{{ l.n | default: "—" }}</td>
+            <td>
+              {{ l.title }}
+              {% for x in l.extras %}
+                <span class="lecture-extra">
+                  Supplement: <a href="{{ c.materials | append: '/' | append: x.url | uri_escape | relative_url }}">{{ x.title }}</a>
+                </span>
+              {% endfor %}
+            </td>
+            {% unless c.no_handouts %}<td>
+              {% if l.handout %}<a href="{{ c.materials | append: '/' | append: l.handout | uri_escape | relative_url }}">PDF</a>{% else %}—{% endif %}
+            </td>{% endunless %}
+            <td>
+              {% if l.slides %}<a href="{{ c.materials | append: '/' | append: l.slides | uri_escape | relative_url }}">PDF</a>{% else %}—{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endfor %}
+
+{% if c.references %}
+  <h2>Textbooks and References</h2>
+  <ol>
+    {% for r in c.references %}
+      <li>{% if r.url %}<a href="{{ r.url }}">{{ r.title }}</a>{% else %}{{ r.title }}{% endif %}</li>
+    {% endfor %}
+  </ol>
+{% endif %}
+
+{% if c.papers %}
+  <h3>Papers</h3>
+  <ol class="course-papers">
+    {% for r in c.papers %}
+      <li><a href="{{ r.url }}">{{ r.title }}</a></li>
+    {% endfor %}
+  </ol>
+{% endif %}
+
+{% if c.links %}
+  <h3>Libraries and Useful Links</h3>
+  <ul class="course-links">
+    {% for r in c.links %}
+      <li><a href="{{ r.url }}">{{ r.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endif %}

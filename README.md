@@ -13,6 +13,7 @@ You should almost never need to touch HTML. All content lives in `_data/`:
 | Papers, theses, tech reports  | `_data/publications.yml`|
 | Students                      | `_data/students.yml`    |
 | Courses and terms taught      | `_data/courses.yml`     |
+| A course page (info + lectures) | `_data/teaching/<course>.yml` |
 | Research thrusts and projects | `_data/research.yml`    |
 | Talks and committees          | `_data/services.yml`    |
 | Photo, email, office, phone, "currently teaching" | `_config.yml` (`profile:`) |

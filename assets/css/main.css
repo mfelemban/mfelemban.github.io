@@ -400,6 +400,91 @@ table.people tbody tr:hover {
   color: var(--muted);
 }
 
+/* Course pages */
+
+.course-heading {
+  font-size: 1.35rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.course-heading-code {
+  color: var(--accent);
+  margin-right: 0.35rem;
+}
+
+.course-heading .subtle {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.content h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.course-info {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1.25rem;
+  margin: 0 0 1rem;
+}
+
+.course-info dt {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.course-info dd {
+  margin: 0;
+}
+
+.course-subhead {
+  margin: 0.75rem 0 0.25rem !important;
+  font-weight: 600;
+}
+
+table.evaluation {
+  width: auto;
+  min-width: 18rem;
+}
+
+table.evaluation td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+table.lectures td:first-child,
+table.lectures th:first-child {
+  width: 2.5rem;
+  color: var(--muted);
+}
+
+table.lectures td:nth-child(n+3) {
+  width: 5.5rem;
+  white-space: nowrap;
+}
+
+.lecture-extra {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.course-links {
+  columns: 2 16rem;
+}
+
+@media (max-width: 500px) {
+  .course-info {
+    grid-template-columns: 1fr;
+  }
+
+  .course-info dd {
+    margin-bottom: 0.5rem;
+  }
+}
+
 /* Research */
 
 .group-name {

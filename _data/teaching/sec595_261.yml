@@ -1,0 +1,263 @@
+# SEC 595 — Fall 2026 (Term 261). Rendered by _layouts/course.html.
+# Each lecture may have: n, title, handout, slides, extras (list of {title, url}).
+
+code: SEC 595
+title: Secure Computation and Post-Quantum Cryptography
+term: Fall 2026 (Term 261)
+department: Information and Computer Science Department
+syllabus: /files/SEC595-261/SEC 595 Syllabus.pdf
+
+info:
+  - label: Lectures
+    value: Sunday & Tuesday, 8:10–9:25 PM
+  - label: Location
+    value: Building 24-137
+  - label: Prerequisites
+    value: Graduate standing
+
+description: >-
+  Mathematical foundations: algebraic structures, hardness assumptions, and
+  lattice primitives (LWE/RLWE). Lattice-based post-quantum cryptography: key
+  encapsulation mechanisms, digital signatures. Homomorphic encryption: partial
+  (PHE), leveled (LHE), and fully homomorphic encryption (FHE); bootstrapping;
+  BGV, BFV, and CKKS schemes; noise management, packing, and rescaling. Secure
+  computation: secret sharing, oblivious transfer, garbled circuits and Yao's
+  protocol. Zero-knowledge proofs. Applications: privacy-preserving machine
+  learning.
+
+objectives:
+  - Introduce the students to the emerging field of encrypted computing.
+  - Expose students to the state-of-the-art algorithms in homomorphic encryption and secure multiparty computation.
+
+outcomes:
+  - Explain various encrypted computing techniques and algorithms.
+  - Identify the advantages and challenges of different encrypted computing algorithms.
+  - Apply appropriate encrypted computing techniques based on the application's requirements.
+  - Design new encrypted computing techniques and protocols.
+
+evaluation:
+  - item: Paper Presentation
+    weight: 10%
+  - item: Project
+    weight: 50%
+  - item: Midterm Exam
+    weight: 20%
+  - item: Final Exam
+    weight: 20%
+
+references:
+  - title: "K. Chen, Q. Yang. Privacy-Preserving Computing: For Big Data Analytics and AI. Cambridge University Press, 2023."
+  - title: "D. Boneh, V. Shoup. A Graduate Course in Applied Cryptography."
+    url: https://toc.cryptobook.us/
+  - title: "D. Evans, V. Kolesnikov, M. Rosulek. A Pragmatic Introduction to Secure Multi-Party Computation."
+    url: https://securecomputation.org/docs/pragmaticmpc.pdf
+  - title: "J. Katz, Y. Lindell. Introduction to Modern Cryptography, 3rd ed. CRC Press, 2021."
+  - title: "D. J. Bernstein, J. Buchmann, E. Dahmen (eds.). Post-Quantum Cryptography. Springer, 2009."
+  - title: "R. Cramer, I. Damgård, J. B. Nielsen. Secure Multiparty Computation and Secret Sharing. Cambridge University Press, 2015."
+  - title: "J. Thaler. Proofs, Arguments, and Zero-Knowledge. 2022."
+    url: https://people.cs.georgetown.edu/jthaler/ProofsArgsAndZK.pdf
+  - title: "C. Dwork, A. Roth. The Algorithmic Foundations of Differential Privacy. 2014."
+    url: https://www.cis.upenn.edu/~aaron/privacybook.pdf
+
+papers:
+  - title: Computing Arbitrary Functions of Encrypted Data
+    url: https://people.csail.mit.edu/vinodv/6892-Fall2013/GentryCACM.pdf
+  - title: On Lattices, Learning with Errors, Random Linear Codes, and Cryptography
+    url: https://people.csail.mit.edu/vinodv/6892-Fall2013/regev.pdf
+  - title: The Learning with Errors Problem
+    url: https://people.csail.mit.edu/vinodv/6892-Fall2013/lwesurvey.pdf
+  - title: Homomorphic Encryption for Arithmetic of Approximate Numbers
+    url: https://eprint.iacr.org/2016/421.pdf
+  - title: Craig Gentry's PhD thesis
+    url: https://crypto.stanford.edu/craig/craig-thesis.pdf
+  - title: (Leveled) Fully Homomorphic Encryption without Bootstrapping
+    url: https://people.csail.mit.edu/vinodv/6892-Fall2013/BGV.pdf
+  - title: Fully Homomorphic Encryption (lecture notes, B. Barak)
+    url: https://files.boazbarak.org/crypto/lec_15_FHE.pdf
+  - title: On Ideal Lattices and Learning with Errors over Rings
+    url: https://eprint.iacr.org/2012/230.pdf
+  - title: "CRYSTALS-Kyber: A CCA-Secure Module-Lattice-Based KEM"
+    url: https://eprint.iacr.org/2017/634.pdf
+  - title: "CRYSTALS-Dilithium: A Lattice-Based Digital Signature Scheme"
+    url: https://eprint.iacr.org/2017/633.pdf
+  - title: "Falcon: Fast-Fourier Lattice-Based Compact Signatures over NTRU"
+    url: https://falcon-sign.info/falcon.pdf
+  - title: NIST FIPS 203/204/205 — PQC standards
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+  - title: How to Share a Secret (Shamir, 1979)
+    url: https://dl.acm.org/doi/10.1145/359168.359176
+  - title: Foundations of Garbled Circuits
+    url: https://eprint.iacr.org/2012/265.pdf
+  - title: Extending Oblivious Transfers Efficiently (IKNP OT extension)
+    url: https://www.iacr.org/archive/crypto2003/27290145/27290145.pdf
+  - title: On the Size of Pairing-Based Non-Interactive Arguments (Groth16)
+    url: https://eprint.iacr.org/2016/260.pdf
+  - title: Fast Reed-Solomon Interactive Oracle Proofs of Proximity (STARKs)
+    url: https://eprint.iacr.org/2018/046.pdf
+  - title: "PLONK: Permutations over Lagrange-bases for Oecumenical Noninteractive Arguments of Knowledge"
+    url: https://eprint.iacr.org/2019/953.pdf
+  - title: "GAZELLE: A Low Latency Framework for Secure Neural Network Inference"
+    url: https://eprint.iacr.org/2018/073.pdf
+
+links:
+  - title: OpenMined — Private ML explained
+    url: https://blog.openmined.org/private-machine-learning-explained/
+  - title: Awesome HE
+    url: https://github.com/jonaschn/awesome-he
+  - title: HElib
+    url: https://github.com/shaih/HElib
+  - title: Microsoft SEAL
+    url: https://www.microsoft.com/en-us/research/project/microsoft-seal/
+  - title: MIT FHE reference list
+    url: https://people.csail.mit.edu/vinodv/FHE/FHE-refs.html
+  - title: OpenFHE
+    url: https://www.openfhe.org/
+  - title: Lattigo
+    url: https://github.com/tuneinsight/lattigo
+  - title: TFHE-rs
+    url: https://github.com/zama-ai/tfhe-rs
+  - title: Concrete ML
+    url: https://github.com/zama-ai/concrete-ml
+  - title: HomomorphicEncryption.org
+    url: https://homomorphicencryption.org/
+  - title: MP-SPDZ
+    url: https://github.com/data61/MP-SPDZ
+  - title: EMP-toolkit
+    url: https://github.com/emp-toolkit
+  - title: Awesome MPC
+    url: https://github.com/rdragos/awesome-mpc
+  - title: Circom
+    url: https://docs.circom.io/
+  - title: halo2
+    url: https://zcash.github.io/halo2/
+  - title: gnark
+    url: https://github.com/Consensys/gnark
+  - title: Awesome Zero-Knowledge Proofs
+    url: https://github.com/matter-labs/awesome-zero-knowledge-proofs
+  - title: ZKProof
+    url: https://zkproof.org/
+  - title: NIST Post-Quantum Cryptography
+    url: https://csrc.nist.gov/projects/post-quantum-cryptography
+  - title: Open Quantum Safe / liboqs
+    url: https://openquantumsafe.org/
+  - title: OpenDP
+    url: https://opendp.org/
+
+materials: /files/SEC595-261
+
+topics:
+  - title: Introduction
+    lectures:
+      - title: Course introduction and overview
+        slides: Slides/SEC595-Introduction.pdf
+
+  - title: Mathematical Foundations
+    lectures:
+      - n: 1
+        title: Z<sub>q</sub>, Groups, and the Arithmetic of Scaling
+        handout: Handouts/SEC595-L1.pdf
+        slides: Slides/SEC595-L1-Slides.pdf
+        extras:
+          - title: CRT example
+            url: Handouts/SEC595-L1-CRT Example.pdf
+      - n: 2
+        title: "Polynomials over Finite Fields: Interpolation, Identity Testing, and the NTT"
+        handout: Handouts/SEC595-L2.pdf
+        slides: Slides/SEC595-L2-Slides.pdf
+        extras:
+          - title: Primitive roots of unity
+            url: Handouts/SEC595-L2-Root of unity.pdf
+      - n: 3
+        title: "The Ring R<sub>q</sub>: Structure and Fast Arithmetic"
+        handout: Handouts/SEC595-L3.pdf
+        slides: Slides/SEC595-L3-Slides.pdf
+        extras:
+          - title: NTT examples
+            url: Handouts/SEC595-L3-NTT Examples.pdf
+      - n: 4
+        title: "R<sub>q</sub>: Decompositions, Automorphisms, and Embeddings"
+        handout: Handouts/SEC595-L4.pdf
+        slides: Slides/SEC595-L4-Slides.pdf
+      - n: 5
+        title: "Lattices: Geometry, Hardness, and Reductions"
+        handout: Handouts/SEC595-L5-Lattices_updated.pdf
+        slides: Slides/SEC595-L5-Slides_updated.pdf
+      - n: 6
+        title: "Noise and Hardness: Distributions and the LWE Family"
+        handout: Handouts/SEC595-L6.pdf
+        slides: Slides/SEC595-L6-Slides.pdf
+      - n: 7
+        title: Lattices, LWE, and Regev's Cryptosystem
+        handout: Handouts/SEC595-L7.pdf
+        slides: Slides/SEC595-L7-Slides.pdf
+
+  - title: Homomorphic Encryption
+    lectures:
+      - n: 8
+        title: "Homomorphic Encryption: Definitions and First Examples"
+        handout: Handouts/SEC595-L8.pdf
+        slides: Slides/SEC595-L8-Slides.pdf
+      - n: 9
+        title: Bilinear Groups and BGN
+        handout: Handouts/SEC595-L9.pdf
+        slides: Slides/SEC595-L9-Slides.pdf
+      - n: 10
+        title: The BFV Scheme
+        handout: Handouts/SEC595-L10.pdf
+        slides: Slides/SEC595-L10-Slides.pdf
+      - n: 11
+        title: The BGV Scheme
+        handout: Handouts/SEC595-L11.pdf
+        slides: Slides/SEC595-L11-Slides.pdf
+      - n: 12
+        title: "The CKKS Scheme: Approximate Arithmetic"
+        handout: Handouts/SEC595-L12.pdf
+        slides: Slides/SEC595-L12-Slides.pdf
+      - n: 13
+        title: The GSW Scheme
+        handout: Handouts/SEC595-L13.pdf
+        slides: Slides/SEC595-L13-Slides.pdf
+      - n: 14
+        title: Bootstrapping
+        handout: Handouts/SEC595-L14.pdf
+        slides: Slides/SEC595-L14-Slides.pdf
+      - n: 15
+        title: Bootstrapping GSW and TFHE
+        handout: Handouts/SEC595-L15.pdf
+        slides: Slides/SEC595-L15-Slides.pdf
+
+  - title: Post-Quantum Cryptography
+    lectures:
+      - n: 16
+        title: The Families of Post-Quantum Cryptography
+        handout: Handouts/SEC595-L16.pdf
+        slides: Slides/SEC595-L16-Slides.pdf
+      - n: 17
+        title: ML-KEM (FIPS 203)
+        handout: Handouts/SEC595-L17.pdf
+        slides: Slides/SEC595-L17-Slides.pdf
+      - n: 18
+        title: ML-DSA (FIPS 204)
+        handout: Handouts/SEC595-L18.pdf
+        slides: Slides/SEC595-L18-Slides.pdf
+
+  - title: Secret Sharing and Secure Computation
+    lectures:
+      - n: 19
+        title: "Secret Sharing: Access Structures"
+        handout: Handouts/SEC595-L19.pdf
+        slides: Slides/SEC595-L19-Slides.pdf
+      - n: 20
+        title: "Secret Sharing Schemes: Shamir, CRT, and Brickell"
+        handout: Handouts/SEC595-L20.pdf
+        slides: Slides/SEC595-L20-Slides.pdf
+      - n: 21
+        title: "Secure Computation: Oblivious Transfer, Garbled Circuits, and PSI"
+        handout: Handouts/SEC595-L21.pdf
+
+  - title: Zero-Knowledge Proofs
+    lectures:
+      - n: 22
+        title: "Zero-Knowledge Proofs: Sigma Protocols, Fiat–Shamir, SNARKs and STARKs"
+        handout: Handouts/SEC595-L22.pdf
+        slides: Slides/SEC595-L22-Slides.pdf

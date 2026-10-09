@@ -1,0 +1,130 @@
+# COE 531 — Fall 2026 (Term 261). Rendered by _layouts/course.html.
+# Each lecture may have: n, title, handout, slides, extras (list of {title, url}).
+
+code: COE 531
+title: Advanced Quantum Computing and Communication
+term: Fall 2026 (Term 261)
+department: Computer Engineering Department
+syllabus: /files/COE531-261/COE 531 Syllabus.pdf
+
+info:
+  - label: Lectures
+    value: Monday & Wednesday, 8:10–9:25 PM
+  - label: Office hours
+    value: Monday & Wednesday, 9:30–10:30 PM on Teams (or message me on Teams)
+  - label: Prerequisites
+    value: Graduate standing
+  - label: Textbook
+    value: "Quantum Computing and Information: A Scaffolding Approach"
+
+description: >-
+  Combinatorial optimization. Quantum optimization. Variational quantum
+  algorithms. Quantum noise models. Quantum error-correction. Quantum
+  fault-tolerance. Quantum communication protocols. Quantum key exchange: BB84.
+  Quantum Internet.
+
+objectives:
+  - Expose the students to advanced quantum algorithms in the NISQ era.
+  - Introduce the students to theoretical and practical knowledge for building quantum communication protocols.
+
+outcomes:
+  - Explain the underlying principles of quantum combinatorial optimization problems, and discuss the potential applications.
+  - Understand the correct type of quantum algorithm for each problem.
+  - Design and analyze variational quantum algorithms.
+  - Identify the challenges of transferring quantum information.
+  - Implement and utilize quantum error-correction codes to enhance the reliability of quantum computing systems.
+
+evaluation:
+  - item: Short Quizzes
+    weight: 15%
+  - item: Programming Assignments (2)
+    weight: 20%
+  - item: Lab Experiment
+    weight: 10%
+  - item: Term Project
+    weight: 25%
+  - item: Final Exam
+    weight: 30%
+
+projects:
+  - title: Optimization problems
+    items:
+      - Radio antenna placement for network coverage optimization
+      - Autonomous mission routing for high-risk environments
+      - Optimized spectrum and frequency assignment
+      - Optimized satellite tasking and mission scheduling
+      - Network resilience analysis and critical node identification
+  - title: Partial differential equations
+    items:
+      - Heat equation
+      - Poisson equation
+      - Navier–Stokes
+      - Fisher–KPP
+      - SIR model
+
+materials: /files/COE531-261
+no_handouts: true  # hides the Handout column
+
+topics:
+  - title: Combinatorial Optimization
+    lectures:
+      - n: 1
+        title: "Combinatorial Optimization: optimization problems and the combinatorial family"
+        slides: Lectures/Lecture01_Combinatorial_Optimization.pdf
+      - n: 2
+        title: "Modelling Combinatorial Optimization Problems: instances, feasible solutions and cost functions"
+        slides: Lectures/Lecture02_Modelling_COPs.pdf
+      - n: 3
+        title: "Solving Combinatorial Optimization Problems: greedy, dynamic programming, approximation, and the Ising/QUBO form"
+        slides: Lectures/Lecture03_Solving_COPs.pdf
+      - n: 4
+        title: Hardness, Equivalence, and Quantum Annealing
+        slides: Lectures/Lecture04_Hardness_Annealing.pdf
+
+  - title: Variational Quantum Algorithms
+    lectures:
+      - n: 5
+        title: The Variational Quantum Algorithm Framework
+        slides: Lectures/Lecture05_VQA.pdf
+      - n: 6
+        title: The Variational Quantum Eigensolver (VQE)
+        slides: Lectures/Lecture06_VQE.pdf
+      - n: 7
+        title: The Quantum Approximate Optimization Algorithm (QAOA)
+        slides: Lectures/Lecture07_QAOA.pdf
+      - n: 8
+        title: "Partial Differential Equations: how they are solved classically"
+        slides: Lectures/Lecture08_PDEs_VQA_I.pdf
+      - n: 9
+        title: "Solving PDEs on a Quantum Computer: HHL, the variational linear solver, and H-DES"
+        slides: Lectures/Lecture09_PDEs_VQA_II.pdf
+
+  - title: Quantum Error Correction and Fault Tolerance
+    lectures:
+      - n: 10
+        title: "Quantum Error Correction: why we need it"
+        slides: Lectures/Lecture10_QEC_Introduction.pdf
+      - n: 11
+        title: Noise Models
+        slides: Lectures/Lecture11_Noise_Models.pdf
+      - n: 12
+        title: "The Repetition Code: from majority vote to Shor's nine-qubit code"
+        slides: Lectures/Lecture12_Repetition_to_Shor.pdf
+      - n: 13
+        title: "The Language of Quantum Codes: distance, rate, correctability"
+        slides: Lectures/Lecture13_QEC_Concepts.pdf
+      - n: 14
+        title: The Stabilizer Formalism
+        slides: Lectures/Lecture14_Stabilizer_Formalism.pdf
+      - n: 15
+        title: CSS Codes
+        slides: Lectures/Lecture15_CSS_Codes.pdf
+      - n: 16
+        title: From the Surface Code to qLDPC Codes
+        slides: Lectures/Lecture16_Surface_to_qLDPC.pdf
+
+  - title: Quantum Communication
+    lectures:
+      - n: 19
+        title: "BB84: turning no-cloning into a key exchange"
+        slides: Lectures/Lecture19_BB84.pdf

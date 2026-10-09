@@ -4,7 +4,8 @@
 - code: SEC 595
   title: Special Topics in Information Assurance and Security (Encrypted Computing)
   terms:
-    - Fall 2026
+    - name: Fall 2026
+      url: /courses/sec595-261/
     - Fall 2024
 
 - code: COE 292
@@ -32,7 +33,8 @@
 - code: COE 531
   title: Advacned Quantum Computing and Communication
   terms:
-    - Fall 2026
+    - name: Fall 2026
+      url: /courses/coe531-261/
     - Fall 2025
     - Spring 2024
     - Summer 2022
