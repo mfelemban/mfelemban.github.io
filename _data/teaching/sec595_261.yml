@@ -1,7 +1,7 @@
 # SEC 595 — Fall 2026 (Term 261). Rendered by _layouts/course.html.
 # Each lecture may have: n, title, handout, slides, extras (list of {title, url, kind, tab}).
 #   kind: label shown before the link (default "Supplement"); tab: lab tab to open (URL #fragment).
-# Each topic may have: labs (list of {title, url, note, tab}), shown under the topic heading.
+# labs (course level): list of {title, url, note, tab}, shown at the top of the page.
 #
 # Lab deep links (usable from handouts/slides):
 #   FHE lab tabs: bfv, bgv, ckks, gsw, tfhe, compare
@@ -152,6 +152,15 @@ links:
 
 materials: /files/SEC595-261
 
+labs:
+  - title: FHE Scheme Lab
+    url: FHE Scheme Lab.html
+    note: BFV, BGV, CKKS, GSW, and TFHE on toy parameters, step by step.
+  - title: PQC Lab
+    url: SEC595-PQC-Lab.html
+    tab: overview
+    note: Lattice, code-based, hash-based, multivariate, and isogeny schemes, including ML-KEM and ML-DSA.
+
 topics:
   - title: Introduction
     lectures:
@@ -199,10 +208,6 @@ topics:
         slides: Slides/SEC595-L7-Slides.pdf
 
   - title: Homomorphic Encryption
-    labs:
-      - title: FHE Scheme Lab
-        url: FHE Scheme Lab.html
-        note: interactive walkthrough of BFV, BGV, CKKS, GSW, and TFHE
     lectures:
       - n: 8
         title: "Homomorphic Encryption: Definitions and First Examples"
@@ -217,6 +222,8 @@ topics:
         handout: Handouts/SEC595-L10.pdf
         slides: Slides/SEC595-L10-Slides.pdf
         extras:
+          - title: Worked examples
+            url: Handouts/SEC595-L10-Examples.pdf
           - title: FHE Scheme Lab — BFV
             url: FHE Scheme Lab.html
             tab: bfv
@@ -226,6 +233,8 @@ topics:
         handout: Handouts/SEC595-L11.pdf
         slides: Slides/SEC595-L11-Slides.pdf
         extras:
+          - title: Worked examples
+            url: Handouts/SEC595-L11-Examples.pdf
           - title: FHE Scheme Lab — BGV
             url: FHE Scheme Lab.html
             tab: bgv
@@ -253,21 +262,18 @@ topics:
         handout: Handouts/SEC595-L14.pdf
         slides: Slides/SEC595-L14-Slides.pdf
       - n: 15
-        title: Bootstrapping GSW and TFHE
+        title: The TFHE Scheme
         handout: Handouts/SEC595-L15.pdf
         slides: Slides/SEC595-L15-Slides.pdf
         extras:
+          - title: "TFHE in detail: a full bootstrapping on a toy instance"
+            url: Handouts/SEC595-TFHE.pdf
           - title: FHE Scheme Lab — TFHE
             url: FHE Scheme Lab.html
             tab: tfhe
             kind: Lab
 
   - title: Post-Quantum Cryptography
-    labs:
-      - title: PQC Lab
-        url: SEC595-PQC-Lab.html
-        tab: overview
-        note: interactive walkthrough of lattice, code-based, hash-based, multivariate, and isogeny schemes
     lectures:
       - n: 16
         title: The Families of Post-Quantum Cryptography

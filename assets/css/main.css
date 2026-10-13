@@ -471,14 +471,41 @@ table.lectures td:nth-child(n+3) {
   color: var(--muted);
 }
 
-.topic-lab {
-  margin: 0.25rem 0 0.6rem !important;
-  font-size: 0.9rem;
+.course-labs {
+  margin: 0.75rem 0 1.5rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+}
+
+.course-labs-label {
+  margin: 0 0 0.35rem !important;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--muted);
 }
 
-.topic-lab a {
+.course-labs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.course-labs li + li {
+  margin-top: 0.35rem;
+}
+
+.course-labs a {
   font-weight: 600;
+}
+
+.course-labs span {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--muted);
 }
 
 .course-links {
