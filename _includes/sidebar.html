@@ -25,6 +25,12 @@
     <p>
       {% for c in site.profile.teaching.courses %}{{ c }}{% unless forloop.last %}<br />{% endunless %}{% endfor %}
     </p>
+    {% if site.profile.teaching.labs %}
+      <h3>Interactive labs</h3>
+      <p>
+        {% for l in site.profile.teaching.labs %}{{ l }}{% unless forloop.last %}<br />{% endunless %}{% endfor %}
+      </p>
+    {% endif %}
   {% endif %}
 
   <p class="cv-link">

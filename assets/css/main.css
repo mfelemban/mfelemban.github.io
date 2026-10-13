@@ -655,6 +655,56 @@ table.lectures td:nth-child(n+3) {
   color: var(--muted);
 }
 
+/* Lab pages (/labs/...): compact site header, lab fills the rest of the window */
+
+.lab-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.lab-header {
+  flex: none;
+  width: 100%;
+  padding-bottom: 0;
+}
+
+.lab-page .site-header {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
+
+.lab-page .site-title {
+  padding: 0.9rem 0 0.4rem;
+}
+
+.lab-page .site-title h1 {
+  font-size: 1.35rem;
+}
+
+.lab-page .site-section {
+  font-size: 1rem;
+}
+
+.lab-page .site-section a {
+  color: var(--muted);
+}
+
+.lab-page .site-nav ul {
+  padding-bottom: 0.4rem;
+}
+
+.lab-frame {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  border: 0;
+  border-top: 1px solid var(--rule);
+  background: var(--panel);
+}
+
 /* Footer */
 
 .site-footer {

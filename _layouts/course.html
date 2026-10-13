@@ -19,7 +19,8 @@ layout: default
     <ul>
       {% for x in c.labs %}
         <li>
-          <a href="{{ c.materials | append: '/' | append: x.url | uri_escape | relative_url }}{% if x.tab %}#{{ x.tab }}{% endif %}">{{ x.title }}</a>
+          {% if x.href %}{% assign lab_link = x.href | relative_url %}{% else %}{% assign lab_link = c.materials | append: '/' | append: x.url | uri_escape | relative_url %}{% endif %}
+          <a href="{{ lab_link }}{% if x.tab %}#{{ x.tab }}{% endif %}">{{ x.title }}</a>
           {% if x.note %}<span>{{ x.note }}</span>{% endif %}
         </li>
       {% endfor %}
@@ -92,8 +93,9 @@ layout: default
             <td>
               {{ l.title }}
               {% for x in l.extras %}
+                {% if x.href %}{% assign x_link = x.href | relative_url %}{% else %}{% assign x_link = c.materials | append: '/' | append: x.url | uri_escape | relative_url %}{% endif %}
                 <span class="lecture-extra">
-                  {{ x.kind | default: "Supplement" }}: <a href="{{ c.materials | append: '/' | append: x.url | uri_escape | relative_url }}{% if x.tab %}#{{ x.tab }}{% endif %}">{{ x.title }}</a>
+                  {{ x.kind | default: "Supplement" }}: <a href="{{ x_link }}{% if x.tab %}#{{ x.tab }}{% endif %}">{{ x.title }}</a>
                 </span>
               {% endfor %}
             </td>

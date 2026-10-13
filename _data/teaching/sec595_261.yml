@@ -1,9 +1,11 @@
 # SEC 595 — Fall 2026 (Term 261). Rendered by _layouts/course.html.
-# Each lecture may have: n, title, handout, slides, extras (list of {title, url, kind, tab}).
+# Each lecture may have: n, title, handout, slides, extras (list of {title, url | href, kind, tab}).
+#   url: path inside `materials`; href: site path instead (e.g. /labs/fhe/);
 #   kind: label shown before the link (default "Supplement"); tab: lab tab to open (URL #fragment).
-# labs (course level): list of {title, url, note, tab}, shown at the top of the page.
+# labs (course level): list of {title, url | href, note, tab}, shown at the top of the page.
 #
-# Lab deep links (usable from handouts/slides):
+# Labs live at /labs/fhe/ and /labs/pqc/ (site header + lab); the raw files stay in
+# /files/SEC595-261/. Lab deep links (usable from handouts/slides), e.g. /labs/pqc/#mlkem:
 #   FHE lab tabs: bfv, bgv, ckks, gsw, tfhe, compare
 #   PQC lab tabs: overview, mlkem, frodo, ntru, mldsa, falcon, mceliece, hqc, bike,
 #                 lamport, wots, xmss, slhdsa, uov, mayo, csidh
@@ -154,10 +156,10 @@ materials: /files/SEC595-261
 
 labs:
   - title: FHE Scheme Lab
-    url: FHE Scheme Lab.html
+    href: /labs/fhe/
     note: BFV, BGV, CKKS, GSW, and TFHE on toy parameters, step by step.
   - title: PQC Lab
-    url: SEC595-PQC-Lab.html
+    href: /labs/pqc/
     tab: overview
     note: Lattice, code-based, hash-based, multivariate, and isogeny schemes, including ML-KEM and ML-DSA.
 
@@ -225,7 +227,7 @@ topics:
           - title: Worked examples
             url: Handouts/SEC595-L10-Examples.pdf
           - title: FHE Scheme Lab — BFV
-            url: FHE Scheme Lab.html
+            href: /labs/fhe/
             tab: bfv
             kind: Lab
       - n: 11
@@ -236,7 +238,7 @@ topics:
           - title: Worked examples
             url: Handouts/SEC595-L11-Examples.pdf
           - title: FHE Scheme Lab — BGV
-            url: FHE Scheme Lab.html
+            href: /labs/fhe/
             tab: bgv
             kind: Lab
       - n: 12
@@ -245,7 +247,7 @@ topics:
         slides: Slides/SEC595-L12-Slides.pdf
         extras:
           - title: FHE Scheme Lab — CKKS
-            url: FHE Scheme Lab.html
+            href: /labs/fhe/
             tab: ckks
             kind: Lab
       - n: 13
@@ -254,7 +256,7 @@ topics:
         slides: Slides/SEC595-L13-Slides.pdf
         extras:
           - title: FHE Scheme Lab — GSW
-            url: FHE Scheme Lab.html
+            href: /labs/fhe/
             tab: gsw
             kind: Lab
       - n: 14
@@ -269,7 +271,7 @@ topics:
           - title: "TFHE in detail: a full bootstrapping on a toy instance"
             url: Handouts/SEC595-TFHE.pdf
           - title: FHE Scheme Lab — TFHE
-            url: FHE Scheme Lab.html
+            href: /labs/fhe/
             tab: tfhe
             kind: Lab
 
@@ -281,7 +283,7 @@ topics:
         slides: Slides/SEC595-L16-Slides.pdf
         extras:
           - title: PQC Lab — overview
-            url: SEC595-PQC-Lab.html
+            href: /labs/pqc/
             tab: overview
             kind: Lab
       - n: 17
@@ -290,7 +292,7 @@ topics:
         slides: Slides/SEC595-L17-Slides.pdf
         extras:
           - title: PQC Lab — ML-KEM
-            url: SEC595-PQC-Lab.html
+            href: /labs/pqc/
             tab: mlkem
             kind: Lab
       - n: 18
@@ -299,7 +301,7 @@ topics:
         slides: Slides/SEC595-L18-Slides.pdf
         extras:
           - title: PQC Lab — ML-DSA
-            url: SEC595-PQC-Lab.html
+            href: /labs/pqc/
             tab: mldsa
             kind: Lab
 

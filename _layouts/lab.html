@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ page.title }} · {{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}" />
+  <link rel="icon" href="{{ '/assets/img/photo.jpg' | relative_url }}" />
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+</head>
+{% comment %}
+  Full-window lab page: the site header and menu on top, the lab (a standalone
+  HTML file under /files/) filling the rest of the window. The address bar's
+  #fragment is passed to the lab, so /labs/pqc/#mlkem opens the ML-KEM tab,
+  and switching tabs inside the lab updates the address bar.
+{% endcomment %}
+<body class="lab-page">
+
+<div class="page lab-header">
+  <header class="site-header">
+    <div class="site-title">
+      <h1><a href="{{ '/' | relative_url }}">{{ site.profile.name }}</a></h1>
+      <p class="site-section">
+        {% if page.course_url %}<a href="{{ page.course_url | relative_url }}">{{ page.course }}</a> / {% endif %}{{ page.title }}
+      </p>
+    </div>
+    {% include nav.html %}
+  </header>
+</div>
+
+<iframe id="lab-frame" class="lab-frame" title="{{ page.title }}"
+        src="{{ page.lab_src | uri_escape | relative_url }}"></iframe>
+
+<script>
+(function () {
+  var frame = document.getElementById('lab-frame');
+  var base = frame.getAttribute('src');
+  // Open the lab on the tab named in our own #fragment.
+  if (location.hash) frame.src = base + location.hash;
+  // Back/forward or an edited address: pass the new #fragment to the lab.
+  window.addEventListener('hashchange', function () {
+    try { frame.contentWindow.location.hash = location.hash; } catch (e) { frame.src = base + location.hash; }
+  });
+  // Tab changes inside the lab: mirror them in the address bar so the URL can be shared.
+  frame.addEventListener('load', function () {
+    try {
+      var w = frame.contentWindow;
+      var sync = function () {
+        if (w.location.hash !== location.hash) history.replaceState(null, '', w.location.hash || location.pathname);
+      };
+      w.addEventListener('hashchange', sync);
+      sync();
+    } catch (e) {}
+  });
+})();
+</script>
+
+</body>
+</html>
