@@ -1,0 +1,466 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SQS² Quantum Software Stack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: institutional research-centre site — utility bar, main nav, full-width banner, breadcrumb, article + "at a glance" sidebar */
+:root{
+  --bg:#ffffff;
+  --surface:#f3f6f7;
+  --ink:#0f2233;
+  --muted:#4d5f6c;
+  --line:#d8e1e5;
+  --accent:#0a7563;
+  --accent-soft:#e3f2ef;
+  --nav:#0f2233;
+  --nav-ink:#ffffff;
+  --banner:#0c1d2b;
+  --gold:#c99a3b;
+  --pcb:#1f6b52;
+  --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Sans 3","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0b1620;--surface:#122230;--ink:#e6eef2;--muted:#9fb1bd;--line:#223646;
+  --accent:#3cc2a6;--accent-soft:#12312c;--nav:#08121a;--nav-ink:#e6eef2;--banner:#071019;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1620;--surface:#122230;--ink:#e6eef2;--muted:#9fb1bd;--line:#223646;
+  --accent:#3cc2a6;--accent-soft:#12312c;--nav:#08121a;--nav-ink:#e6eef2;--banner:#071019;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1160px;margin:0 auto;padding-inline:24px}
+@media (max-width:600px){.wrap{padding-inline:16px}}
+
+/* Utility bar + nav */
+.util{background:var(--surface);border-bottom:1px solid var(--line);font-size:13px;color:var(--muted)}
+.util .wrap{display:flex;justify-content:space-between;gap:12px;padding-block:6px;flex-wrap:wrap}
+header.nav{background:var(--nav);color:var(--nav-ink);position:sticky;top:env(safe-area-inset-top,0px);z-index:10}
+header.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px;color:var(--nav-ink);text-decoration:none}
+.brand b{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:.01em}
+.brand b sup{font-size:.6em}
+.brand span{font-size:13px;opacity:.75;letter-spacing:.02em}
+nav ul{list-style:none;display:flex;gap:4px;margin:0;padding:0;flex-wrap:wrap}
+nav a{display:block;color:var(--nav-ink);text-decoration:none;font-family:var(--display);font-weight:600;font-size:15px;padding:8px 14px;border-bottom:3px solid transparent}
+nav a:hover{border-bottom-color:rgba(255,255,255,.35)}
+nav a[aria-current="page"]{border-bottom-color:#3cc2a6}
+
+/* Banner */
+.banner{position:relative;background:var(--banner);color:#fff;overflow:hidden}
+.banner canvas{position:absolute;inset:0;width:100%;height:100%}
+.banner .wrap{position:relative;padding-block:72px 64px}
+.banner .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#7fe0cb}
+.banner h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,5vw,54px);line-height:1.08;margin:12px 0 16px;max-width:16ch;text-wrap:balance}
+.banner p{max-width:56ch;font-size:19px;color:#d3e2ea;margin:0}
+.banner.small .wrap{padding-block:48px 40px}
+.banner.small h1{font-size:clamp(28px,4vw,42px)}
+
+.crumbs{font-size:14px;color:var(--muted);padding-block:16px;border-bottom:1px solid var(--line)}
+.crumbs a{color:var(--muted)}
+
+/* Article layout */
+.page{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;padding-block:40px 72px}
+@media (max-width:880px){.page{grid-template-columns:1fr;gap:32px}}
+article{min-width:0;max-width:72ch}
+article h2{font-family:var(--display);font-weight:700;font-size:28px;line-height:1.2;margin:48px 0 12px;text-wrap:balance}
+article h2:first-child{margin-top:0}
+article h3{font-family:var(--display);font-weight:600;font-size:19px;margin:0 0 4px}
+article p{margin:0 0 16px}
+
+.statement{border-left:4px solid var(--accent);background:var(--accent-soft);padding:20px 24px;margin:28px 0;font-family:var(--display);font-weight:600;font-size:21px;line-height:1.4}
+
+/* Five-layer stack */
+.stack{list-style:none;margin:20px 0 0;padding:0;display:grid;gap:6px}
+.stack li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;align-items:start;padding:14px 18px;border:1px solid var(--line);background:var(--bg)}
+.stack li:nth-child(1){margin-inline:0}
+.stack .lvl{font-family:var(--mono);font-size:13px;color:var(--accent);padding-top:3px}
+.stack p{margin:0;color:var(--muted);font-size:16px}
+.stack-note{font-size:14px;color:var(--muted);margin-top:10px}
+
+.areas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 32px;margin-top:20px}
+@media (max-width:600px){.areas{grid-template-columns:1fr}}
+.areas div{border-top:2px solid var(--ink);padding-top:12px}
+.areas p{color:var(--muted);font-size:16px;margin:0}
+
+/* Sidebar */
+aside{min-width:0}
+.glance{background:var(--surface);padding:24px;border-top:4px solid var(--accent);position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px)}
+.glance h2{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;margin:0 0 16px;color:var(--muted)}
+.glance dl{margin:0;display:grid;gap:14px}
+.glance dt{font-size:13px;color:var(--muted);letter-spacing:.02em}
+.glance dd{margin:0;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.chip{font-size:13px;font-weight:600;border:1px solid var(--line);background:var(--bg);padding:2px 8px}
+
+/* Team */
+.lead{display:grid;grid-template-columns:120px minmax(0,1fr);gap:28px;align-items:start;padding-bottom:32px;border-bottom:1px solid var(--line)}
+@media (max-width:560px){.lead{grid-template-columns:1fr}}
+.avatar{width:120px;aspect-ratio:1;max-width:100%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);font-family:var(--display);font-weight:800;font-size:38px}
+.avatar.sm{width:72px;font-size:24px}
+.role{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.lead h3{font-size:26px;margin:6px 0 4px}
+.lead .aff{color:var(--muted);margin:0 0 12px}
+.people{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:20px}
+@media (max-width:600px){.people{grid-template-columns:1fr}}
+.person{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;align-items:start;padding:20px;border:1px solid var(--line)}
+.person h3{margin:4px 0 2px}
+.person p{margin:0;color:var(--muted);font-size:15px}
+.pending{margin-top:24px;padding:18px 20px;border:1px dashed var(--line);color:var(--muted);font-size:15px}
+
+/* Partners */
+.logos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:20px}
+.logo{aspect-ratio:3/2;max-width:100%;display:grid;place-items:center;border:1px solid var(--line);background:var(--bg);padding:20px;text-align:center}
+.logo img{max-height:64px;width:auto}
+.logo span{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.01em;color:var(--ink)}
+
+.centers{margin:0;padding-left:18px;display:grid;gap:6px}
+
+/* Hardware illustrations */
+.figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+@media (max-width:640px){.figs{grid-template-columns:1fr}}
+.figs figure{margin:0;min-width:0;border:1px solid var(--line)}
+.figs svg{display:block;width:100%;height:auto}
+.figs figcaption{padding:12px 14px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+.figs figcaption b{display:block;color:var(--ink);font-family:var(--display);font-size:15px;margin-bottom:2px}
+.f-bg{fill:var(--surface)}
+.gold{fill:var(--gold)}
+.rod path,.rod{stroke:var(--muted);stroke-width:2;fill:none}
+.coax{stroke:var(--accent);stroke-width:1.5;fill:none;opacity:.8}
+.chip{fill:var(--ink)}
+.lbl{font-family:var(--mono);font-size:9px;fill:var(--muted)}
+.box{fill:var(--bg);stroke:var(--ink);stroke-width:2}
+.screen{fill:var(--banner)}
+.wave{stroke:#7fe0cb;stroke-width:1.6;fill:none}
+.port{fill:var(--gold);stroke:var(--ink);stroke-width:1.5}
+.led{fill:var(--accent)}
+.pcb{fill:var(--pcb)}
+.trace{stroke:#d9c27a;stroke-width:1.4;fill:none;opacity:.7}
+.die{fill:#14202b;stroke:#3a4b58;stroke-width:1}
+.pin{stroke:#d9c27a;stroke-width:1.6}
+.lbl-on{font-family:var(--mono);font-size:11px;fill:#c7d6de}
+.ic{fill:#14202b}
+.conn{fill:var(--gold)}
+
+/* Partner band on the project page */
+.partner-band{background:var(--surface);border-top:1px solid var(--line);padding-block:40px 48px}
+.band-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.band-head h2{font-family:var(--display);font-weight:700;font-size:24px;margin:0}
+.logos.compact{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.logos.compact .logo{aspect-ratio:auto;min-height:88px;padding:16px}
+.logos.compact .logo span{font-size:18px}
+
+footer{background:var(--nav);color:#c7d6de;font-size:14px}
+footer .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;padding-block:40px}
+@media (max-width:700px){footer .wrap{grid-template-columns:1fr}}
+footer h4{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#7fe0cb;margin:0 0 8px}
+footer p{margin:0}
+footer .copy{border-top:1px solid rgba(255,255,255,.12);padding-block:14px;font-size:13px;color:#8fa4b1}
+footer a{color:#e6eef2}
+
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+
+<div class="util"><div class="wrap"><span>King Fahd University of Petroleum &amp; Minerals · IRC for Advanced Quantum Computing · IRC for Intelligent Secure Systems</span><span>Dhahran, Saudi Arabia</span></div></div>
+
+<header class="nav"><div class="wrap">
+  <a class="brand" href="#home"><b>SQS<sup>2</sup></b><span>Quantum Software Stack</span></a>
+  <nav aria-label="Main"><ul>
+    <li><a href="#home" data-page="home">Project</a></li>
+    <li><a href="#team" data-page="team">Team</a></li>
+    <li><a href="#partners" data-page="partners">Partners</a></li>
+  </ul></nav>
+</div></header>
+
+<!-- ============ HOME ============ -->
+<main id="page-home" data-view="home">
+  <section class="banner">
+    <canvas id="lattice" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="eyebrow">Research project · Quantum software</div>
+      <h1>Quantum Software Stack (SQS<sup>2</sup>)</h1>
+      <p>A national, hardware-agnostic software stack that connects quantum processors with high-performance computing and uses AI across the toolchain.</p>
+    </div>
+  </section>
+  <div class="wrap crumbs"><a href="#home">Home</a> / Research / SQS<sup>2</sup></div>
+
+  <div class="wrap page">
+    <article>
+      <h2>About the project</h2>
+      <p>Quantum computers will be used mostly alongside classical supercomputers, as accelerators for targeted problems. Making that practical needs software that can take a program written at a high level, compile it for different kinds of quantum hardware, run it reliably, and coordinate it with HPC resources.</p>
+      <p>SQS<sup>2</sup> develops that software layer for Saudi Arabia. It is designed to work across hardware vendors and qubit technologies, follow open standards, and give national institutions a stack they can operate, extend, and trust.</p>
+
+      <div class="statement">We are building a national quantum software stack that integrates with HPC and is AI-powered.</div>
+
+      <h2>The stack</h2>
+      <p>SQS<sup>2</sup> is organised in five layers, from the user's program down to the control electronics.</p>
+      <ol class="stack">
+        <li><span class="lvl">L1</span><div><h3>Applications &amp; SDKs</h3><p>Python, C++ and Rust interfaces, with support for common quantum frameworks.</p></div></li>
+        <li><span class="lvl">L2</span><div><h3>Quantum programming interface</h3><p>Standard APIs for submitting jobs and discovering available devices.</p></div></li>
+        <li><span class="lvl">L3</span><div><h3>AI-powered toolchain</h3><p>Compilation and circuit optimisation that adapt to the current state of the hardware.</p></div></li>
+        <li><span class="lvl">L4</span><div><h3>Platform manager</h3><p>A common abstraction over different quantum processors, with scheduling across them.</p></div></li>
+        <li><span class="lvl">L5</span><div><h3>Quantum control plane</h3><p>Real-time control and measurement for one or several connected quantum processors.</p></div></li>
+      </ol>
+      <p class="stack-note">Programs enter at L1 and are lowered layer by layer to pulses at L5.</p>
+
+      <h2>Focus areas</h2>
+      <div class="areas">
+        <div><h3>Hardware-agnostic programming</h3><p>Open intermediate representations such as OpenQASM 3 and QIR, so the same program can target different devices.</p></div>
+        <div><h3>HPC integration</h3><p>Running hybrid quantum–classical workloads through the schedulers and systems HPC centres already use.</p></div>
+        <div><h3>AI across the stack</h3><p>Machine learning for compilation, calibration, readout and error mitigation.</p></div>
+        <div><h3>Distributed quantum control</h3><p>Coordinating several quantum processors as one resource.</p></div>
+      </div>
+
+      <h2>From software to hardware</h2>
+      <p>SQS<sup>2</sup> is developed and tested on real laboratory equipment, from the cryogenic systems that host qubits to the electronics that control them.</p>
+      <div class="figs">
+        <figure>
+          <svg viewBox="0 0 240 200" role="img" aria-label="Illustration of a dilution refrigerator">
+            <rect class="f-bg" x="0" y="0" width="240" height="200"/>
+            <g class="coax"><path d="M100 18V170M112 18V170M128 18V170M140 18V170"/></g>
+            <g class="rod"><path d="M50 30V65M190 30V65M60 65V100M180 65V100M70 100V135M170 100V135M80 135V165M160 135V165"/></g>
+            <rect class="gold" x="40" y="22" width="160" height="10"/>
+            <rect class="gold" x="50" y="60" width="140" height="9"/>
+            <rect class="gold" x="60" y="95" width="120" height="8"/>
+            <rect class="gold" x="70" y="130" width="100" height="8"/>
+            <rect class="gold" x="80" y="162" width="80" height="8"/>
+            <rect class="chip" x="108" y="174" width="24" height="14"/>
+            <text class="lbl" x="206" y="31">50 K</text>
+            <text class="lbl" x="196" y="68">4 K</text>
+            <text class="lbl" x="186" y="103">0.8 K</text>
+            <text class="lbl" x="176" y="138">0.1 K</text>
+            <text class="lbl" x="166" y="170">10 mK</text>
+          </svg>
+          <figcaption><b>Dilution refrigerator</b>Cools superconducting qubits to millikelvin temperatures.</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 240 200" role="img" aria-label="Illustration of a quantum controller">
+            <rect class="f-bg" x="0" y="0" width="240" height="200"/>
+            <rect class="box" x="18" y="56" width="204" height="88"/>
+            <rect class="screen" x="30" y="68" width="92" height="50"/>
+            <path class="wave" d="M34 93h10c3 0 3-14 6-14s3 28 6 28 3-28 6-28 3 28 6 28 3-14 6-14h12c2 0 2-8 4-8s2 16 4 16 2-8 4-8h18"/>
+            <g class="port"><circle cx="140" cy="80" r="6"/><circle cx="160" cy="80" r="6"/><circle cx="180" cy="80" r="6"/><circle cx="200" cy="80" r="6"/><circle cx="140" cy="106" r="6"/><circle cx="160" cy="106" r="6"/><circle cx="180" cy="106" r="6"/><circle cx="200" cy="106" r="6"/></g>
+            <g class="led"><circle cx="34" cy="130" r="3"/><circle cx="46" cy="130" r="3"/><circle cx="58" cy="130" r="3"/></g>
+            <text class="lbl" x="140" y="133">RF OUT · IN</text>
+          </svg>
+          <figcaption><b>Quantum controller</b>Generates and reads the microwave pulses that drive and measure qubits.</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 240 200" role="img" aria-label="Illustration of an FPGA board">
+            <rect class="f-bg" x="0" y="0" width="240" height="200"/>
+            <rect class="pcb" x="22" y="34" width="196" height="132" rx="4"/>
+            <g class="trace"><path d="M90 100H40M150 100H200M120 70V44M120 130V156M95 80L60 58M145 120L180 146"/></g>
+            <rect class="die" x="92" y="72" width="56" height="56"/>
+            <g class="pin"><path d="M98 72v-5M106 72v-5M114 72v-5M122 72v-5M130 72v-5M138 72v-5M98 128v5M106 128v5M114 128v5M122 128v5M130 128v5M138 128v5M92 80h-5M92 92h-5M92 104h-5M92 116h-5M148 80h5M148 92h5M148 104h5M148 116h5"/></g>
+            <text class="lbl-on" x="120" y="104" text-anchor="middle">FPGA</text>
+            <rect class="ic" x="36" y="48" width="26" height="16"/>
+            <rect class="ic" x="178" y="138" width="26" height="16"/>
+            <rect class="ic" x="178" y="48" width="26" height="16"/>
+            <rect class="conn" x="22" y="140" width="10" height="22"/>
+          </svg>
+          <figcaption><b>FPGA control board</b>Runs the real-time logic for fast measurement and feedback.</figcaption>
+        </figure>
+      </div>
+      <p class="stack-note">Illustrations are representative.</p>
+
+      <h2>Why it matters</h2>
+      <p>A sovereign software stack lets Saudi Arabia adopt quantum computing on its own terms, independent of any single vendor. It also builds national expertise in quantum software and supports the goals of Vision 2030 in energy, materials, finance and logistics.</p>
+    </article>
+
+    <aside>
+      <div class="glance">
+        <h2>At a glance</h2>
+        <dl>
+          <div><dt>Host</dt><dd>King Fahd University of Petroleum &amp; Minerals</dd></div>
+          <div><dt>Contributing centers</dt><dd><ul class="centers"><li>Interdisciplinary Research Center for Advanced Quantum Computing</li><li>Interdisciplinary Research Center for Intelligent Secure Systems</li></ul></dd></div>
+          <div><dt>Project lead</dt><dd>Dr. Muhamad Felemban</dd></div>
+          <div><dt>Qubit technologies</dt><dd><div class="chips"><span class="chip">Superconducting</span><span class="chip">Trapped-ion</span><span class="chip">Neutral-atom</span><span class="chip">Photonic</span></div></dd></div>
+          <div><dt>Standards</dt><dd><div class="chips"><span class="chip">OpenQASM 3</span><span class="chip">QIR</span><span class="chip">SLURM</span></div></dd></div>
+          <div><dt>Status</dt><dd>In development</dd></div>
+        </dl>
+      </div>
+    </aside>
+  </div>
+
+  <section class="partner-band">
+    <div class="wrap">
+      <div class="band-head"><h2>Partners</h2><a href="#partners">All partners</a></div>
+      <div class="logos compact">
+        <div class="logo" data-partner="aramco"><span>Saudi Aramco</span></div>
+        <div class="logo" data-partner="ntis"><span>NTIS</span></div>
+        <div class="logo" data-partner="brightskies"><span>BrightSkies</span></div>
+        <div class="logo" data-partner="humain"><span>HUMAIN</span></div>
+        <div class="logo" data-partner="bull"><span>Bull</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ TEAM ============ -->
+<main id="page-team" data-view="team" hidden>
+  <section class="banner small">
+    <canvas class="lattice-alt" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="eyebrow">SQS<sup>2</sup> · People</div>
+      <h1>Team</h1>
+      <p>The researchers building the Quantum Software Stack.</p>
+    </div>
+  </section>
+  <div class="wrap crumbs"><a href="#home">Home</a> / SQS<sup>2</sup> / Team</div>
+
+  <div class="wrap page" style="grid-template-columns:minmax(0,1fr)">
+    <article style="max-width:none">
+      <div class="lead">
+        <div class="avatar" aria-hidden="true">MF</div>
+        <div>
+          <div class="role">Project lead</div>
+          <h3>Dr. Muhamad Felemban</h3>
+          <p class="aff">Assistant Professor, Computer Engineering and Information &amp; Computer Science, KFUPM</p>
+          <p>Coordinator of the quantum computing programs at KFUPM. His research covers quantum computing, data security and privacy, and post-quantum security.</p>
+          <p><a href="https://mfelemban.github.io/" target="_blank" rel="noopener">Personal page</a></p>
+        </div>
+      </div>
+
+      <h2 style="margin-top:40px">Faculty</h2>
+      <div class="people">
+        <div class="person">
+          <div class="avatar sm" aria-hidden="true">SR</div>
+          <div><div class="role">Physics</div><h3>Dr. Saleem Rao</h3><p>Associate Professor of Physics, KFUPM. Superconducting quantum circuits and device physics.</p></div>
+        </div>
+        <div class="person">
+          <div class="avatar sm" aria-hidden="true">SM</div>
+          <div><div class="role">Software engineering</div><h3>Dr. Sajjad Mahmood</h3><p>Associate Professor, Information &amp; Computer Science, KFUPM. Quantum software engineering.</p></div>
+        </div>
+        <div class="person">
+          <div class="avatar sm" aria-hidden="true">AA</div>
+          <div><div class="role">Faculty</div><h3>Dr. Alawi Alsaggaf</h3><p>KFUPM</p></div>
+        </div>
+      </div>
+
+      <h2 style="margin-top:40px">Graduate researchers</h2>
+      <div class="people">
+        <div class="person">
+          <div class="avatar sm" aria-hidden="true">UG</div>
+          <div><div class="role">PhD student</div><h3>Urooj Ghani</h3><p>Quantum software engineering</p></div>
+        </div>
+        <div class="person">
+          <div class="avatar sm" aria-hidden="true">BA</div>
+          <div><div class="role">PhD student</div><h3>Bushra Alowaiid</h3><p>Distributed quantum computing</p></div>
+        </div>
+        <div class="person">
+          <div class="avatar sm" aria-hidden="true">IA</div>
+          <div><div class="role">MS student</div><h3>Ibrahim Alyousef</h3><p>KFUPM</p></div>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<!-- ============ PARTNERS ============ -->
+<main id="page-partners" data-view="partners" hidden>
+  <section class="banner small">
+    <canvas class="lattice-alt" aria-hidden="true"></canvas>
+    <div class="wrap">
+      <div class="eyebrow">SQS<sup>2</sup> · Collaboration</div>
+      <h1>Partners</h1>
+      <p>Organisations working with us on quantum software, HPC and AI.</p>
+      <!-- partners page -->
+    </div>
+  </section>
+  <div class="wrap crumbs"><a href="#home">Home</a> / SQS<sup>2</sup> / Partners</div>
+
+  <div class="wrap page" style="grid-template-columns:minmax(0,1fr)">
+    <article style="max-width:none">
+      <p style="max-width:68ch">SQS<sup>2</sup> brings together industry and national partners to test the stack on real hardware and computing infrastructure and to guide it toward practical use.</p>
+      <div class="logos">
+        <div class="logo" data-partner="aramco"><span>Saudi Aramco</span></div>
+        <div class="logo" data-partner="ntis"><span>NTIS</span></div>
+        <div class="logo" data-partner="brightskies"><span>BrightSkies</span></div>
+        <div class="logo" data-partner="humain"><span>HUMAIN</span></div>
+        <div class="logo" data-partner="bull"><span>Bull</span></div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><h4>SQS<sup>2</sup></h4><p>Quantum Software Stack<br>A national quantum software stack, HPC-integrated and AI-powered.</p></div>
+    <div><h4>Host</h4><p>King Fahd University of Petroleum &amp; Minerals<br>IRC for Advanced Quantum Computing<br>IRC for Intelligent Secure Systems<br>Dhahran, Saudi Arabia</p></div>
+    <div><h4>Contact</h4><p>Dr. Muhamad Felemban<br>mfelemban (at) kfupm.edu.sa</p></div>
+  </div>
+  <div class="wrap copy">© 2026 SQS<sup>2</sup> project, KFUPM</div>
+</footer>
+
+<script>
+(function(){
+  const views = ['home','team','partners'];
+  function show(){
+    let v = (location.hash || '#home').slice(1);
+    if(!views.includes(v)) v = 'home';
+    document.querySelectorAll('[data-view]').forEach(m => m.hidden = m.dataset.view !== v);
+    document.querySelectorAll('nav a').forEach(a => {
+      if(a.dataset.page === v) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+    });
+    window.scrollTo(0,0);
+    drawAll();
+  }
+
+  // Banner: a qubit lattice (left) wired into an HPC node grid (right)
+  function draw(c, dense){
+    const r = c.getBoundingClientRect();
+    if(!r.width) return;
+    const dpr = Math.min(window.devicePixelRatio||1, 2);
+    c.width = r.width*dpr; c.height = r.height*dpr;
+    const g = c.getContext('2d'); g.scale(dpr,dpr);
+    const W=r.width, H=r.height;
+    const grad = g.createLinearGradient(0,0,W,H);
+    grad.addColorStop(0,'#0c1d2b'); grad.addColorStop(1,'#0e2f3a');
+    g.fillStyle = grad; g.fillRect(0,0,W,H);
+
+    // HPC grid on the right
+    const cell = dense ? 22 : 26;
+    const x0 = W*0.62;
+    g.strokeStyle='rgba(127,224,203,0.10)'; g.lineWidth=1;
+    for(let x=x0; x<W; x+=cell){ g.beginPath(); g.moveTo(x,0); g.lineTo(x,H); g.stroke(); }
+    for(let y=0; y<H; y+=cell){ g.beginPath(); g.moveTo(x0,y); g.lineTo(W,y); g.stroke(); }
+    g.fillStyle='rgba(127,224,203,0.16)';
+    let seed = 7; const rnd = () => (seed = (seed*9301+49297)%233280)/233280;
+    for(let x=x0; x<W; x+=cell) for(let y=0; y<H; y+=cell) if(rnd()<0.18) g.fillRect(x+3,y+3,cell-6,cell-6);
+
+    // Qubit lattice, heavy-hex-like offset grid
+    const pts=[]; const step = dense ? 46 : 54;
+    for(let row=0; row*step*0.86<H+step; row++){
+      for(let col=0; col*step < W*0.75; col++){
+        const x = W*0.38 + col*step + (row%2? step/2:0);
+        const y = row*step*0.86 + 18;
+        if(x > W*0.36) pts.push([x,y]);
+      }
+    }
+    g.strokeStyle='rgba(211,226,234,0.16)'; g.lineWidth=1.2;
+    pts.forEach((p,i)=>pts.forEach((q,j)=>{ if(j>i){ const d=Math.hypot(p[0]-q[0],p[1]-q[1]); if(d<step*1.05){ g.beginPath(); g.moveTo(p[0],p[1]); g.lineTo(q[0],q[1]); g.stroke(); } } }));
+    pts.forEach(p=>{
+      const lit = rnd()<0.22;
+      g.beginPath(); g.arc(p[0],p[1], lit?4.5:3, 0, Math.PI*2);
+      g.fillStyle = lit ? 'rgba(127,224,203,0.85)' : 'rgba(211,226,234,0.35)';
+      g.fill();
+    });
+    // fade left so text stays readable
+    const fade = g.createLinearGradient(0,0,W*0.7,0);
+    fade.addColorStop(0,'rgba(12,29,43,0.96)'); fade.addColorStop(0.55,'rgba(12,29,43,0.78)'); fade.addColorStop(1,'rgba(12,29,43,0)');
+    g.fillStyle=fade; g.fillRect(0,0,W,H);
+  }
+  function drawAll(){
+    document.querySelectorAll('main:not([hidden]) canvas').forEach(c=>draw(c, c.classList.contains('lattice-alt')));
+  }
+  window.addEventListener('hashchange', show);
+  let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(drawAll,120); });
+  show();
+})();
+</script>
+
+</body></html>
