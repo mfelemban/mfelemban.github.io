@@ -1,0 +1,1712 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FHE Scheme Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a lab bench. Sticky parameter rail on the left, a vertical stack of step cards on the right; one hue per scheme. */
+:root {
+  --paper: #f4f6f8; --panel: #ffffff; --ink: #18202b; --muted: #5b6676; --line: #d9dee5; --soft: #eaeef2;
+  --bfv: #3a48a3; --bgv: #0f766e; --ckks: #a1600f; --tfhe: #8b3a86; --gsw: #a33a55; --compare: #3d4a5c;
+  --accent: var(--bfv); --accent-soft: #e6e9f7;
+  --ok: #2e7d4a; --ok-soft: #e3f2e8; --bad: #b8382f; --bad-soft: #f9e3e1; --warn: #a66a00; --warn-soft: #fbf0d9;
+  --band1: #eef1f6; --band2: #e2e7f0;
+  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #11161d; --panel: #18202a; --ink: #e6ebf1; --muted: #9aa6b5; --line: #2b3542; --soft: #1f2833;
+  --bfv: #8f9cf0; --bgv: #4fc2b4; --ckks: #e2a24f; --tfhe: #d78ad1; --gsw: #ee8aa3; --compare: #a9b8cc; --accent-soft: #232b45;
+  --ok: #6fcf8f; --ok-soft: #173325; --bad: #f08a80; --bad-soft: #3a1f1d; --warn: #e8b85a; --warn-soft: #3a2f17;
+  --band1: #1d2530; --band2: #253041; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #11161d; --panel: #18202a; --ink: #e6ebf1; --muted: #9aa6b5; --line: #2b3542; --soft: #1f2833;
+  --bfv: #8f9cf0; --bgv: #4fc2b4; --ckks: #e2a24f; --tfhe: #d78ad1; --gsw: #ee8aa3; --compare: #a9b8cc; --accent-soft: #232b45;
+  --ok: #6fcf8f; --ok-soft: #173325; --bad: #f08a80; --bad-soft: #3a1f1d; --warn: #e8b85a; --warn-soft: #3a2f17;
+  --band1: #1d2530; --band2: #253041; color-scheme: dark; }
+:root[data-scheme="bfv"] { --accent: var(--bfv); } :root[data-scheme="bgv"] { --accent: var(--bgv); }
+:root[data-scheme="ckks"] { --accent: var(--ckks); } :root[data-scheme="tfhe"] { --accent: var(--tfhe); }
+:root[data-scheme="gsw"] { --accent: var(--gsw); } :root[data-scheme="compare"] { --accent: var(--compare); }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { background: var(--paper); color: var(--ink); font: 15px/1.5 var(--f-body); }
+.mono, code, td.mono { font-family: var(--f-mono); font-size: 0.86em; font-variant-numeric: tabular-nums; }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--panel); border-bottom: 1px solid var(--line); }
+.topin { max-width: 1320px; margin: 0 auto; padding: 10px 20px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+.brand { font: 700 19px/1 var(--f-display); letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 10px; }
+.brand small { font: 400 13px var(--f-body); color: var(--muted); }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; margin-left: auto; }
+.tabs a { text-decoration: none; color: var(--muted); font: 600 14px var(--f-body); padding: 7px 14px; border-radius: 999px; border: 1px solid transparent; }
+.tabs a:hover { color: var(--ink); border-color: var(--line); }
+.tabs a[aria-current="page"] { color: var(--panel); background: var(--accent); }
+.tabs a .sub { font-weight: 400; opacity: .8; margin-left: 4px; font-size: 12px; }
+#host { max-width: 1320px; margin: 0 auto; padding: 18px 20px 60px; }
+.page { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 22px; align-items: start; }
+.side { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 64px); max-height: calc(100vh - 80px); overflow: auto; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.side h3 { margin: 0; font: 700 15px var(--f-display); letter-spacing: .02em; text-transform: uppercase; color: var(--accent); }
+.side h4 { margin: 4px 0; font: 600 13px var(--f-body); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+.fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 12px; }
+.field { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.field.span2, .fgrid .field:has(input[id$="primes"]), .fgrid .field:has(input[id$="-m1"]), .fgrid .field:has(input[id$="-m2"]), .fgrid .field:has(input[id^="ck-z"]) { grid-column: span 2; }
+.flabel { font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.hint { font-size: 12px; color: var(--muted); }
+input, select { font: 14px var(--f-mono); color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; min-width: 0; width: 100%; }
+.row input, .builder input, .builder select { width: auto; }
+input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; gap: 6px; align-items: center; }
+.row.wrap { flex-wrap: wrap; }
+.check { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; }
+.check input { width: auto; margin-top: 3px; }
+.btn { font: 600 13.5px var(--f-body); border-radius: 7px; padding: 7px 13px; border: 1px solid var(--line); background: var(--soft); color: var(--ink); cursor: pointer; white-space: nowrap; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--panel); border-color: var(--accent); }
+.btn.ghost { background: transparent; }
+.btn.small { padding: 4px 9px; font-size: 12.5px; }
+
+.fgrid .span2 { grid-column: span 2; }
+.derived { border-top: 1px dashed var(--line); padding-top: 10px; }
+dl.kv { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin: 0; font-size: 13px; }
+dl.kv dt { color: var(--muted); } dl.kv dd { margin: 0; font-family: var(--f-mono); font-size: 12.5px; text-align: right; overflow-wrap: anywhere; }
+dl.kv.wide dd { text-align: left; }
+.main { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.lede h2 { margin: 2px 0 4px; font: 700 34px/1.05 var(--f-display); letter-spacing: -0.02em; color: var(--accent); }
+.lede p { margin: 0; max-width: 72ch; color: var(--ink); }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.card.keys { border-left: 4px solid var(--accent); }
+.card.error { border-color: var(--bad); background: var(--bad-soft); }
+.card.error p { margin: 0; }
+.chead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.chead h4 { margin: 0; font: 700 17px var(--f-display); }
+.chead h5, .card h5 { margin: 6px 0 0; font: 700 14px var(--f-display); color: var(--accent); }
+.cname { background: var(--accent-soft); color: var(--accent); padding: 1px 8px; border-radius: 5px; font-weight: 600; }
+.operands { color: var(--muted); }
+.chip { font: 600 11.5px var(--f-body); padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); letter-spacing: .02em; }
+.chip.ok { color: var(--ok); background: var(--ok-soft); border-color: transparent; }
+.chip.bad { color: var(--bad); background: var(--bad-soft); border-color: transparent; }
+.chip.warn { color: var(--warn); background: var(--warn-soft); border-color: transparent; }
+.formula { font-family: var(--f-mono); font-size: 13px; background: var(--soft); border-radius: 6px; padding: 7px 10px; overflow-x: auto; }
+.summary { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 14px; align-items: center; }
+.res { display: flex; flex-direction: column; gap: 2px; padding: 9px 12px; border-radius: 8px; min-width: 0; }
+.res.ok { background: var(--ok-soft); } .res.bad { background: var(--bad-soft); } .res.warnres { background: var(--warn-soft); }
+.res .big { font: 700 15px var(--f-display); }
+.res.ok .big { color: var(--ok); } .res.bad .big { color: var(--bad); } .res.warnres .big { color: var(--warn); }
+.res .mono { overflow-wrap: anywhere; }
+.gauge { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.gbar { position: relative; height: 12px; background: var(--soft); border-radius: 6px; overflow: hidden; border: 1px solid var(--line); }
+.gfill { height: 100%; background: var(--ok); transition: width .35s ease; }
+.gauge.warn .gfill { background: var(--warn); } .gauge.bad .gfill { background: var(--bad); width: 100% !important; }
+.gtext { font-size: 13px; color: var(--muted); } .gtext b { color: var(--ink); }
+.gauge.broken .gtext { color: var(--bad); font-weight: 600; }
+details.steps { border-top: 1px solid var(--line); padding-top: 6px; }
+details.steps > summary { cursor: pointer; font-weight: 600; color: var(--accent); font-size: 14px; list-style: none; }
+details.steps > summary::before { content: "▸ "; } details.steps[open] > summary::before { content: "▾ "; }
+.stepbody { display: flex; flex-direction: column; gap: 8px; padding-top: 8px; min-width: 0; }
+.tablewrap { overflow-x: auto; max-width: 100%; }
+table.ptab { border-collapse: collapse; font-family: var(--f-mono); font-size: 12px; font-variant-numeric: tabular-nums; }
+table.ptab th, table.ptab td { padding: 2px 8px; text-align: right; white-space: nowrap; }
+table.ptab thead th { color: var(--muted); font-weight: 400; border-bottom: 1px solid var(--line); }
+table.ptab tbody th { text-align: left; font-family: var(--f-body); font-size: 12.5px; font-weight: 600; color: var(--muted); padding-right: 14px; }
+table.ptab tr.hl td { background: var(--accent-soft); font-weight: 600; }
+table.ptab tr.sep td { height: 6px; border-bottom: 1px dashed var(--line); padding: 0; }
+table.ptab td.bad { color: var(--bad); font-weight: 700; }
+table.ptab.compact td { padding: 1px 6px; }
+table.mini { border-collapse: collapse; font-size: 12.5px; }
+table.mini th, table.mini td { padding: 3px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+table.mini th { color: var(--muted); font-weight: 600; text-align: right; }
+table.mini tbody th { text-align: left; }
+table.mini tr.diff td { background: var(--warn-soft); }
+.note { margin: 0; font-size: 13.5px; color: var(--muted); max-width: 80ch; }
+.note b { color: var(--ink); }
+.note.warnnote { color: var(--warn); font-weight: 600; }
+.builder { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; background: var(--panel); border: 1px dashed var(--accent); border-radius: 10px; padding: 10px 12px; }
+.builder.flat { border-style: solid; border-color: var(--line); background: var(--soft); font-family: var(--f-mono); }
+.blabel { font: 700 13px var(--f-display); color: var(--accent); text-transform: uppercase; letter-spacing: .05em; margin-right: 4px; }
+.opfield { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); font-size: 13px; }
+.cards { display: flex; flex-direction: column; gap: 14px; }
+.cfoot { display: flex; justify-content: flex-end; gap: 10px; align-items: center; }
+.fig { margin: 0; min-width: 0; }
+.fig figcaption { font-size: 12.5px; color: var(--muted); margin-top: 4px; max-width: 90ch; }
+svg.viz { width: 100%; height: auto; display: block; }
+svg.viz .lbl { fill: var(--muted); font: 11px var(--f-mono); }
+svg.viz .band1 { fill: var(--band1); } svg.viz .band2 { fill: var(--band2); }
+svg.viz .axis { stroke: var(--muted); stroke-width: 1; } svg.viz .grid { stroke: var(--line); stroke-width: 1; }
+svg.viz .dot.ok { fill: var(--accent); stroke: var(--panel); stroke-width: 1.5; } svg.viz .dot.bad { fill: var(--bad); stroke: var(--panel); stroke-width: 1.5; }
+svg.viz .target { fill: var(--ink); opacity: .55; }
+svg.viz .noiseline { stroke: var(--accent); stroke-width: 2; opacity: .55; }
+svg.viz .noisebar { stroke: var(--accent); stroke-width: 6; opacity: .35; stroke-linecap: round; }
+svg.viz .barE { fill: var(--muted); opacity: .55; } svg.viz .barD { fill: var(--accent); } svg.viz .barN { fill: var(--warn); }
+svg.viz .box0 { fill: var(--accent); } svg.viz .box1 { fill: var(--accent); opacity: .55; }
+svg.viz .hi { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-dasharray: 3 2; }
+svg.viz .budget { stroke: var(--bad); stroke-dasharray: 4 3; } svg.viz .trace { fill: none; stroke: var(--accent); stroke-width: 2; } svg.viz .tracept { fill: var(--accent); }
+svg.torus { max-width: 260px; }
+svg.torus .sec1 { fill: var(--band1); stroke: var(--line); } svg.torus .sec2 { fill: var(--band2); stroke: var(--line); }
+svg.torus .pad { fill: var(--warn-soft); }
+svg.torus .rim { fill: none; stroke: var(--muted); }
+svg.torus .hand { stroke-width: 2; stroke: var(--muted); }
+svg.torus .dot.c1 { fill: var(--muted); } svg.torus .dot.c2 { fill: var(--warn); } svg.torus .dot.comb { fill: var(--accent); }
+.key { display: inline-block; width: 11px; height: 11px; border-radius: 2px; vertical-align: -1px; } .keyE { background: var(--muted); opacity: .55; } .keyD { background: var(--accent); }
+.two { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 16px; align-items: center; }
+.lut { display: flex; flex-wrap: wrap; gap: 8px; }
+.lutcell { display: flex; flex-direction: column; align-items: center; gap: 2px; border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; background: var(--soft); }
+.lutin { font: 12px var(--f-mono); color: var(--muted); }
+.lutbtn { font: 700 18px var(--f-mono); width: 2.2em; border: 1px solid var(--accent); background: var(--panel); color: var(--accent); border-radius: 6px; cursor: pointer; padding: 2px 0; }
+.lutbtn:hover { background: var(--accent-soft); }
+.stepper input[type=range] { width: min(320px, 100%); accent-color: var(--accent); }
+.rotbox { display: flex; flex-direction: column; gap: 6px; min-height: 180px; }
+#flash { position: fixed; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 8px 14px; border-radius: 8px; font-size: 14px; z-index: 9; }
+
+/* guided workflow */
+.btn.big { padding: 11px 16px; font-size: 15px; width: 100%; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.pchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pchip { display: inline-flex; align-items: baseline; gap: 6px; border: 1px solid var(--line); background: var(--panel); border-radius: 7px; padding: 3px 9px; }
+.pchip .pk { font-size: 12px; color: var(--muted); font-weight: 600; } .pchip .pv { font-size: 12.5px; }
+.opsbar { display: flex; flex-wrap: wrap; gap: 6px; }
+.opbtn { display: inline-flex; align-items: center; gap: 8px; font: 600 14px var(--f-body); color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 9px; padding: 8px 13px; cursor: pointer; }
+.opbtn:hover:not(:disabled) { border-color: var(--accent); }
+.opbtn.on { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+.opbtn:disabled { opacity: .45; cursor: not-allowed; }
+.opn { font: 700 11px var(--f-mono); width: 20px; height: 20px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.opbtn.on .opn { background: var(--panel); color: var(--accent); }
+.oppanel { border-left: 4px solid var(--accent); }
+.opform { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; }
+.opform .opfield { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.opform input, .opform select { width: auto; min-width: 7em; }
+.why { margin: 0; max-width: 78ch; }
+.card.empty { align-items: flex-start; border-style: dashed; }
+.card.empty p { margin: 0; max-width: 70ch; }
+.wlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; }
+.wct { border: 1px solid var(--line); border-radius: 8px; padding: 9px 11px; display: flex; flex-direction: column; gap: 6px; background: var(--paper); min-width: 0; }
+.wct.badct { border-color: var(--bad); }
+.wtop { display: flex; gap: 8px; align-items: baseline; min-width: 0; } .wdesc { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.wchips { display: flex; flex-wrap: wrap; gap: 4px; }
+.wct .gtext { font-size: 12px; }
+.vizcard { border-top: 4px solid var(--accent); }
+.stepper { display: flex; flex-direction: column; gap: 12px; }
+.stepctl { display: flex; flex-direction: column; gap: 8px; }
+.dots { display: flex; flex-wrap: wrap; gap: 5px; }
+.dots .dot { font: 600 11.5px var(--f-mono); min-width: 28px; height: 26px; border-radius: 6px; border: 1px solid var(--line); background: var(--panel); color: var(--muted); cursor: pointer; }
+.dots .dot.done { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+.dots .dot.on { background: var(--accent); color: var(--panel); border-color: var(--accent); }
+.stepbody { display: flex; flex-direction: column; gap: 14px; }
+.step { display: flex; flex-direction: column; gap: 9px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 9px; background: var(--paper); min-width: 0; }
+.stephead { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.stepno { font: 600 11.5px var(--f-mono); color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+.stephead h5 { margin: 0; font: 700 16px var(--f-display); color: var(--ink); }
+.stepres { display: grid; grid-template-columns: minmax(220px, 320px) minmax(0, 1fr); gap: 14px; align-items: center; }
+table.ptab tr.new td, table.ptab tr.new th { background: var(--warn-soft); }
+table.ptab td.clk { text-decoration: underline dotted var(--accent); text-underline-offset: 3px; cursor: pointer; }
+table.ptab td.sel { outline: 2px solid var(--accent); outline-offset: -2px; }
+.explain { font-size: 13px; background: var(--panel); border: 1px solid var(--line); border-radius: 7px; padding: 8px 10px; overflow-x: auto; }
+.explain .mono { display: block; margin-top: 4px; white-space: normal; overflow-wrap: anywhere; }
+.ptwrap { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+/* GSW and compare */
+table.ptab td.mk { background: var(--warn-soft); font-weight: 700; }
+svg.viz .trace2 { fill: none; stroke: var(--warn); stroke-width: 2; stroke-dasharray: 5 3; } svg.viz .tracept2 { fill: var(--warn); }
+.keyN { background: var(--warn); }
+.page.cmp { grid-template-columns: minmax(0, 1fr); }
+.cmpwrap { overflow-x: auto; }
+table.cmpt { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 1060px; table-layout: fixed; }
+table.cmpt th, table.cmpt td { vertical-align: top; padding: 8px; border-bottom: 1px solid var(--line); text-align: left; }
+table.cmpt thead th { font: 700 17px var(--f-display); color: var(--accent); border-bottom: 3px solid var(--accent); position: sticky; top: 0; background: var(--panel); }
+table.cmpt thead th a { color: inherit; text-decoration: none; } table.cmpt thead th .sub { font: 400 12px var(--f-body); color: var(--muted); }
+table.cmpt thead th:first-child, table.cmpt tbody th { width: 112px; }
+table.cmpt tbody th { font: 600 13px var(--f-body); color: var(--muted); }
+table.cmpt tr.staticrow td .formula { background: transparent; padding: 0; font-family: var(--f-body); font-size: 13px; }
+table.cmpt .formula.small { font-size: 12px; white-space: normal; }
+table.cmpt td .live { display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+table.cmpt .livect { border: 1px solid var(--line); border-radius: 7px; padding: 6px 8px; display: flex; flex-direction: column; gap: 4px; background: var(--paper); }
+table.cmpt .gtext { font-size: 11.5px; }
+p.small, .small { font-size: 12.5px; margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 900px) { .stepres { grid-template-columns: minmax(0, 1fr); } .page > .side { order: -1; } }
+
+@media (max-width: 900px) { .page { grid-template-columns: minmax(0, 1fr); } .side { position: static; max-height: none; } .summary, .two { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 480px) { .brand small { display: none; } #host, .topin { padding-left: 16px; padding-right: 16px; } .fgrid { grid-template-columns: 1fr; } .fgrid .field { grid-column: auto !important; } .lede h2 { font-size: 28px; } .tabs { margin-left: 0; } }
+@media (prefers-reduced-motion: reduce) { .gfill { transition: none; } }
+</style>
+
+<header class="top">
+  <div class="topin">
+    <div class="brand">FHE Scheme Lab <small>SEC 595 · choose parameters, generate keys, then compute step by step</small></div>
+    <nav class="tabs" aria-label="Schemes">
+      <a href="#bfv" data-id="bfv">BFV<span class="sub">L10</span></a>
+      <a href="#bgv" data-id="bgv">BGV<span class="sub">L11</span></a>
+      <a href="#ckks" data-id="ckks">CKKS<span class="sub">L12</span></a>
+      <a href="#gsw" data-id="gsw">GSW<span class="sub">L13</span></a>
+      <a href="#tfhe" data-id="tfhe">TFHE<span class="sub">L15</span></a>
+      <a href="#compare" data-id="compare">Compare</a>
+    </nav>
+  </div>
+</header>
+<main id="host"></main>
+<div id="flash" role="status" hidden></div>
+<script>
+// ===== FHE core: BigInt ring arithmetic + BFV, BGV, CKKS, TFHE =====
+const B = (x) => BigInt(x);
+const absB = (x) => (x < 0n ? -x : x);
+function modB(a, q) { const r = a % q; return r < 0n ? r + q : r; }
+function cmodB(a, q) { let r = modB(a, q); if (r > q / 2n) r -= q; return r; }
+function floorDiv(a, b) { let d = a / b; if ((a % b !== 0n) && ((a < 0n) !== (b < 0n))) d -= 1n; return d; }
+function roundDiv(a, b) { return floorDiv(2n * a + b, 2n * b); } // nearest, ties up
+function bitlen(x) { x = absB(x); return x === 0n ? 0 : x.toString(2).length; }
+function log2B(x) { x = absB(x); if (x === 0n) return -Infinity; const s = x.toString(2); const L = s.length; const top = parseInt(s.slice(0, 53), 2); return Math.log2(top) + (L - Math.min(L, 53)); }
+
+// ---- seeded PRNG ----
+function mulberry32(seed) { let a = seed >>> 0; return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+class RNG {
+  constructor(seed) { this.r = mulberry32(seed); }
+  u32() { return Math.floor(this.r() * 4294967296); }
+  int(lo, hi) { return lo + Math.floor(this.r() * (hi - lo + 1)); }
+  uniformB(q) { let x = 0n; const words = Math.ceil(bitlen(q) / 32) + 1; for (let i = 0; i < words; i++) x = (x << 32n) | B(this.u32()); return modB(x, q); }
+  ternary(n) { return Array.from({ length: n }, () => B(this.int(-1, 1))); }
+  binary(n) { return Array.from({ length: n }, () => B(this.int(0, 1))); }
+  err(n, beta) { return Array.from({ length: n }, () => B(this.int(-beta, beta))); }
+  uniformPoly(n, q) { return Array.from({ length: n }, () => cmodB(this.uniformB(q), q)); }
+}
+
+// ---- polynomials over Z[X]/(X^n+1), arrays of BigInt ----
+const P = {
+  zero: (n) => Array(n).fill(0n),
+  add: (a, b) => a.map((x, i) => x + b[i]),
+  sub: (a, b) => a.map((x, i) => x - b[i]),
+  neg: (a) => a.map((x) => -x),
+  scal: (k, a) => a.map((x) => k * x),
+  mul(a, b) {
+    const n = a.length, r = Array(n).fill(0n);
+    for (let i = 0; i < n; i++) { if (a[i] === 0n) continue; for (let j = 0; j < n; j++) { const k = i + j; if (k < n) r[k] += a[i] * b[j]; else r[k - n] -= a[i] * b[j]; } }
+    return r;
+  },
+  mod: (a, q) => a.map((x) => modB(x, q)),
+  cmod: (a, q) => a.map((x) => cmodB(x, q)),
+  norm: (a) => a.reduce((m, x) => (absB(x) > m ? absB(x) : m), 0n),
+  monomial(a, k) { // X^k * a, k may be negative
+    const n = a.length; k = ((k % (2 * n)) + 2 * n) % (2 * n); const r = Array(n).fill(0n);
+    for (let i = 0; i < n; i++) { let j = i + k, s = 1n; while (j >= n) { j -= n; s = -s; } r[j] += s * a[i]; }
+    return r;
+  },
+};
+function encodeBase(m, base, n) { // non-negative integer -> poly
+  const c = Array(n).fill(0n); let x = BigInt(m); let i = 0; const digits = [];
+  while (x > 0n) { digits.push(x % B(base)); x /= B(base); }
+  for (const d of digits) { if (i < n) c[i] += d; else { // wrap with sign flip
+      let j = i, s = 1n; while (j >= n) { j -= n; s = -s; } c[j] += s * d; } i++; }
+  return { poly: c, digits: digits.length, wrapped: digits.length > n };
+}
+function decodeBase(M, base, t) { // M coeffs in Z_t -> integer, reading residues in [0,t)
+  let v = 0n, p = 1n; for (const x of M) { v += modB(x, B(t)) * p; p *= B(base); } return v;
+}
+
+// =================== BFV ===================
+function bfvRun(cfg) {
+  const n = cfg.n, t = B(cfg.t), q = B(cfg.q), beta = cfg.beta, w = B(cfg.w);
+  const rng = new RNG(cfg.seed);
+  const D = q / t, qt = modB(q, t);
+  const L = []; let tmp = 1n, ell = 0; while (tmp < q) { tmp *= w; ell++; }
+  const fix = cfg.fixed || {};
+  const SK = fix.SK ? fix.SK.map(B) : rng.ternary(n);
+  const a = fix.a ? P.cmod(fix.a.map(B), q) : rng.uniformPoly(n, q);
+  const e = fix.e ? fix.e.map(B) : rng.err(n, beta);
+  const aSK = P.mul(a, SK);
+  const PK0 = P.cmod(P.neg(P.add(aSK, e)), q), PK1 = a;
+  const SK2 = P.mul(SK, SK);
+  // relin keys (gadget), keys reuse fixed a', e' if given
+  const EK = [];
+  for (let i = 0; i < ell; i++) {
+    const ai = fix.ap ? P.cmod(fix.ap.map(B), q) : rng.uniformPoly(n, q);
+    const ei = fix.ep ? fix.ep.map(B) : rng.err(n, beta);
+    EK.push({ a: ai, e: ei, b: P.cmod(P.add(P.neg(P.add(P.mul(ai, SK), ei)), P.scal(w ** B(i), SK2)), q) });
+  }
+  const EKbasic = { a: EK[0].a, e: EK[0].e, b: EK[0].b }; // w^0 key = basic EK
+  const keys = { SK, a, e, aSK, PK0, PK1, SK2, EK, EKbasic, ell, check: P.cmod(P.add(PK0, aSK), q) };
+  const params = { n, t, q, D, qt, beta, w, ell, budget: q / (2n * t), fresh: B(2 * n * beta * 1 + beta), G: 2n * t * B(n) * B(n) };
+  const regs = {};
+  const ptMul = (A, Bp) => P.mod(P.mul(A, Bp), t);
+  function decrypt(c, Mexp) {
+    let val = P.add(c[0], P.mul(c[1], SK));
+    const parts = { c1SK: P.mul(c[1], SK) };
+    if (c.length === 3) { parts.c2SK2 = P.mul(c[2], SK2); val = P.add(val, parts.c2SK2); }
+    const r = P.cmod(val, q);
+    const scaled = r.map((x) => Number(x * t * 10000n / q) / 10000); // display
+    const rounded = r.map((x) => roundDiv(x * t, q));
+    const M = rounded.map((x) => modB(x, t));
+    const Mc = Mexp.map((x) => cmodB(x, t));
+    const v = P.cmod(r.map((x, i) => x - D * Mc[i]), q);
+    const ok = M.every((x, i) => x === modB(Mexp[i], t));
+    return { val, r, scaled, rounded, M, v, norm: P.norm(v), ok, parts };
+  }
+  function fresh(Mpoly, label, fx) {
+    const u = fx && fx.u ? fx.u.map(B) : rng.ternary(n);
+    const e1 = fx && fx.e1 ? fx.e1.map(B) : rng.err(n, beta);
+    const e2 = fx && fx.e2 ? fx.e2.map(B) : rng.err(n, beta);
+    const PK0u = P.mul(PK0, u), PK1u = P.mul(PK1, u);
+    const DM = P.scal(D, Mpoly);
+    const c0 = P.cmod(P.add(P.add(PK0u, e1), DM), q), c1 = P.cmod(P.add(PK1u, e2), q);
+    const vdirect = P.add(P.add(P.neg(P.mul(e, u)), e1), P.mul(e2, SK));
+    return { c: [c0, c1], M: P.mod(Mpoly, t), steps: { u, e1, e2, PK0u, PK1u, DM, vdirect } };
+  }
+  function exec(op) {
+    const X = regs[op.a], Y = regs[op.b];
+    if (op.op === 'enc') { const r = fresh(op.M, op.name, op.fx); return { ...r, kind: 'enc' }; }
+    if (op.op === 'add') {
+      if (X.c.length !== Y.c.length) throw new Error('Add needs two ciphertexts of the same size (relinearize first).');
+      return { kind: 'add', c: X.c.map((p, i) => P.cmod(P.add(p, Y.c[i]), q)), M: P.mod(P.add(X.M, Y.M), t) };
+    }
+    if (op.op === 'addp') { const Mp = op.M; return { kind: 'addp', c: [P.cmod(P.add(X.c[0], P.scal(D, Mp)), q), ...X.c.slice(1)], M: P.mod(P.add(X.M, Mp), t), steps: { Mp } }; }
+    if (op.op === 'mulp') { const Mp = P.cmod(op.M, t); return { kind: 'mulp', c: X.c.map((p) => P.cmod(P.mul(p, Mp), q)), M: ptMul(X.M, op.M), steps: { Mp } }; }
+    if (op.op === 'mul') {
+      if (X.c.length !== 2 || Y.c.length !== 2) throw new Error('EvalMult takes two 2-part ciphertexts. Relinearize first.');
+      const [a0, a1] = X.c, [b0, b1] = Y.c;
+      const T = [P.mul(a0, b0), P.add(P.mul(a0, b1), P.mul(a1, b0)), P.mul(a1, b1)];
+      const R = T.map((p) => p.map((x) => roundDiv(x * t, q)));
+      const c = R.map((p) => P.cmod(p, q));
+      return { kind: 'mul', c, M: ptMul(X.M, Y.M), steps: { T, R } };
+    }
+    if (op.op === 'relin') {
+      if (X.c.length !== 3) throw new Error('Relinearize takes a 3-part ciphertext (the output of EvalMult).');
+      const [c0, c1, c2] = X.c;
+      if (op.mode === 'basic') {
+        const h0 = P.cmod(P.add(c0, P.mul(EKbasic.b, c2)), q), h1 = P.cmod(P.add(c1, P.mul(EKbasic.a, c2)), q);
+        return { kind: 'relin', mode: 'basic', c: [h0, h1], M: X.M, steps: { c2 } };
+      }
+      const c2p = P.mod(c2, q); const digits = [];
+      for (let i = 0; i < ell; i++) digits.push(c2p.map((x) => (x / (w ** B(i))) % w));
+      let h0 = c0, h1 = c1;
+      digits.forEach((d, i) => { h0 = P.add(h0, P.mul(d, EK[i].b)); h1 = P.add(h1, P.mul(d, EK[i].a)); });
+      return { kind: 'relin', mode: 'gadget', c: [P.cmod(h0, q), P.cmod(h1, q)], M: X.M, steps: { c2p, digits } };
+    }
+    throw new Error('Unknown operation');
+  }
+  for (const op of cfg.program) {
+    try { const r = exec(op); r.op = op; r.dec = decrypt(r.c, r.M); regs[op.name] = r; }
+    catch (err) { regs[op.name] = { op, error: err.message }; }
+  }
+  return { params, keys, regs };
+}
+
+// =================== BGV ===================
+function isPrime(x) { if (x < 2) return false; if (x % 2 === 0) return x === 2; for (let d = 3; d * d <= x; d += 2) if (x % d === 0) return false; return true; }
+function findPrimes(t, count, bits, avoid = []) { // primes p ≡ 1 mod t near 2^bits, descending
+  const out = []; let k = Math.floor((2 ** bits - 1) / t);
+  while (out.length < count && k > 0) { const p = k * t + 1; if (isPrime(p) && !avoid.includes(p) && !out.includes(p)) out.push(p); k--; }
+  return out;
+}
+function bgvRun(cfg) {
+  const n = cfg.n, t = B(cfg.t), beta = cfg.beta, w = B(cfg.w);
+  const primes = cfg.primes.map(B); // p0..pL
+  const Lmax = primes.length - 1;
+  const qs = []; let acc = 1n; for (const p of primes) { acc *= p; qs.push(acc); }
+  const qL = qs[Lmax];
+  const rng = new RNG(cfg.seed); const fix = cfg.fixed || {};
+  let ell = 0, tmp = 1n; while (tmp < qL) { tmp *= w; ell++; }
+  const SK = fix.SK ? fix.SK.map(B) : rng.ternary(n);
+  const a = fix.a ? P.cmod(fix.a.map(B), qL) : rng.uniformPoly(n, qL);
+  const e = fix.e ? fix.e.map(B) : rng.err(n, beta);
+  const aSK = P.mul(a, SK);
+  const PK0 = P.cmod(P.neg(P.add(aSK, P.scal(t, e))), qL), PK1 = a;
+  const SK2 = P.mul(SK, SK);
+  const EK = [];
+  for (let i = 0; i < ell; i++) { const ai = rng.uniformPoly(n, qL), ei = rng.err(n, beta);
+    EK.push({ a: ai, e: ei, b: P.cmod(P.add(P.neg(P.add(P.mul(ai, SK), P.scal(t, ei))), P.scal(w ** B(i), SK2)), qL) }); }
+  const keys = { SK, a, e, aSK, PK0, PK1, SK2, EK, ell, check: P.cmod(P.add(PK0, aSK), qL) };
+  const params = { n, t, beta, w, primes, qs, Lmax, ell, fresh: B(2 * n * beta + beta), congr: primes.map((p, i) => i === 0 ? null : modB(p, t) === 1n) };
+  const regs = {};
+  const ptMul = (A, Bp) => P.mod(P.mul(A, Bp), t);
+  function decrypt(c, lvl, Mexp) {
+    const q = qs[lvl];
+    let val = P.add(c[0], P.mul(c[1], SK)); const parts = { c1SK: P.mul(c[1], SK) };
+    if (c.length === 3) { parts.c2SK2 = P.mul(c[2], SK2); val = P.add(val, parts.c2SK2); }
+    const r = P.cmod(val, q);
+    const M = r.map((x) => modB(x, t));
+    const Mc = Mexp.map((x) => cmodB(x, t));
+    const diff = r.map((x, i) => x - Mc[i]);
+    const divisible = diff.every((x) => x % t === 0n);
+    const v = diff.map((x) => (x % t === 0n ? x / t : null));
+    const ok = M.every((x, i) => x === modB(Mexp[i], t));
+    const vn = v.every((x) => x !== null) ? P.norm(v) : null;
+    return { val, r, M, v, norm: vn, ok, divisible, parts, budget: q / (2n * t), q };
+  }
+  function modswitchPoly(p, q, qn) { // nearest integer to (qn/q)c congruent to c mod t
+    const rows = [];
+    const out = p.map((c) => {
+      const res = modB(c, t); const num = c * qn; // x = num / q
+      const base = floorDiv(num, q); // floor(x)
+      // candidate k ≡ res (mod t) near x
+      let k0 = base - modB(base - res, t); // <= base, ≡ res
+      const cands = [k0, k0 + t, k0 - t, k0 + 2n * t];
+      let best = cands[0], bd = absB(cands[0] * q - num);
+      for (const k of cands) { const d = absB(k * q - num); if (d < bd) { bd = d; best = k; } }
+      rows.push({ c, res, x: Number(num * 1000n / q) / 1000, plain: roundDiv(num, q), k: best });
+      return best;
+    });
+    return { out, rows };
+  }
+  function exec(op) {
+    const X = regs[op.a], Y = regs[op.b];
+    if (op.op === 'enc') {
+      const fx = op.fx || {};
+      const u = fx.u ? fx.u.map(B) : rng.ternary(n), e1 = fx.e1 ? fx.e1.map(B) : rng.err(n, beta), e2 = fx.e2 ? fx.e2.map(B) : rng.err(n, beta);
+      const c0 = P.cmod(P.add(P.add(P.mul(PK0, u), P.scal(t, e1)), op.M), qL), c1 = P.cmod(P.add(P.mul(PK1, u), P.scal(t, e2)), qL);
+      return { kind: 'enc', c: [c0, c1], lvl: Lmax, M: P.mod(op.M, t), steps: { u, e1, e2, vdirect: P.add(P.add(P.neg(P.mul(e, u)), e1), P.mul(e2, SK)) } };
+    }
+    if (op.op === 'add') {
+      if (X.c.length !== Y.c.length) throw new Error('Add needs two ciphertexts of the same size.');
+      if (X.lvl !== Y.lvl) throw new Error(`Levels differ (${X.lvl} and ${Y.lvl}). ModSwitch the higher one down first.`);
+      const q = qs[X.lvl];
+      return { kind: 'add', c: X.c.map((p, i) => P.cmod(P.add(p, Y.c[i]), q)), lvl: X.lvl, M: P.mod(P.add(X.M, Y.M), t) };
+    }
+    if (op.op === 'addp') { const q = qs[X.lvl]; return { kind: 'addp', c: [P.cmod(P.add(X.c[0], op.M), q), ...X.c.slice(1)], lvl: X.lvl, M: P.mod(P.add(X.M, op.M), t) }; }
+    if (op.op === 'mulp') { const q = qs[X.lvl]; const Mp = P.cmod(op.M, t); return { kind: 'mulp', c: X.c.map((p) => P.cmod(P.mul(p, Mp), q)), lvl: X.lvl, M: ptMul(X.M, op.M) }; }
+    if (op.op === 'mul') {
+      if (X.c.length !== 2 || Y.c.length !== 2) throw new Error('EvalMult takes two 2-part ciphertexts. Relinearize first.');
+      if (X.lvl !== Y.lvl) throw new Error(`Levels differ (${X.lvl} and ${Y.lvl}). ModSwitch first.`);
+      const q = qs[X.lvl]; const [a0, a1] = X.c, [b0, b1] = Y.c;
+      const T = [P.mul(a0, b0), P.add(P.mul(a0, b1), P.mul(a1, b0)), P.mul(a1, b1)];
+      return { kind: 'mul', c: T.map((p) => P.cmod(p, q)), lvl: X.lvl, M: ptMul(X.M, Y.M), steps: { T } };
+    }
+    if (op.op === 'relin') {
+      if (X.c.length !== 3) throw new Error('Relinearize takes a 3-part ciphertext.');
+      const q = qs[X.lvl]; const [c0, c1, c2] = X.c; const c2p = P.mod(c2, q); const digits = [];
+      for (let i = 0; i < ell; i++) digits.push(c2p.map((x) => (x / (w ** B(i))) % w));
+      let h0 = c0, h1 = c1; digits.forEach((d, i) => { h0 = P.add(h0, P.mul(d, EK[i].b)); h1 = P.add(h1, P.mul(d, EK[i].a)); });
+      return { kind: 'relin', c: [P.cmod(h0, q), P.cmod(h1, q)], lvl: X.lvl, M: X.M, steps: { c2p, digits } };
+    }
+    if (op.op === 'ms') {
+      if (X.lvl === 0) throw new Error('Already at level 0: there is no prime left to drop.');
+      const q = qs[X.lvl], qn = qs[X.lvl - 1];
+      const res = X.c.map((p) => modswitchPoly(p, q, qn));
+      return { kind: 'ms', c: res.map((r) => P.cmod(r.out, qn)), lvl: X.lvl - 1, M: X.M, steps: { rows: res.map((r) => r.rows), dropped: primes[X.lvl], legal: modB(primes[X.lvl], t) === 1n } };
+    }
+    throw new Error('Unknown operation');
+  }
+  for (const op of cfg.program) {
+    try { const r = exec(op); r.op = op; r.dec = decrypt(r.c, r.lvl, r.M); regs[op.name] = r; }
+    catch (err) { regs[op.name] = { op, error: err.message }; }
+  }
+  return { params, keys, regs };
+}
+
+// =================== CKKS ===================
+// complex helpers
+const C = { add: (a, b) => [a[0] + b[0], a[1] + b[1]], mul: (a, b) => [a[0] * b[0] - a[1] * b[1], a[0] * b[1] + a[1] * b[0]], conj: (a) => [a[0], -a[1]], exp: (th) => [Math.cos(th), Math.sin(th)] };
+function ckksRoots(n) { // slot j uses root zeta^(5^j mod 2n); conjugates fill the rest
+  const roots = []; let g = 1; const M = 2 * n;
+  for (let j = 0; j < n / 2; j++) { roots.push(g); g = (g * 5) % M; }
+  return roots;
+}
+function ckksEncode(z, n, scale) { // z: array of reals/complex [re,im], length n/2 -> BigInt poly
+  const exps = ckksRoots(n), M = 2 * n; const vals = new Map();
+  exps.forEach((k, j) => { const zj = Array.isArray(z[j]) ? z[j] : [z[j] || 0, 0]; vals.set(k, zj); vals.set(M - k, C.conj(zj)); });
+  const coeffs = [];
+  for (let k = 0; k < n; k++) { let s = [0, 0]; for (const [r, v] of vals) s = C.add(s, C.mul(v, C.exp(-Math.PI * r * k / n))); coeffs.push(s[0] / n); }
+  return coeffs.map((x) => BigInt(Math.round(x * scale)));
+}
+function ckksDecode(m, n, scale) { // BigInt poly (centered) -> complex slots
+  const exps = ckksRoots(n);
+  return exps.map((k) => { let s = [0, 0]; m.forEach((c, i) => { s = C.add(s, C.mul([Number(c) / scale, 0], C.exp(Math.PI * k * i / n))); }); return s; });
+}
+function ckksRun(cfg) {
+  const n = cfg.n, beta = cfg.beta, logD = cfg.logDelta, logq0 = cfg.logq0, Lmax = cfg.L;
+  const w = 2n ** B(cfg.logw);
+  const qs = []; for (let l = 0; l <= Lmax; l++) qs.push(2n ** B(logq0 + l * logD));
+  const qL = qs[Lmax]; const Delta = 2 ** logD;
+  const rng = new RNG(cfg.seed);
+  let ell = 0, tmp = 1n; while (tmp < qL) { tmp *= w; ell++; }
+  const SK = rng.ternary(n), a = rng.uniformPoly(n, qL), e = rng.err(n, beta);
+  const aSK = P.mul(a, SK); const PK0 = P.cmod(P.neg(P.add(aSK, e)), qL), PK1 = a; const SK2 = P.mul(SK, SK);
+  const EK = []; for (let i = 0; i < ell; i++) { const ai = rng.uniformPoly(n, qL), ei = rng.err(n, beta);
+    EK.push({ a: ai, e: ei, b: P.cmod(P.add(P.neg(P.add(P.mul(ai, SK), ei)), P.scal(w ** B(i), SK2)), qL) }); }
+  const keys = { SK, a, e, PK0, PK1, SK2, EK, ell, check: P.cmod(P.add(PK0, aSK), qL) };
+  const params = { n, slots: n / 2, beta, logD, logq0, Lmax, qs, Delta, ell, w };
+  const regs = {};
+  function decrypt(c, lvl, scaleLog, zexp) {
+    const q = qs[lvl]; let val = P.add(c[0], P.mul(c[1], SK)); if (c.length === 3) val = P.add(val, P.mul(c[2], SK2));
+    const m = P.cmod(val, q); const scale = 2 ** scaleLog; const z = ckksDecode(m, n, scale);
+    const err = z.map((zz, j) => Math.hypot(zz[0] - zexp[j][0], zz[1] - zexp[j][1]));
+    const maxErr = Math.max(...err); const bound = Number(q / 2n) / scale; // largest decodable magnitude ~ q/2/scale
+    const ok = maxErr < 0.5; // loose correctness flag
+    return { m, z, err, maxErr, bits: maxErr > 0 ? -Math.log2(maxErr) : 53, ok, q, scale, bound };
+  }
+  function exec(op) {
+    const X = regs[op.a], Y = regs[op.b];
+    if (op.op === 'enc') {
+      const m = ckksEncode(op.z, n, Delta);
+      const u = rng.ternary(n), e1 = rng.err(n, beta), e2 = rng.err(n, beta);
+      const c0 = P.cmod(P.add(P.add(P.mul(PK0, u), e1), m), qL), c1 = P.cmod(P.add(P.mul(PK1, u), e2), qL);
+      const zexp = op.z.map((x) => (Array.isArray(x) ? x : [x, 0]));
+      return { kind: 'enc', c: [c0, c1], lvl: Lmax, scaleLog: logD, zexp, steps: { m, u, e1, e2, mdec: ckksDecode(m, n, Delta) } };
+    }
+    if (op.op === 'add') {
+      if (X.c.length !== Y.c.length) throw new Error('Add needs two ciphertexts of the same size.');
+      if (X.lvl !== Y.lvl) throw new Error(`Levels differ (${X.lvl} and ${Y.lvl}).`);
+      if (X.scaleLog !== Y.scaleLog) throw new Error('Scales differ: rescale one operand first.');
+      const q = qs[X.lvl];
+      return { kind: 'add', c: X.c.map((p, i) => P.cmod(P.add(p, Y.c[i]), q)), lvl: X.lvl, scaleLog: X.scaleLog, zexp: X.zexp.map((z, j) => C.add(z, Y.zexp[j])) };
+    }
+    if (op.op === 'mul') {
+      if (X.c.length !== 2 || Y.c.length !== 2) throw new Error('EvalMult takes two 2-part ciphertexts. Relinearize first.');
+      if (X.lvl !== Y.lvl) throw new Error(`Levels differ (${X.lvl} and ${Y.lvl}).`);
+      const q = qs[X.lvl]; const [a0, a1] = X.c, [b0, b1] = Y.c;
+      const T = [P.mul(a0, b0), P.add(P.mul(a0, b1), P.mul(a1, b0)), P.mul(a1, b1)];
+      return { kind: 'mul', c: T.map((p) => P.cmod(p, q)), lvl: X.lvl, scaleLog: X.scaleLog + Y.scaleLog, zexp: X.zexp.map((z, j) => C.mul(z, Y.zexp[j])) };
+    }
+    if (op.op === 'relin') {
+      if (X.c.length !== 3) throw new Error('Relinearize takes a 3-part ciphertext.');
+      const q = qs[X.lvl]; const [c0, c1, c2] = X.c; const c2p = P.mod(c2, q); const digits = [];
+      for (let i = 0; i < ell; i++) digits.push(c2p.map((x) => (x / (w ** B(i))) % w));
+      let h0 = c0, h1 = c1; digits.forEach((d, i) => { h0 = P.add(h0, P.mul(d, EK[i].b)); h1 = P.add(h1, P.mul(d, EK[i].a)); });
+      return { kind: 'relin', c: [P.cmod(h0, q), P.cmod(h1, q)], lvl: X.lvl, scaleLog: X.scaleLog, zexp: X.zexp };
+    }
+    if (op.op === 'rescale') {
+      if (X.lvl === 0) throw new Error('Level 0: no modulus left to divide by.');
+      const p = 2n ** B(logD); const qn = qs[X.lvl - 1];
+      return { kind: 'rescale', c: X.c.map((poly) => P.cmod(poly.map((x) => roundDiv(x, p)), qn)), lvl: X.lvl - 1, scaleLog: X.scaleLog - logD, zexp: X.zexp };
+    }
+    if (op.op === 'mulc') { // multiply by a public real constant, encoded at scale Delta
+      const k = Math.round(op.k * Delta); const q = qs[X.lvl];
+      return { kind: 'mulc', c: X.c.map((p) => P.cmod(P.scal(B(k), p), q)), lvl: X.lvl, scaleLog: X.scaleLog + logD, zexp: X.zexp.map((z) => [z[0] * op.k, z[1] * op.k]) };
+    }
+    throw new Error('Unknown operation');
+  }
+  for (const op of cfg.program) {
+    try { const r = exec(op); r.op = op; r.dec = decrypt(r.c, r.lvl, r.scaleLog, r.zexp); regs[op.name] = r; }
+    catch (err) { regs[op.name] = { op, error: err.message }; }
+  }
+  return { params, keys, regs };
+}
+
+// =================== TFHE (Number arithmetic, q = 2^k) ===================
+function tfheRun(cfg) {
+  const k = cfg.logq, q = 2 ** k, p = cfg.p, n = cfg.n, N = cfg.N, bb = cfg.logBeta, beta = 2 ** bb, ell = Math.ceil(k / bb);
+  const kb = cfg.logBks, bks = 2 ** kb, lks = Math.ceil(k / kb);
+  const D = q / p, w = (2 * N) / p;
+  const rng = new RNG(cfg.seed);
+  const md = (x) => ((x % q) + q) % q;
+  const cn = (x) => { x = md(x); return x > q / 2 ? x - q : x; };
+  const eb = cfg.eLwe, ebk = cfg.eBk, eks = cfg.eKs;
+  const sm = (bound) => rng.int(-bound, bound);
+  const s = cfg.s || Array.from({ length: n }, () => rng.int(0, 1));
+  const S = Array.from({ length: N }, () => rng.int(0, 1));
+  // ring ops on Number arrays mod q
+  const pmul = (a, b) => { const r = new Array(N).fill(0); for (let i = 0; i < N; i++) { if (!a[i]) continue; for (let j = 0; j < N; j++) { const t2 = i + j; const v = a[i] * b[j]; if (t2 < N) r[t2] += v; else r[t2 - N] -= v; } } return r.map(md); };
+  const padd = (a, b) => a.map((x, i) => md(x + b[i]));
+  const psub = (a, b) => a.map((x, i) => md(x - b[i]));
+  const mono = (a, kk) => { kk = ((kk % (2 * N)) + 2 * N) % (2 * N); const r = new Array(N).fill(0); for (let i = 0; i < N; i++) { let j = i + kk, sg = 1; while (j >= N) { j -= N; sg = -sg; } r[j] = md(r[j] + sg * a[i]); } return r; };
+  const glweEnc = (M) => { const A = Array.from({ length: N }, () => rng.int(0, q - 1)); const E = Array.from({ length: N }, () => sm(ebk)); return [A, padd(padd(pmul(A, S), M), E.map(md))]; };
+  const glwePhase = (c) => psub(c[1], pmul(c[0], S)).map(cn);
+  const decomp = (a) => { const digs = Array.from({ length: ell }, () => new Array(N).fill(0)); a.forEach((x0, i) => { let x = md(x0); for (let t2 = 0; t2 < ell; t2++) { let d = x % beta; x = Math.floor(x / beta); if (d > beta / 2) { d -= beta; x += 1; } digs[t2][i] = md(d); } }); return digs; };
+  const ggswEnc = (m) => { const rows = []; for (const part of [0, 1]) for (let t2 = 0; t2 < ell; t2++) { const [A, Bp] = glweEnc(new Array(N).fill(0)); const g = new Array(N).fill(0); g[0] = md(m * beta ** t2); rows.push(part === 0 ? [padd(A, g), Bp] : [A, padd(Bp, g)]); } return rows; };
+  const extprod = (Cm, c) => { const ds = [...decomp(c[0]), ...decomp(c[1])]; let A = new Array(N).fill(0), Bp = new Array(N).fill(0); ds.forEach((d, i) => { A = padd(A, pmul(d, Cm[i][0])); Bp = padd(Bp, pmul(d, Cm[i][1])); }); return [A, Bp]; };
+  const csub = (c, d) => [psub(c[0], d[0]), psub(c[1], d[1])];
+  const cadd = (c, d) => [padd(c[0], d[0]), padd(c[1], d[1])];
+  const crot = (c, kk) => [mono(c[0], kk), mono(c[1], kk)];
+  const cmux = (Cm, d1, d0) => cadd(extprod(Cm, csub(d1, d0)), d0);
+  const BK = s.map((si) => ggswEnc(si));
+  const lweEncS = (mu) => { const a = Array.from({ length: n }, () => rng.int(0, q - 1)); const e = sm(eks); return [a, md(a.reduce((acc, x, i) => acc + x * s[i], 0) + mu + e)]; };
+  const KSK = S.map((Sj) => Array.from({ length: lks }, (_, t2) => lweEncS(md(Sj * bks ** t2))));
+  const lwePhase = (c, key) => cn(c[1] - c[0].reduce((acc, x, i) => acc + x * key[i], 0));
+  const lweDec = (c) => { const ph = lwePhase(c, s); return { phase: ph, m: ((Math.round(ph / D) % p) + p) % p, noise: cn(ph - Math.round(ph / D) * D) }; };
+  const regs = {};
+  const keys = { s, S, BKsize: n * 2 * ell * 2 * N, KSKsize: N * lks * (n + 1) };
+  const params = { q, k, p, n, N, beta, ell, bks, lks, D, w };
+  function bootstrap(c, lut) {
+    const [a, b] = c; const steps = {};
+    const at = a.map((x) => ((Math.round(x * 2 * N / q) % (2 * N)) + 2 * N) % (2 * N));
+    const bt = ((Math.round(b * 2 * N / q) % (2 * N)) + 2 * N) % (2 * N);
+    const bt2 = (bt + w / 2) % (2 * N);
+    const phiExact = lwePhase(c, s) * 2 * N / q;
+    const phit = ((bt2 - at.reduce((acc, x, i) => acc + x * s[i], 0)) % (2 * N) + 2 * N) % (2 * N);
+    const v = Array.from({ length: N }, (_, j) => md(D * lut[Math.floor(j / w)]));
+    let ACC = [new Array(N).fill(0), mono(v, -bt2)];
+    const trace = [{ i: 0, exp: -bt2, phase: glwePhase(ACC), noise: 0 }];
+    let expo = -bt2;
+    for (let i = 0; i < n; i++) {
+      ACC = cmux(BK[i], crot(ACC, at[i]), ACC);
+      if (s[i]) expo += at[i];
+      const ph = glwePhase(ACC); const ideal = mono(v, expo).map(cn);
+      trace.push({ i: i + 1, exp: expo, phase: ph, noise: Math.max(...ph.map((x, j) => Math.abs(cn(x - ideal[j])))), si: s[i], ai: at[i] });
+    }
+    const [A, Bp] = ACC; const a2 = [A[0], ...Array.from({ length: N - 1 }, (_, j) => md(-A[N - 1 - j]))]; const b2 = Bp[0];
+    const extPhase = lwePhase([a2, b2], S);
+    let oa = new Array(n).fill(0), ob = b2;
+    for (let j = 0; j < N; j++) { let x = md(a2[j]); for (let t2 = 0; t2 < lks; t2++) { let d = x % bks; x = Math.floor(x / bks); if (d > bks / 2) { d -= bks; x += 1; } const [ka, kbv] = KSK[j][t2]; oa = oa.map((u, i) => md(u - d * ka[i])); ob = md(ob - d * kbv); } }
+    const out = [oa, ob];
+    Object.assign(steps, { at, bt, bt2, phiExact, phit, box: Math.floor(phit / w), v, trace, a2, b2, extPhase, outPhase: lwePhase(out, s) });
+    return { out, steps };
+  }
+  function exec(op) {
+    if (op.op === 'enc') { const a = op.fa || Array.from({ length: n }, () => rng.int(0, q - 1)); const e = op.fe !== undefined ? op.fe : sm(eb); const c = [a.map(md), md(a.reduce((acc, x, i) => acc + x * s[i], 0) + D * op.m + e)]; return { kind: 'enc', c, m: op.m, steps: { e } }; }
+    const X = regs[op.a], Y = regs[op.b];
+    if (op.op === 'lin') { // alpha*X + beta*Y + gamma*D
+      const c0 = X.c[0].map((x, i) => md(op.alpha * x + (Y ? op.beta * Y.c[0][i] : 0)));
+      const c1 = md(op.alpha * X.c[1] + (Y ? op.beta * Y.c[1] : 0) + op.gamma * D);
+      return { kind: 'lin', c: [c0, c1], m: (((op.alpha * X.m + (Y ? op.beta * Y.m : 0) + op.gamma) % p) + p) % p };
+    }
+    if (op.op === 'pbs') { const r = bootstrap(X.c, op.lut); const idx = X.m; const mexp = idx < p / 2 ? op.lut[idx] : ((p - op.lut[idx - p / 2]) % p); return { kind: 'pbs', c: r.out, m: ((mexp % p) + p) % p, steps: r.steps, lut: op.lut }; }
+    throw new Error('Unknown operation');
+  }
+  for (const op of cfg.program) {
+    try { const r = exec(op); r.op = op; r.dec = lweDec(r.c); r.ok = r.dec.m === r.m; regs[op.name] = r; }
+    catch (err) { regs[op.name] = { op, error: err.message }; }
+  }
+  return { params, keys, regs, lwePhase };
+}
+
+if (typeof module !== 'undefined') module.exports = { bfvRun, bgvRun, ckksRun, tfheRun, encodeBase, decodeBase, findPrimes, isPrime, P, B, cmodB, modB, log2B, ckksEncode, ckksDecode };
+
+</script>
+<script>
+// ===================== Guided FHE lab =====================
+const $ = (sel, el = document) => el.querySelector(sel);
+const h = (tag, attrs = {}, ...kids) => {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs || {})) {
+    if (v === null || v === undefined || v === false) continue;
+    if (k === 'class') el.className = v; else if (k === 'html') el.innerHTML = v;
+    else if (k.startsWith('on')) el.addEventListener(k.slice(2), v); else el.setAttribute(k, v === true ? '' : v);
+  }
+  for (const kid of kids.flat()) { if (kid === null || kid === undefined || kid === false) continue; el.append(kid instanceof Node ? kid : document.createTextNode(String(kid))); }
+  return el;
+};
+const svgNS = 'http://www.w3.org/2000/svg';
+const s = (tag, attrs = {}, ...kids) => { const el = document.createElementNS(svgNS, tag); for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v); for (const kid of kids.flat()) { if (kid == null) continue; el.append(kid instanceof Node ? kid : document.createTextNode(String(kid))); } return el; };
+const store = { get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } }, set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } } };
+const VIEW = { pos: false };
+const fmtB = (x, q) => (q && VIEW.pos ? modB(x, q) : x).toString();
+function polyStr(p, q) {
+  const terms = []; p.forEach((c0, i) => { let c = typeof c0 === 'bigint' ? c0 : BigInt(c0); if (q && VIEW.pos) c = modB(c, q); if (c === 0n) return; const m = i === 0 ? '' : i === 1 ? 'X' : `X<sup>${i}</sup>`; const a = absB(c); terms.push({ neg: c < 0n, txt: ((a === 1n && i > 0) ? '' : a.toString()) + m }); });
+  if (!terms.length) return '0';
+  return terms.map((t, i) => (i === 0 ? (t.neg ? '−' : '') : (t.neg ? ' − ' : ' + ')) + t.txt).join('');
+}
+const sub = (i) => String(i).split('').map((d) => '₀₁₂₃₄₅₆₇₈₉'[d] || d).join('');
+const monoLabel = (c, k, name) => { const coef = c === 1n ? '' : c === -1n ? '−' : (c < 0n ? '−' + (-c) : String(c)); const xk = k === 0 ? '' : k === 1 ? 'X' : `X<sup>${k}</sup>`; return `${coef}${xk}${(k === 0 && (c === 1n || c === -1n)) ? '' : '·'}${name}`; };
+function chip(txt, cls = '') { return h('span', { class: 'chip ' + cls, html: txt }); }
+function note(html, cls = '') { return h('p', { class: 'note ' + cls, html }); }
+
+// ---------- polynomial table with clickable coefficient explanations ----------
+function convExplain(a, b, k, aName, bName) {
+  const n = a.length; const terms = []; let sum = 0n;
+  for (let i = 0; i < n; i++) { let j = k - i, sg = 1n; if (j < 0) { j += n; sg = -1n; } const v = sg * a[i] * b[j]; if (b[j] === 0n || a[i] === 0n) continue; sum += v; terms.push(`${sg < 0n ? '−' : '+'} (${a[i]})·(${b[j]})`); }
+  const html = `<b>Coefficient of X<sup>${k}</sup> in ${aName}·${bName}:</b> pairs with i + j = ${k} add, pairs with i + j = ${k} + n subtract (because X<sup>n</sup> = −1).<br><span class="mono">${terms.join(' ').replace(/^\+ /, '') || '0'} = ${sum}</span>`;
+  return html;
+}
+function polyTable(rows, opts = {}) {
+  const real = rows.filter((r) => r && r !== '-' && r.v);
+  const n = real.length ? real[0].v.length : 0;
+  const t = h('table', { class: 'ptab' });
+  t.append(h('thead', {}, h('tr', {}, h('th', {}, ''), ...Array.from({ length: n }, (_, i) => h('th', { html: i === 0 ? '1' : i === 1 ? 'X' : `X<sup>${i}</sup>` })))));
+  const tb = h('tbody'); const exp = h('div', { class: 'explain', hidden: true });
+  for (const r of rows) {
+    if (r === '-') { tb.append(h('tr', { class: 'sep' }, h('td', { colspan: n + 1 }))); continue; }
+    const tr = h('tr', { class: r.cls || '' }, h('th', { html: r.label }));
+    r.v.forEach((x, i) => {
+      const txt = typeof x === 'bigint' ? fmtB(x, r.q) : (typeof x === 'number' ? (Number.isInteger(x) ? String(x) : x.toFixed(r.dp ?? 3)) : String(x));
+      const td = h('td', { class: (r.bad && r.bad[i] ? 'bad ' : '') + (r.explain ? 'clk' : '') + (r.hi === i ? ' hi' : '') }, txt);
+      if (r.explain) { td.tabIndex = 0; td.title = 'Click to see how this coefficient was computed'; const show = () => { exp.hidden = false; exp.innerHTML = r.explain(i); tb.querySelectorAll('td.sel').forEach((e) => e.classList.remove('sel')); td.classList.add('sel'); }; td.addEventListener('click', show); td.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); show(); } }); }
+      tr.append(td);
+    });
+    tb.append(tr);
+  }
+  t.append(tb);
+  const anyExplain = rows.some((r) => r && r.explain);
+  return h('div', { class: 'ptwrap' }, h('div', { class: 'tablewrap' }, t), anyExplain ? h('p', { class: 'hint' }, 'Tip: click a coefficient in an underlined row to see its convolution.') : null, exp);
+}
+function gauge(norm, budget, label = '‖v‖') {
+  if (norm === null || norm === undefined) return h('div', { class: 'gauge broken' }, h('div', { class: 'gtext' }, 'Noise unreadable: the ciphertext no longer decrypts to M + t·v.'));
+  const lb = log2B(budget), ln = norm === 0n ? 0 : log2B(norm); const frac = Math.max(0, Math.min(1, ln / lb)); const left = lb - ln;
+  const st = norm >= budget ? 'bad' : left < 2 ? 'warn' : 'ok';
+  return h('div', { class: 'gauge ' + st }, h('div', { class: 'gbar' }, h('div', { class: 'gfill', style: `width:${(frac * 100).toFixed(1)}%` })),
+    h('div', { class: 'gtext' }, h('span', { class: 'mono' }, `${label} = ${norm}`), ` of ${budget} `, h('b', {}, norm >= budget ? 'over budget' : `${left.toFixed(1)} bits left`)));
+}
+
+// ---------- visuals ----------
+function decisionStrip(r, q, t, Mexp) {
+  const n = r.length, W = 640, rowH = 16, top = 22, H = top + n * rowH + 8;
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, class: 'viz', role: 'img', 'aria-label': 'Decision boxes' });
+  const x = (v) => 40 + (Number(v) / Number(q) + 0.5) * (W - 60); const D = Number(q) / Number(t);
+  for (let k = -Math.floor(Number(t) / 2); k <= Math.ceil(Number(t) / 2); k++) { const lo = k * D - D / 2, hi = k * D + D / 2; const x0 = Math.max(40, x(lo)), x1 = Math.min(W - 20, x(hi)); if (x1 <= x0) continue; const m = ((k % Number(t)) + Number(t)) % Number(t);
+    svg.append(s('rect', { x: x0, y: top - 4, width: x1 - x0, height: n * rowH + 6, class: m % 2 ? 'band2' : 'band1' })); if (x1 - x0 > 16) svg.append(s('text', { x: (x0 + x1) / 2, y: 13, class: 'lbl', 'text-anchor': 'middle' }, `m=${m}`)); }
+  r.forEach((v, i) => { const y = top + i * rowH + rowH / 2; svg.append(s('text', { x: 4, y: y + 4, class: 'lbl' }, i === 0 ? '1' : `X${i}`));
+    if (Mexp) { const target = cmodB(Mexp[i], t) * (q / t); svg.append(s('line', { x1: x(target), x2: x(v), y1: y, y2: y, class: 'noiseline' })); svg.append(s('circle', { cx: x(target), cy: y, r: 2.5, class: 'target' })); }
+    const ok = !Mexp || modB(roundDiv(v * t, q), t) === modB(Mexp[i], t);
+    svg.append(s('circle', { cx: x(v), cy: y, r: 4.5, class: ok ? 'dot ok' : 'dot bad' }, s('title', {}, `coefficient ${i}: ${v}`))); });
+  return h('figure', { class: 'fig' }, svg, h('figcaption', {}, 'Each row is one coefficient on the line (−q/2, q/2]. The bands are the t decision boxes of width Δ. The small dot is Δ·m, the large dot the actual value; the gap is the noise.'));
+}
+function wrapStrip(r, q, t) {
+  const n = r.length, W = 640, rowH = 16, top = 18, H = top + n * rowH + 6;
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, class: 'viz', role: 'img', 'aria-label': 'Wraparound strip' }); const x = (v) => 40 + (Number(v) / Number(q) + 0.5) * (W - 60);
+  svg.append(s('rect', { x: 40, y: top - 4, width: W - 60, height: n * rowH + 6, class: 'band1' })); svg.append(s('line', { x1: x(0), x2: x(0), y1: top - 6, y2: top + n * rowH, class: 'axis' }));
+  svg.append(s('text', { x: 40, y: 12, class: 'lbl' }, '−q/2')); svg.append(s('text', { x: W - 20, y: 12, class: 'lbl', 'text-anchor': 'end' }, 'q/2'));
+  r.forEach((v, i) => { const y = top + i * rowH + rowH / 2; svg.append(s('text', { x: 4, y: y + 4, class: 'lbl' }, i === 0 ? '1' : `X${i}`)); svg.append(s('line', { x1: x(0), x2: x(v), y1: y, y2: y, class: 'noisebar' })); svg.append(s('circle', { cx: x(v), cy: y, r: 4, class: 'dot ok' }, s('title', {}, `${v} ≡ ${modB(v, t)} (mod ${t})`))); });
+  return h('figure', { class: 'fig' }, svg, h('figcaption', {}, 'Each coefficient is M + t·v and must stay inside (−q/2, q/2]. Past the edge the reduction subtracts an extra q and the residue mod t changes.'));
+}
+function slotChart(zexp, zdec) {
+  const k = zexp.length, W = 640, H = 190, padL = 46, padB = 24, padT = 12; const all = [...zexp.map((z) => z[0]), ...zdec.map((z) => z[0]), 0];
+  let lo = Math.min(...all), hi = Math.max(...all); if (hi - lo < 1e-9) { hi += 1; lo -= 1; } const pd = (hi - lo) * 0.12; lo -= pd; hi += pd; const y = (v) => padT + (hi - v) / (hi - lo) * (H - padT - padB);
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, class: 'viz', role: 'img', 'aria-label': 'Slots' });
+  for (let i = 0; i <= 4; i++) { const v = lo + (hi - lo) * i / 4; svg.append(s('line', { x1: padL, x2: W - 8, y1: y(v), y2: y(v), class: 'grid' })); svg.append(s('text', { x: padL - 6, y: y(v) + 4, class: 'lbl', 'text-anchor': 'end' }, v.toFixed(2))); }
+  svg.append(s('line', { x1: padL, x2: W - 8, y1: y(0), y2: y(0), class: 'axis' })); const bw = (W - padL - 8) / k;
+  for (let j = 0; j < k; j++) { const cx = padL + bw * j + bw / 2, ww = Math.min(26, bw * 0.32); const e = zexp[j][0], d = zdec[j][0];
+    svg.append(s('rect', { x: cx - ww - 1, y: Math.min(y(e), y(0)), width: ww, height: Math.abs(y(e) - y(0)) || 1, class: 'barE' }, s('title', {}, `expected ${e}`)));
+    svg.append(s('rect', { x: cx + 1, y: Math.min(y(d), y(0)), width: ww, height: Math.abs(y(d) - y(0)) || 1, class: 'barD' }, s('title', {}, `decrypted ${d}`))); svg.append(s('text', { x: cx, y: H - 7, class: 'lbl', 'text-anchor': 'middle' }, `slot ${j}`)); }
+  return h('figure', { class: 'fig' }, svg, h('figcaption', {}, h('span', { class: 'key keyE' }), ' expected  ', h('span', { class: 'key keyD' }), ' decrypted'));
+}
+function torus(points, p, caption) {
+  const R = 92, cx = 120, cy = 118; const svg = s('svg', { viewBox: '0 0 240 240', class: 'viz torus', role: 'img', 'aria-label': 'Torus' }); const ang = (f) => -Math.PI / 2 + 2 * Math.PI * f;
+  for (let m = 0; m < p; m++) { const a0 = ang((m - 0.5) / p), a1 = ang((m + 0.5) / p);
+    svg.append(s('path', { d: `M ${cx} ${cy} L ${cx + R * Math.cos(a0)} ${cy + R * Math.sin(a0)} A ${R} ${R} 0 0 1 ${cx + R * Math.cos(a1)} ${cy + R * Math.sin(a1)} Z`, class: (m >= p / 2 ? 'pad ' : '') + (m % 2 ? 'sec2' : 'sec1') }));
+    if (p <= 16 || m % 2 === 0) { const am = ang(m / p); svg.append(s('text', { x: cx + (R + 13) * Math.cos(am), y: cy + (R + 13) * Math.sin(am) + 4, class: 'lbl', 'text-anchor': 'middle' }, String(m))); } }
+  svg.append(s('circle', { cx, cy, r: R, class: 'rim' }));
+  for (const pt of points) { const a = ang(pt.f); svg.append(s('line', { x1: cx, y1: cy, x2: cx + R * Math.cos(a), y2: cy + R * Math.sin(a), class: 'hand' })); svg.append(s('circle', { cx: cx + R * Math.cos(a), cy: cy + R * Math.sin(a), r: 5.5, class: 'dot ' + (pt.cls || 'ok') }, s('title', {}, pt.title || ''))); }
+  return h('figure', { class: 'fig torusfig' }, svg, caption ? h('figcaption', { html: caption }) : null);
+}
+function coeffBars(vals, opts = {}) {
+  const N = vals.length, W = 640, H = 120, mid = 60, padL = 6; const bw = (W - padL * 2) / N; const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, class: 'viz', role: 'img', 'aria-label': 'Coefficients' });
+  svg.append(s('line', { x1: 0, x2: W, y1: mid, y2: mid, class: 'axis' })); const maxA = Math.max(1, ...vals.map(Math.abs));
+  vals.forEach((v, j) => { const hg = (v / maxA) * (mid - 10); svg.append(s('rect', { x: padL + j * bw + 1, y: hg >= 0 ? mid - hg : mid, width: Math.max(1, bw - 2), height: Math.abs(hg) || 1, class: opts.cls ? opts.cls(j, v) : 'barD' }, s('title', {}, `coefficient ${j}: ${v}`))); if (opts.hi === j) svg.append(s('rect', { x: padL + j * bw, y: 2, width: bw, height: H - 4, class: 'hi' })); });
+  return h('figure', { class: 'fig' }, svg, opts.caption ? h('figcaption', { html: opts.caption }) : null);
+}
+function lineChart(vals, budget, caption) {
+  const W = 640, H = 170, padL = 40, padB = 22, padT = 14; const maxv = Math.max(budget, ...vals) * 1.08; const x = (i) => padL + i * (W - padL - 10) / Math.max(1, vals.length - 1); const y = (v) => padT + (1 - v / maxv) * (H - padT - padB);
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, class: 'viz', role: 'img', 'aria-label': 'Noise trace' });
+  svg.append(s('line', { x1: padL, x2: W - 10, y1: y(budget), y2: y(budget), class: 'budget' })); svg.append(s('text', { x: W - 10, y: y(budget) - 4, class: 'lbl', 'text-anchor': 'end' }, `budget Δ/2 = ${budget}`));
+  svg.append(s('line', { x1: padL, x2: W - 10, y1: y(0), y2: y(0), class: 'axis' })); svg.append(s('polyline', { points: vals.map((v, i) => `${x(i)},${y(v)}`).join(' '), class: 'trace' }));
+  vals.forEach((v, i) => { svg.append(s('circle', { cx: x(i), cy: y(v), r: 3.5, class: 'tracept' }, s('title', {}, `after step ${i}: ${v}`))); svg.append(s('text', { x: x(i), y: H - 6, class: 'lbl', 'text-anchor': 'middle' }, String(i))); });
+  return h('figure', { class: 'fig' }, svg, h('figcaption', {}, caption || ''));
+}
+
+// ---------- step builders ----------
+// multiply p by a small polynomial sm by shifted copies, one step per nonzero coefficient
+function shiftSteps(p, sm, { pName, sName, q, title, intro }) {
+  const n = p.length; const nz = sm.map((c, k) => [c, k]).filter(([c]) => c !== 0n);
+  const steps = []; let rows = []; let acc = P.zero(n);
+  const few = nz.length <= 6;
+  nz.forEach(([c, k], idx) => {
+    const r = P.scal(c, P.monomial(p, k)); acc = P.add(acc, r);
+    rows = rows.map((x) => ({ ...x, cls: '' }));
+    rows.push({ label: monoLabel(c, k, pName), v: r, cls: 'new' });
+    if (few || idx === nz.length - 1) {
+      const why = k === 0 ? `Coefficient ${c} of ${sName} at X<sup>0</sup>: copy ${pName}${c === 1n ? '' : ` times ${c}`}.`
+        : `Coefficient ${c} of ${sName} at X<sup>${k}</sup>: shift ${pName} right by ${k} place${k > 1 ? 's' : ''}; the ${k} coefficient${k > 1 ? 's' : ''} that pass X<sup>${n - 1}</sup> come back at the front with the sign flipped (X<sup>${n}</sup> = −1)${c === 1n ? '' : `, then multiply by ${c}`}.`;
+      steps.push({ title: `${title}: ${few ? `row ${idx + 1} of ${nz.length}` : 'all rows'}`, why: (idx === 0 && intro ? intro + ' ' : '') + (few ? why : `${sName} has ${nz.length} nonzero coefficients; each contributes one shifted copy of ${pName}.`),
+        table: [...(few ? rows : rows.map((x) => ({ ...x, cls: '' }))), '-', { label: `running sum`, v: acc, cls: 'hl', explain: (i) => convExplain(p, sm, i, pName, sName) }] });
+    }
+  });
+  if (!nz.length) steps.push({ title, why: `${sName} is zero, so the product is zero.`, table: [{ label: 'product', v: acc }] });
+  return { steps, value: acc };
+}
+const paramChips = (list) => h('div', { class: 'pchips' }, ...list.map(([k, v]) => h('span', { class: 'pchip' }, h('span', { class: 'pk', html: k }), h('span', { class: 'pv mono', html: String(v) }))));
+
+// ---------- stepper ----------
+function stepper(steps, opts = {}) {
+  let i = 0; let timer = null;
+  const host = h('div', { class: 'stepper' });
+  const dots = h('div', { class: 'dots', role: 'tablist' });
+  const body = h('div', { class: 'stepbody', 'aria-live': 'polite' });
+  const prev = h('button', { class: 'btn', type: 'button', onclick: () => go(i - 1) }, '← Back');
+  const next = h('button', { class: 'btn primary', type: 'button', onclick: () => go(i + 1) }, 'Next →');
+  const play = h('button', { class: 'btn ghost', type: 'button', onclick: () => { if (timer) { stop(); return; } play.textContent = 'Pause'; timer = setInterval(() => { if (i >= steps.length - 1) { stop(); return; } go(i + 1); }, 1600); } }, 'Play');
+  const all = h('button', { class: 'btn ghost', type: 'button', onclick: () => { stop(); renderAll(); } }, 'Show all steps');
+  function stop() { clearInterval(timer); timer = null; play.textContent = 'Play'; }
+  steps.forEach((st, k) => dots.append(h('button', { class: 'dot', type: 'button', title: st.title, 'aria-label': `Step ${k + 1}: ${st.title}`, onclick: () => { stop(); go(k); } }, String(k + 1))));
+  function renderStep(st, k) {
+    const box = h('div', { class: 'step' }, h('div', { class: 'stephead' }, h('span', { class: 'stepno' }, `Step ${k + 1} of ${steps.length}`), h('h5', { html: st.title })));
+    if (st.why) box.append(h('p', { class: 'why', html: st.why }));
+    if (st.formula) box.append(h('div', { class: 'formula', html: st.formula }));
+    if (st.table) box.append(polyTable(st.table));
+    if (st.node) box.append(typeof st.node === 'function' ? st.node() : st.node);
+    return box;
+  }
+  function go(k) { i = Math.max(0, Math.min(steps.length - 1, k)); body.innerHTML = ''; body.append(renderStep(steps[i], i)); dots.querySelectorAll('.dot').forEach((d, j) => { d.classList.toggle('on', j === i); d.classList.toggle('done', j < i); }); prev.disabled = i === 0; next.disabled = i === steps.length - 1; }
+  function renderAll() { body.innerHTML = ''; steps.forEach((st, k) => body.append(renderStep(st, k))); dots.querySelectorAll('.dot').forEach((d) => d.classList.add('done')); }
+  host.append(h('div', { class: 'stepctl' }, dots, h('div', { class: 'row wrap' }, prev, next, play, all)), body);
+  go(opts.start === 'end' ? steps.length - 1 : 0);
+  return host;
+}
+
+// ---------- generic lab page ----------
+function makeLab(def) {
+  const KEY = 'lab2.' + def.id;
+  const saved = store.get(KEY, null);
+  const st = { p: saved && saved.v === def.version ? saved.p : { ...def.presets[0].p }, ctx: null, keysFor: null, wallet: [], active: 'keygen', lastSteps: null, lastTitle: '' };
+  const root = h('div', { class: 'page', id: 'page-' + def.id });
+  const main = h('div', { class: 'main' }); const side = h('aside', { class: 'side', 'aria-label': 'Parameters' });
+  root.append(main, side);
+  const save = () => store.set(KEY, { v: def.version, p: st.p });
+  const paramsHash = () => JSON.stringify(st.p);
+  // ---- right pane
+  function buildSide() {
+    side.innerHTML = '';
+    side.append(h('h3', {}, 'Parameters'));
+    const ps = h('select', { id: def.id + '-preset' }, h('option', { value: '' }, 'Load a preset…'), ...def.presets.map((pr, i) => h('option', { value: i }, pr.label)));
+    ps.addEventListener('change', () => { if (ps.value === '') return; st.p = { ...def.presets[Number(ps.value)].p }; save(); buildSide(); refresh(); });
+    side.append(ps);
+    const grid = h('div', { class: 'fgrid' });
+    for (const f of def.fields(st.p)) {
+      const id = def.id + '-' + f.key; let input;
+      if (f.type === 'select') { input = h('select', { id }, ...f.options.map((o) => { const [v, l] = Array.isArray(o) ? o : [o, o]; return h('option', { value: v, selected: String(st.p[f.key]) === String(v) }, l); })); }
+      else if (f.type === 'check') { input = h('input', { id, type: 'checkbox', checked: !!st.p[f.key] }); }
+      else input = h('input', { id, type: f.type === 'number' ? 'number' : 'text', value: st.p[f.key] ?? '', min: f.min, max: f.max });
+      input.addEventListener('change', () => { st.p[f.key] = f.type === 'check' ? input.checked : (f.type === 'number' || f.num ? Number(input.value) : input.value); if (def.onParam) def.onParam(st.p, f.key); save(); if (f.rebuild) buildSide(); refresh(); });
+      const wrap = f.type === 'check' ? h('label', { class: 'check span2', for: id }, input, h('span', { html: f.label })) : h('label', { class: 'field' + (f.wide ? ' span2' : ''), for: id }, h('span', { class: 'flabel', html: f.label }), input, f.hint ? h('span', { class: 'hint', html: f.hint }) : null);
+      if (f.extra) wrap.append(f.extra(st.p, () => { save(); buildSide(); refresh(); }));
+      grid.append(wrap);
+    }
+    side.append(grid);
+    side.append(h('label', { class: 'check' }, h('input', { type: 'checkbox', id: def.id + '-pos', checked: VIEW.pos, onchange: (e) => { VIEW.pos = e.target.checked; refresh(true); } }), h('span', {}, 'Show residues in [0, q) instead of centred')));
+    const dv = h('div', { class: 'derived', id: def.id + '-derived' }); side.append(dv);
+    side.append(h('button', { class: 'btn primary big', type: 'button', id: def.id + '-keygen', onclick: () => keygen() }, st.ctx ? 'Regenerate keys' : 'Generate keys'));
+    side.append(h('p', { class: 'hint' }, 'Key generation uses these parameters and the seed. Changing a parameter clears the keys and every ciphertext.'));
+  }
+  function derivedPanel() { const dv = $('#' + def.id + '-derived', side); if (!dv) return; dv.innerHTML = ''; const d = def.derive(st.p); if (d.error) { dv.append(h('p', { class: 'note warnnote' }, d.error)); return d; } dv.append(h('dl', { class: 'kv' }, ...d.list.flatMap(([k, v]) => [h('dt', { html: k }), h('dd', { html: String(v) })]))); return d; }
+  function keygen() {
+    const d = def.derive(st.p); if (d.error) { flash(d.error); return; }
+    try { st.ctx = def.keygen(st.p, d); } catch (e) { flash(e.message); return; }
+    st.keysFor = paramsHash(); st.wallet = []; st.counter = 0; st.active = 'keygen'; st.lastSteps = st.ctx.steps; st.lastTitle = 'Key generation';
+    buildSide(); refresh();
+    if (def.autoEncrypt) def.autoEncrypt(api);
+  }
+  // ---- main
+  const api = {
+    get p() { return st.p; }, get ctx() { return st.ctx; }, wallet: () => st.wallet,
+    addCt(ct) { st.wallet.push(ct); },
+    nextName(prefix) { let i = 1; while (st.wallet.some((c) => c.name === prefix + i)) i++; return prefix + i; },
+    show(title, steps, active) { st.lastSteps = steps; st.lastTitle = title; if (active) st.active = active; refresh(); setTimeout(() => { const el = $('#' + def.id + '-viz'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); },
+    refresh: () => refresh(),
+  };
+  function refresh(keepSteps) {
+    const d = derivedPanel();
+    const stale = st.ctx && st.keysFor !== paramsHash();
+    if (stale) { st.ctx = null; st.wallet = []; st.lastSteps = null; }
+    const kb = $('#' + def.id + '-keygen', side); if (kb) kb.textContent = st.ctx ? 'Regenerate keys' : 'Generate keys';
+    main.innerHTML = '';
+    main.append(h('div', { class: 'lede' }, h('h2', {}, def.title), h('p', { html: def.intro })));
+    if (d && !d.error) main.append(paramChips(d.chips));
+    if (!st.ctx) {
+      main.append(h('div', { class: 'card empty' }, h('h4', {}, stale ? 'Parameters changed' : 'Start with key generation'), h('p', { html: `Choose the parameters in the right pane, then press <b>Generate keys</b>. The keys, the public key identity and the evaluation keys are computed step by step, and the operations below unlock.` }),
+        h('button', { class: 'btn primary', type: 'button', onclick: () => keygen() }, 'Generate keys')));
+      main.append(opsBar(true)); return;
+    }
+    main.append(walletView(), opsBar(false));
+    const panel = h('section', { class: 'card oppanel' });
+    const op = def.ops.find((o) => o.id === st.active);
+    if (st.active === 'keygen') {
+      const c = st.ctx; const kt = def.keyText ? def.keyText(c) : null; const sk = kt ? kt[0] : c.SK ? `SK = ${polyStr(c.SK)}` : `s = (${c.s.join(', ')})`;
+      const pk = kt ? kt[1] : c.PK0 ? `PK = (${polyStr(c.PK0, c.d.q || c.d.qL)}, ${polyStr(c.PK1, c.d.q || c.d.qL)})` : `BK: ${c.d.n} GGSW ciphertexts; KSK: ${c.d.N * c.d.lks} LWE ciphertexts`;
+      panel.append(h('div', { class: 'chead' }, h('h4', {}, 'Keys are ready'), chip('secret', 'muted')), h('p', { class: 'why mono', html: sk }), h('p', { class: 'why mono', html: pk }),
+        c.EK ? h('p', { class: 'why' , html: `${c.EK.length} evaluation keys for relinearization.` }) : null,
+        h('div', { class: 'row' }, h('button', { class: 'btn primary', type: 'button', onclick: () => { st.active = def.ops[0].id; refresh(); } }, 'Next: Encrypt')));
+    }
+    if (op) { panel.append(h('div', { class: 'chead' }, h('h4', {}, op.label), op.tag ? chip(op.tag, 'muted') : null)); if (op.blurb) panel.append(h('p', { class: 'why', html: op.blurb })); if (op.form) panel.append(op.form(api)); }
+    main.append(panel);
+    if (st.lastSteps) main.append(h('section', { class: 'card vizcard', id: def.id + '-viz' }, h('div', { class: 'chead' }, h('h4', {}, 'Step by step: ' + st.lastTitle)), stepper(st.lastSteps)));
+  }
+  function opsBar(disabled) {
+    const bar = h('div', { class: 'opsbar', role: 'toolbar', 'aria-label': 'Operations' });
+    bar.append(h('button', { class: 'opbtn' + (st.active === 'keygen' ? ' on' : ''), type: 'button', disabled: !st.ctx, onclick: () => { st.active = 'keygen'; st.lastSteps = st.ctx.steps; st.lastTitle = 'Key generation'; refresh(); } }, h('span', { class: 'opn' }, '1'), 'Keys'));
+    def.ops.forEach((o, k) => bar.append(h('button', { class: 'opbtn' + (st.active === o.id ? ' on' : ''), type: 'button', disabled: disabled, onclick: () => { st.active = o.id; refresh(); } }, h('span', { class: 'opn' }, String(k + 2)), o.label)));
+    return bar;
+  }
+  function walletView() {
+    const box = h('section', { class: 'card wallet' }, h('div', { class: 'chead' }, h('h4', {}, 'Ciphertexts'), chip(`${st.wallet.length}`, 'muted')));
+    if (!st.wallet.length) { box.append(note('No ciphertexts yet. Use <b>Encrypt</b> to make one.')); return box; }
+    const list = h('div', { class: 'wlist' });
+    for (const ct of st.wallet) {
+      const info = def.ctInfo(ct, st.ctx);
+      list.append(h('div', { class: 'wct ' + (info.ok ? '' : 'badct') }, h('div', { class: 'wtop' }, h('span', { class: 'cname mono' }, ct.name), h('span', { class: 'wdesc', html: ct.desc })), h('div', { class: 'wchips' }, ...info.chips.map((c) => chip(c[0], c[1] || 'muted'))), info.gauge || null));
+    }
+    box.append(list); return box;
+  }
+  return { root, start() { buildSide(); refresh(); } };
+}
+let flashTimer;
+function flash(msg) { const f = $('#flash'); f.textContent = msg; f.hidden = false; clearTimeout(flashTimer); flashTimer = setTimeout(() => (f.hidden = true), 3600); }
+const ctSelect = (api, id, filter, pick) => { const opts = api.wallet().filter(filter || (() => true)); const e = h('select', { id }, ...opts.map((c) => h('option', { value: c.name }, c.name))); if (pick && opts.some((c) => c.name === pick)) e.value = pick; return e; };
+const getCt = (api, name) => api.wallet().find((c) => c.name === name);
+function opForm(api, fields, runLabel, onRun) {
+  const row = h('div', { class: 'opform' });
+  fields.forEach((f) => row.append(h('label', { class: 'opfield' }, h('span', { html: f.label }), f.el)));
+  row.append(h('button', { class: 'btn primary', type: 'button', onclick: () => { try { onRun(); } catch (e) { flash(e.message); } } }, runLabel));
+  return row;
+}
+function parseMsg(str, base, n) {
+  str = String(str).trim();
+  if (str.includes(',') || str.startsWith('[')) { const arr = str.replace(/[\[\]]/g, '').split(',').map((x) => x.trim()).filter(Boolean).map((x) => BigInt(x)); const c = Array(n).fill(0n); arr.forEach((x, i) => { if (i < n) c[i] = x; }); return { poly: c, desc: `[${arr.join(', ')}]`, digits: null, wrapped: arr.length > n }; }
+  if (!/^\d+$/.test(str)) throw new Error('Enter a non-negative integer, or a comma list of coefficients.');
+  const m = BigInt(str); const e = encodeBase(m, base, n); const digits = []; let x = m; while (x > 0n) { digits.push(x % BigInt(base)); x /= BigInt(base); }
+  return { poly: e.poly, desc: String(m), int: m, digits, wrapped: e.wrapped };
+}
+
+// ============ BFV and BGV ============
+function intDef(kind) {
+  const isBGV = kind === 'bgv';
+  const LEC = isBGV
+    ? { SK: [1, -1, 0, 1], a: [42445, 19772, 51750, 85319], e: [1, 0, -1, 1] }
+    : { SK: [1, -1, 0, 1], a: [7561, 3002, 15115, 8443], e: [1, 0, -1, 1], ap: [11923, 604, 9981, 14002], ep: [0, 1, -1, 0] };
+  const LEC_ENC = [{ u: [1, 0, -1, 1], e1: [0, 1, -1, 0], e2: [1, -1, 0, 0] }, { u: [-1, 1, 1, 0], e1: [1, 0, 0, -1], e2: [0, -1, 1, 1] }];
+  const presets = isBGV ? [
+    { label: 'Lecture 11 instance', p: { n: 4, t: 8, primes: '1009, 97', beta: 1, w: 4, base: 2, seed: 1, lecture: true } },
+    { label: 'Three levels, t = 17', p: { n: 8, t: 17, primes: findPrimes(17, 3, 16).reverse().join(', '), beta: 1, w: 16, base: 2, seed: 3, lecture: false } },
+    { label: 'Illegal chain (101 ≢ 1 mod 8)', p: { n: 4, t: 8, primes: '1009, 101', beta: 1, w: 4, base: 2, seed: 2, lecture: false } },
+  ] : [
+    { label: 'Lecture 10 instance', p: { n: 4, t: 4, q: '16384', beta: 1, w: 4, base: 2, seed: 1, lecture: true } },
+    { label: 'Roomy (n = 8, q = 2^30)', p: { n: 8, t: 16, q: '1073741824', beta: 2, w: 16, base: 2, seed: 11, lecture: false } },
+    { label: 'Tight budget (shows failure)', p: { n: 4, t: 8, q: '1024', beta: 2, w: 4, base: 2, seed: 5, lecture: false } },
+  ];
+  function lectureOk(p) { return isBGV ? (Number(p.n) === 4 && Number(p.t) === 8 && String(p.primes).replace(/\s/g, '') === '1009,97') : (Number(p.n) === 4 && Number(p.t) === 4 && String(p.q) === '16384'); }
+  function derive(p) {
+    const n = Number(p.n), tN = Number(p.t), beta = Number(p.beta), w = Number(p.w);
+    if (!(tN >= 2)) return { error: 't must be at least 2.' }; if (!(w >= 2)) return { error: 'The relinearization base w must be at least 2.' }; if (!(beta >= 0)) return { error: 'β must be non-negative.' };
+    const t = BigInt(tN);
+    if (isBGV) {
+      const primes = String(p.primes).split(/[ ,]+/).filter(Boolean).map(Number);
+      if (!primes.length || primes.some((x) => !Number.isInteger(x) || x < 2)) return { error: 'Enter the chain as a comma list of primes.' };
+      const bad = primes.filter((x) => !isPrime(x)); if (bad.length) return { error: `${bad.join(', ')} is not prime.` };
+      const P_ = primes.map(BigInt); const qs = []; let acc = 1n; for (const x of P_) { acc *= x; qs.push(acc); }
+      const L = qs.length - 1, qL = qs[L]; if (qL <= 2n * t) return { error: 'The top modulus must be much larger than t.' };
+      let ell = 0, tmp = 1n; while (tmp < qL) { tmp *= BigInt(w); ell++; }
+      const congr = P_.map((x, i) => (i === 0 ? true : modB(x, t) === 1n));
+      return { n, t, beta, w: BigInt(w), primes: P_, qs, L, qL, ell, congr, fresh: BigInt(2 * n * beta + beta),
+        chips: [['n', n], ['t', tN], ['chain', primes.join('·')], ['q<sub>L</sub>', qL], ['β', beta], ['w', w], ['ℓ', ell]],
+        list: [...qs.map((q, l) => [`q<sub>${l}</sub>${l ? ` (p<sub>${l}</sub> ${congr[l] ? '≡ 1' : '≢ 1'} mod t)` : ''}`, `${q} · budget ${q / (2n * t)}`]), ['Fresh bound 2nβ + β', 2 * n * beta + beta], ['Relin keys ℓ', ell]] };
+    }
+    let q; try { q = BigInt(String(p.q).trim()); } catch (e) { return { error: 'q must be an integer.' }; }
+    if (q <= t) return { error: 'q must be larger than t.' }; if (q > (1n << 120n)) return { error: 'Keep q below 2^120.' };
+    let ell = 0, tmp = 1n; while (tmp < q) { tmp *= BigInt(w); ell++; }
+    const D = q / t, budget = q / (2n * t), fresh = BigInt(2 * n * beta + beta), G = 2n * t * BigInt(n) * BigInt(n);
+    const depth = budget > fresh ? Math.max(0, Math.floor((log2B(budget) - log2B(fresh)) / log2B(G))) : 0;
+    return { n, t, q, beta, w: BigInt(w), ell, D, budget, fresh, G, depth, qt: modB(q, t),
+      chips: [['n', n], ['t', tN], ['q', q], ['Δ = ⌊q/t⌋', D], ['β', beta], ['w', w], ['ℓ', ell]],
+      list: [['Δ = ⌊q/t⌋', D], ['[q]<sub>t</sub>', modB(q, t)], ['Budget q/2t', `${budget} (2^${log2B(budget).toFixed(1)})`], ['Fresh bound 2nβ + β', fresh], ['G = 2tn²‖SK‖', `${G} (2^${log2B(G).toFixed(1)})`], ['Guaranteed depth', depth], ['Relin keys ℓ', ell]] };
+  }
+  function keygen(p, d) {
+    const n = d.n, t = d.t, rng = new RNG(Number(p.seed) || 1); const lec = p.lecture && lectureOk(p);
+    const q = isBGV ? d.qL : d.q; const qn = isBGV ? 'q<sub>L</sub>' : 'q';
+    const steps = [];
+    steps.push({ title: 'Parameters', why: isBGV ? `The chain p<sub>0</sub>, …, p<sub>L</sub> gives moduli q<sub>ℓ</sub> = p<sub>0</sub>···p<sub>ℓ</sub>. Fresh ciphertexts live at the top level L = ${d.L}.` : 'Δ places the message in the top bits; the budget q/2t is how much noise decryption tolerates.',
+      formula: isBGV ? `q<sub>L</sub> = ${d.primes.join(' · ')} = ${d.qL}, &nbsp; budget q<sub>L</sub>/2t = ${d.qL / (2n * t)}` : `Δ = ⌊${d.q}/${d.t}⌋ = ${d.D}, &nbsp; budget q/2t = ${d.budget}, &nbsp; ℓ = ⌈log<sub>${d.w}</sub> ${d.q}⌉ = ${d.ell}`, node: paramChips(d.chips) });
+    const SK = lec ? LEC.SK.map(BigInt) : rng.ternary(n);
+    steps.push({ title: 'Sample the secret key SK', why: 'SK has ternary coefficients in {−1, 0, 1}. It stays with the key owner.', table: [{ label: 'SK', v: SK, cls: 'new' }] });
+    const a = lec ? P.cmod(LEC.a.map(BigInt), q) : rng.uniformPoly(n, q);
+    steps.push({ title: 'Sample the mask a', why: `a is uniform modulo ${qn} = ${q}. It is shown centred.`, table: [{ label: 'SK', v: SK }, { label: 'a', v: a, q, cls: 'new' }] });
+    const e = lec ? LEC.e.map(BigInt) : rng.err(n, d.beta);
+    steps.push({ title: 'Sample the error e', why: `Each coefficient of e is drawn from [−β, β] = [−${d.beta}, ${d.beta}].`, table: [{ label: 'SK', v: SK }, { label: 'a', v: a, q }, { label: 'e', v: e, cls: 'new' }] });
+    const ms = shiftSteps(a, SK, { pName: 'a', sName: 'SK', q, title: 'Compute a·SK', intro: 'Multiply in Z[X]/(X<sup>n</sup>+1), one shifted copy of a per nonzero coefficient of SK.' });
+    steps.push(...ms.steps); const aSK = ms.value;
+    const te = isBGV ? P.scal(t, e) : e;
+    const inner = P.neg(P.add(aSK, te)); const PK0 = P.cmod(inner, q), PK1 = a;
+    steps.push({ title: 'Form PK₀', formula: isBGV ? `PK₀ = [−(a·SK + t·e)]<sub>q<sub>L</sub></sub> with t·e = ${polyStr(te)}` : 'PK₀ = [−(a·SK + e)]<sub>q</sub>', why: `Add ${isBGV ? 't·e' : 'e'}, negate, then reduce each coefficient into (−q/2, q/2].`,
+      table: [{ label: 'a·SK', v: aSK }, { label: isBGV ? '+ t·e' : '+ e', v: te }, '-', { label: isBGV ? '−(a·SK + te)' : '−(a·SK + e)', v: inner }, { label: 'PK₀ = [·]<sub>q</sub>', v: PK0, q, cls: 'hl' }, { label: 'PK₁ = a', v: PK1, q, cls: 'hl' }] });
+    const chk = P.add(PK0, aSK);
+    steps.push({ title: 'Check the key identity', formula: isBGV ? 'PK₀ + PK₁·SK = −t·e (mod q<sub>L</sub>)' : 'PK₀ + PK₁·SK = −e (mod q)', why: `The public key evaluated at the secret is small${isBGV ? ' and a multiple of t' : ''}. Without SK, (PK₀, PK₁) looks uniform: it is one RLWE sample.`,
+      table: [{ label: 'PK₀', v: PK0, q }, { label: '+ a·SK', v: aSK }, '-', { label: 'sum over Z', v: chk }, { label: '[·]<sub>q</sub>', v: P.cmod(chk, q), cls: 'hl' }, { label: isBGV ? '−t·e' : '−e', v: P.neg(te), cls: 'hl' }] });
+    const SK2 = P.mul(SK, SK);
+    const EK = [];
+    for (let i = 0; i < d.ell; i++) { const ai = (!isBGV && lec) ? P.cmod(LEC.ap.map(BigInt), q) : rng.uniformPoly(n, q); const ei = (!isBGV && lec) ? LEC.ep.map(BigInt) : rng.err(n, d.beta);
+      EK.push({ a: ai, e: ei, b: P.cmod(P.add(P.neg(P.add(P.mul(ai, SK), isBGV ? P.scal(t, ei) : ei)), P.scal(d.w ** BigInt(i), SK2)), q) }); }
+    steps.push({ title: 'Evaluation keys for relinearization', formula: `EK<sup>(i)</sup> = ([−(a<sub>i</sub>·SK + ${isBGV ? 't·' : ''}e<sub>i</sub>) + w<sup>i</sup>·SK²]<sub>q</sub>, a<sub>i</sub>), i = 0 … ${d.ell - 1}`, why: `SK² = ${polyStr(SK2)}. Each key encrypts w<sup>i</sup>·SK² under SK${(!isBGV && lec) ? '. In the Lecture 10 instance all keys reuse a′ and e′ (insecure, but short).' : '.'}`,
+      table: EK.flatMap((k, i) => [{ label: `EK<sup>(${i})</sup>₀`, v: k.b, q }, { label: `EK<sup>(${i})</sup>₁`, v: k.a, q }]) });
+    return { d, rng, lec, encCount: 0, SK, SK2, a, e, PK0, PK1, EK, steps };
+  }
+  const qOf = (ctx, ct) => (isBGV ? ctx.d.qs[ct.lvl] : ctx.d.q);
+  function decryptQuick(ctx, ct) { // value, M, noise
+    const d = ctx.d, t = d.t, q = qOf(ctx, ct);
+    let val = P.add(ct.c[0], P.mul(ct.c[1], ctx.SK)); if (ct.c.length === 3) val = P.add(val, P.mul(ct.c[2], ctx.SK2));
+    const r = P.cmod(val, q); const Mc = ct.M.map((x) => cmodB(x, t));
+    if (isBGV) { const M = r.map((x) => modB(x, t)); const diff = r.map((x, i) => x - Mc[i]); const v = diff.every((x) => x % t === 0n) ? diff.map((x) => x / t) : null; return { val, r, M, v, norm: v ? P.norm(v) : null, budget: q / (2n * t), ok: M.every((x, i) => x === modB(ct.M[i], t)) }; }
+    const rounded = r.map((x) => roundDiv(x * t, q)); const M = rounded.map((x) => modB(x, t)); const v = P.cmod(r.map((x, i) => x - d.D * Mc[i]), q);
+    return { val, r, rounded, M, v, norm: P.norm(v), budget: d.budget, ok: M.every((x, i) => x === modB(ct.M[i], t)) };
+  }
+  const intOf = (M, p) => decodeBase(M, Number(p.base), Number(p.t));
+  function ctInfo(ct, ctx) { const dq = decryptQuick(ctx, ct); return { ok: dq.ok, chips: [[`${ct.c.length} parts`, ct.c.length === 3 ? 'warn' : 'muted'], ...(isBGV ? [[`level ${ct.lvl}`]] : []), [`plaintext ${intOf(ct.M, ctx.p || {})}`]], gauge: gauge(dq.norm, dq.budget) }; }
+  // ---- operations
+  function encryptOp(api, msgStr, fixedIdx) {
+    const ctx = api.ctx, d = ctx.d, n = d.n, t = d.t, q = isBGV ? d.qL : d.q, rng = ctx.rng, p = api.p;
+    const msg = parseMsg(msgStr, Number(p.base), n);
+    const steps = [];
+    steps.push({ title: 'Encode the message', why: msg.digits ? `Write ${msg.int} in base ${p.base}, lowest digit first: (${msg.digits.join(', ') || '0'}). Digit i becomes the coefficient of X<sup>i</sup>.${msg.wrapped ? ` There are more than n = ${n} digits, so X<sup>n</sup> = −1 folds the top ones back: decoding will not return ${msg.int}.` : ''}` : 'The coefficients are used as given.',
+      formula: `M = ${polyStr(msg.poly)}`, table: [{ label: 'M', v: msg.poly, cls: 'hl' }] });
+    const fx = ctx.lec && ctx.encCount < 2 ? LEC_ENC[ctx.encCount] : null; ctx.encCount++;
+    const u = fx ? fx.u.map(BigInt) : rng.ternary(n), e1 = fx ? fx.e1.map(BigInt) : rng.err(n, d.beta), e2 = fx ? fx.e2.map(BigInt) : rng.err(n, d.beta);
+    steps.push({ title: 'Sample fresh randomness', why: `u is ternary; e₁ and e₂ are errors in [−β, β]. They are used once and discarded, which makes encryption randomised.${fx ? ' (Lecture instance: the handout’s values.)' : ''}`, table: [{ label: 'u', v: u, cls: 'new' }, { label: 'e₁', v: e1, cls: 'new' }, { label: 'e₂', v: e2, cls: 'new' }] });
+    const s0 = shiftSteps(ctx.PK0, u, { pName: 'PK₀', sName: 'u', q, title: 'Compute PK₀·u' }); steps.push(...s0.steps);
+    const scaledM = isBGV ? msg.poly : P.scal(d.D, msg.poly); const te1 = isBGV ? P.scal(t, e1) : e1, te2 = isBGV ? P.scal(t, e2) : e2;
+    const c0z = P.add(P.add(s0.value, te1), scaledM); const c0 = P.cmod(c0z, q);
+    steps.push({ title: 'Form c₀', formula: isBGV ? 'c₀ = [PK₀·u + t·e₁ + M]<sub>q<sub>L</sub></sub>' : `c₀ = [PK₀·u + e₁ + Δ·M]<sub>q</sub>, Δ = ${d.D}`, why: isBGV ? 'The message is added unscaled; the error is multiplied by t.' : 'The message is scaled by Δ into the high bits.',
+      table: [{ label: 'PK₀·u', v: s0.value }, { label: isBGV ? '+ t·e₁' : '+ e₁', v: te1 }, { label: isBGV ? '+ M' : '+ Δ·M', v: scaledM }, '-', { label: 'sum over Z', v: c0z }, { label: 'c₀ = [·]<sub>q</sub>', v: c0, q, cls: 'hl' }] });
+    const s1 = shiftSteps(ctx.PK1, u, { pName: 'PK₁', sName: 'u', q, title: 'Compute PK₁·u' }); steps.push(...s1.steps);
+    const c1z = P.add(s1.value, te2), c1 = P.cmod(c1z, q);
+    steps.push({ title: 'Form c₁', formula: isBGV ? 'c₁ = [PK₁·u + t·e₂]<sub>q<sub>L</sub></sub>' : 'c₁ = [PK₁·u + e₂]<sub>q</sub>', table: [{ label: 'PK₁·u', v: s1.value }, { label: isBGV ? '+ t·e₂' : '+ e₂', v: te2 }, '-', { label: 'sum over Z', v: c1z }, { label: 'c₁ = [·]<sub>q</sub>', v: c1, q, cls: 'hl' }] });
+    const name = api.nextName('ct'); const ct = { name, c: [c0, c1], M: P.mod(msg.poly, t), lvl: isBGV ? d.L : 0, desc: `Enc(${msg.desc})` };
+    const vdir = P.add(P.add(P.neg(P.mul(ctx.e, u)), e1), P.mul(e2, ctx.SK)); const dq = decryptQuick(ctx, ct);
+    steps.push({ title: `Ciphertext ${name}`, why: `The ciphertext is the pair (c₀, c₁). Its noise is v = −e·u + e₁ + e₂·SK, which only the key owner can compute.`, table: [{ label: 'c₀', v: c0, q, cls: 'hl' }, { label: 'c₁', v: c1, q, cls: 'hl' }, '-', { label: 'v = −eu + e₁ + e₂SK', v: vdir }], node: gauge(dq.norm, dq.budget) });
+    api.addCt(ct); api.show(`Encrypt ${msg.desc} → ${name}`, steps);
+  }
+  function decryptSteps(api, ct) {
+    const ctx = api.ctx, d = ctx.d, t = d.t, q = qOf(ctx, ct), p = api.p; const steps = []; const qn = isBGV ? `q<sub>${ct.lvl}</sub>` : 'q';
+    const m1 = shiftSteps(ct.c[1], ctx.SK, { pName: 'c₁', sName: 'SK', q, title: 'Compute c₁·SK', intro: `Decryption evaluates the ciphertext at the secret: c₀ + c₁·SK${ct.c.length === 3 ? ' + c₂·SK²' : ''}.` }); steps.push(...m1.steps);
+    let val = P.add(ct.c[0], m1.value); const rows = [{ label: 'c₀', v: ct.c[0], q }, { label: '+ c₁·SK', v: m1.value }];
+    if (ct.c.length === 3) { const m2 = shiftSteps(ct.c[2], ctx.SK2, { pName: 'c₂', sName: 'SK²', q, title: 'Compute c₂·SK²' }); steps.push(...m2.steps); val = P.add(val, m2.value); rows.push({ label: '+ c₂·SK²', v: m2.value }); }
+    const r = P.cmod(val, q);
+    steps.push({ title: `Reduce modulo ${qn}`, why: `Take the centred representative in (−${qn}/2, ${qn}/2]. This removes the multiples of q and returns ${isBGV ? 'M + t·v' : 'Δ·M + v'} as an integer, provided the noise is within budget.`, table: [...rows, '-', { label: 'sum over Z', v: val }, { label: '[·]<sub>q</sub>', v: r, q, cls: 'hl' }],
+      node: isBGV ? wrapStrip(r, q, t) : decisionStrip(r, q, t, ct.M) });
+    let M;
+    if (isBGV) { M = r.map((x) => modB(x, t)); steps.push({ title: 'Reduce modulo t', why: 'Every error carries the factor t, so reducing modulo t deletes it. No division, no rounding.', formula: `M = [[c₀ + c₁·SK]<sub>${qn}</sub>]<sub>${t}</sub>`, table: [{ label: '[·]<sub>q</sub>', v: r, q }, { label: `mod ${t}`, v: M, cls: 'hl', bad: M.map((x, i) => x !== modB(ct.M[i], t)) }] }); }
+    else {
+      const scaled = r.map((x) => Number(x * t * 100000n / q) / 100000); const rounded = r.map((x) => roundDiv(x * t, q)); M = rounded.map((x) => modB(x, t));
+      steps.push({ title: 'Scale by t/q and round', why: `Multiplying by t/q = ${t}/${q} undoes Δ. Rounding removes (t/q)·v when it is below ½, i.e. when ‖v‖ < q/2t = ${d.budget}.`, table: [{ label: '[·]<sub>q</sub>', v: r, q }, { label: '× t/q', v: scaled, dp: 4 }, { label: 'round', v: rounded }, { label: `mod ${t}`, v: M, cls: 'hl', bad: M.map((x, i) => x !== modB(ct.M[i], t)) }] });
+    }
+    const got = intOf(M, p), exp = intOf(ct.M, p), dq = decryptQuick(ctx, ct);
+    steps.push({ title: 'Decode', why: `Read the coefficients in [0, t) and evaluate at X = ${p.base}.`, formula: `M = ${polyStr(M)} &nbsp;→&nbsp; M(${p.base}) = ${got}`,
+      node: h('div', { class: 'stepres' }, h('div', { class: 'res ' + (dq.ok ? 'ok' : 'bad') }, h('span', { class: 'big' }, dq.ok ? `Decrypts to ${got}` : `Decrypts to ${got}, expected ${exp}`), h('span', { html: dq.ok ? 'matches the plaintext computed in the clear' : 'the noise left its decision box' })), gauge(dq.norm, dq.budget)) });
+    return steps;
+  }
+  function addOp(api, A, Bc) {
+    const ctx = api.ctx, d = ctx.d, t = d.t; if (A.c.length !== Bc.c.length) throw new Error('Both ciphertexts must have the same number of parts.'); if (isBGV && A.lvl !== Bc.lvl) throw new Error(`Levels differ (${A.lvl} and ${Bc.lvl}): ModSwitch the higher one first.`);
+    const q = qOf(ctx, A); const steps = [];
+    const c = A.c.map((x, i) => P.cmod(P.add(x, Bc.c[i]), q));
+    A.c.forEach((x, i) => steps.push({ title: `Add c${sub(i)} parts`, formula: `c${sub(i)}″ = [c${sub(i)} + c${sub(i)}′]<sub>q</sub>`, table: [{ label: `${A.name}.c${sub(i)}`, v: x, q }, { label: `+ ${Bc.name}.c${sub(i)}`, v: Bc.c[i], q }, '-', { label: 'sum over Z', v: P.add(x, Bc.c[i]) }, { label: '[·]<sub>q</sub>', v: c[i], q, cls: 'hl' }] }));
+    const name = api.nextName('sum'); const ct = { name, c, M: P.mod(P.add(A.M, Bc.M), t), lvl: A.lvl, desc: `${A.name} + ${Bc.name}` };
+    const da = decryptQuick(ctx, A), db = decryptQuick(ctx, Bc), dc = decryptQuick(ctx, ct);
+    steps.push({ title: 'Noise adds', why: `The decryption identities add: the plaintext is M + M′ = ${polyStr(ct.M)} (mod t) and the noise is v + v′. Here ‖v″‖ = ${dc.norm ?? '—'} ≤ ${da.norm ?? '—'} + ${db.norm ?? '—'}.`, table: da.v && db.v && dc.v ? [{ label: `v of ${A.name}`, v: da.v }, { label: `v of ${Bc.name}`, v: db.v }, '-', { label: `v of ${name}`, v: dc.v, cls: 'hl' }] : null, node: gauge(dc.norm, dc.budget) });
+    api.addCt(ct); api.show(`EvalAdd ${A.name} + ${Bc.name} → ${name}`, steps);
+  }
+  function mulOp(api, A, Bc) {
+    const ctx = api.ctx, d = ctx.d, t = d.t; if (A.c.length !== 2 || Bc.c.length !== 2) throw new Error('EvalMult takes two 2-part ciphertexts: relinearize first.'); if (isBGV && A.lvl !== Bc.lvl) throw new Error('Levels differ: ModSwitch first.');
+    const q = qOf(ctx, A); const steps = []; const [a0, a1] = A.c, [b0, b1] = Bc.c;
+    steps.push({ title: 'Read the ciphertexts as polynomials in S', why: `ct = c₀ + c₁·S. Decryption sets S = SK, and evaluation respects products, so multiply the two linear polynomials: (c₀ + c₁S)(c₀′ + c₁′S) = c₀c₀′ + (c₀c₁′ + c₁c₀′)S + c₁c₁′S². ${isBGV ? '' : 'The coefficients are lifted to integers in (−q/2, q/2] first.'}`, table: [{ label: `${A.name}.c₀`, v: a0, q }, { label: `${A.name}.c₁`, v: a1, q }, { label: `${Bc.name}.c₀`, v: b0, q }, { label: `${Bc.name}.c₁`, v: b1, q }] });
+    const T0 = P.mul(a0, b0), T01 = P.mul(a0, b1), T10 = P.mul(a1, b0), T2 = P.mul(a1, b1), T1 = P.add(T01, T10);
+    steps.push({ title: 'Tensor: c₀·c₀′', why: 'A full ring product over Z. Click any coefficient to see its negacyclic convolution.', table: [{ label: 'c₀·c₀′', v: T0, cls: 'hl', explain: (k) => convExplain(a0, b0, k, 'c₀', 'c₀′') }] });
+    steps.push({ title: 'Tensor: c₀·c₁′ + c₁·c₀′', table: [{ label: 'c₀·c₁′', v: T01, explain: (k) => convExplain(a0, b1, k, 'c₀', 'c₁′') }, { label: 'c₁·c₀′', v: T10, explain: (k) => convExplain(a1, b0, k, 'c₁', 'c₀′') }, '-', { label: 'sum', v: T1, cls: 'hl' }] });
+    steps.push({ title: 'Tensor: c₁·c₁′', table: [{ label: 'c₁·c₁′', v: T2, cls: 'hl', explain: (k) => convExplain(a1, b1, k, 'c₁', 'c₁′') }] });
+    let c;
+    if (isBGV) { c = [T0, T1, T2].map((x) => P.cmod(x, q)); steps.push({ title: 'Reduce modulo q<sub>ℓ</sub>', why: 'BGV has no Δ to remove, so the tensor product reduced mod q is the whole operation.', table: [{ label: 'c₀*', v: c[0], q, cls: 'hl' }, { label: 'c₁*', v: c[1], q, cls: 'hl' }, { label: 'c₂*', v: c[2], q, cls: 'hl' }] }); }
+    else {
+      const R = [T0, T1, T2].map((x) => x.map((y) => roundDiv(y * t, q))); c = R.map((x) => P.cmod(x, q));
+      steps.push({ title: 'Scale by t/q and round', why: `At S = SK the product is Δ²·M·M′ + …: one Δ too many. Scaling by t/q ≈ 1/Δ removes it; dividing by Δ exactly would leave a non-integral residue of q². Rounding is needed because t/q is not an integer.`,
+        table: [{ label: 'c₀c₀′ × t/q', v: T0.map((x) => Number(x * t * 1000n / q) / 1000) }, { label: 'round', v: R[0] }, '-', { label: 'middle × t/q', v: T1.map((x) => Number(x * t * 1000n / q) / 1000) }, { label: 'round', v: R[1] }, '-', { label: 'c₁c₁′ × t/q', v: T2.map((x) => Number(x * t * 1000n / q) / 1000) }, { label: 'round', v: R[2] }] });
+      steps.push({ title: 'Reduce modulo q', table: [{ label: 'c₀*', v: c[0], q, cls: 'hl' }, { label: 'c₁*', v: c[1], q, cls: 'hl' }, { label: 'c₂*', v: c[2], q, cls: 'hl' }] });
+    }
+    const name = api.nextName('prod'); const ct = { name, c, M: P.mod(P.mul(A.M, Bc.M), t), lvl: A.lvl, desc: `${A.name} × ${Bc.name}` };
+    const da = decryptQuick(ctx, A), db = decryptQuick(ctx, Bc), dc = decryptQuick(ctx, ct); const V = (da.norm === null || db.norm === null) ? null : (da.norm > db.norm ? da.norm : db.norm);
+    const bound = V === null ? '—' : (isBGV ? BigInt(d.n) * t * V * (1n + V) : V * d.G);
+    steps.push({ title: 'Three parts, decrypted with (1, SK, SK²)', why: `The result has three parts; the next step should be Relinearize. Plaintext M·M′ = ${polyStr(ct.M)} (mod t). Worst-case noise bound ${isBGV ? 'ntV(1+V)' : '‖v‖·G'} = ${bound}; observed ‖v‖ = ${dc.norm ?? '—'}.`, table: dc.v ? [{ label: `v of ${name}`, v: dc.v, cls: 'hl' }] : null, node: gauge(dc.norm, dc.budget) });
+    api.addCt(ct); api.show(`EvalMult ${A.name} × ${Bc.name} → ${name}`, steps);
+  }
+  function relinOp(api, A, mode) {
+    const ctx = api.ctx, d = ctx.d; if (A.c.length !== 3) throw new Error('Relinearize takes a 3-part ciphertext (an EvalMult result).');
+    const q = qOf(ctx, A); const [c0, c1, c2] = A.c; const steps = []; const EK = ctx.EK.map((k) => ({ a: P.cmod(k.a, q), b: P.cmod(k.b, q) }));
+    let h0, h1;
+    if (mode === 'basic') {
+      steps.push({ title: 'Use one evaluation key', formula: 'ĉ₀ = c₀* + EK₀·c₂*, ĉ₁ = c₁* + EK₁·c₂* &nbsp; with EK = EK<sup>(0)</sup>', why: `This adds the error −c₂*·e. But c₂* is spread over all of Z<sub>q</sub> (‖c₂*‖ = ${P.norm(c2)}), so the error is about n·‖c₂*‖·β = ${BigInt(d.n) * P.norm(c2) * BigInt(d.beta)}.`, table: [{ label: 'c₂*', v: c2, q }] });
+      const p0 = P.mul(EK[0].b, c2), p1 = P.mul(EK[0].a, c2); h0 = P.cmod(P.add(c0, p0), q); h1 = P.cmod(P.add(c1, p1), q);
+      steps.push({ title: 'Combine', table: [{ label: 'c₀*', v: c0, q }, { label: '+ EK₀·c₂*', v: p0, explain: (k) => convExplain(EK[0].b, c2, k, 'EK₀', 'c₂*') }, { label: 'ĉ₀', v: h0, q, cls: 'hl' }, '-', { label: 'c₁*', v: c1, q }, { label: '+ EK₁·c₂*', v: p1 }, { label: 'ĉ₁', v: h1, q, cls: 'hl' }] });
+    } else {
+      const c2p = P.mod(c2, q); const digits = []; for (let i = 0; i < d.ell; i++) digits.push(c2p.map((x) => (x / (d.w ** BigInt(i))) % d.w));
+      steps.push({ title: `Decompose c₂* in base w = ${d.w}`, why: `Write each coefficient of c₂* (in [0, q)) as Σ wⁱ·dᵢ with digits dᵢ < w. There are ℓ = ${d.ell} digits.`, table: [{ label: 'c₂* in [0, q)', v: c2p, cls: 'hl' }, '-', ...digits.map((dg, i) => ({ label: `d<sub>${i}</sub> · w<sup>${i}</sup>`, v: dg }))] });
+      let A0 = P.zero(d.n), A1 = P.zero(d.n); digits.forEach((dg, i) => { A0 = P.add(A0, P.mul(dg, EK[i].b)); A1 = P.add(A1, P.mul(dg, EK[i].a)); });
+      steps.push({ title: 'Combine digit by digit', formula: 'ĉ<sub>j</sub> = c<sub>j</sub>* + Σ<sub>i</sub> dᵢ·EK<sup>(i)</sup><sub>j</sub>', why: `Since Σ wⁱdᵢ = c₂*, the SK² part is replaced exactly; the only error added is Σ dᵢ·${isBGV ? 't·' : ''}eᵢ, with each dᵢ below w. Bound n·ℓ·w·β = ${BigInt(d.n) * BigInt(d.ell) * d.w * BigInt(d.beta)}.`,
+        table: [{ label: 'c₀*', v: c0, q }, { label: '+ Σ dᵢ·EK<sup>(i)</sup>₀', v: A0 }, { label: 'ĉ₀', v: (h0 = P.cmod(P.add(c0, A0), q)), q, cls: 'hl' }, '-', { label: 'c₁*', v: c1, q }, { label: '+ Σ dᵢ·EK<sup>(i)</sup>₁', v: A1 }, { label: 'ĉ₁', v: (h1 = P.cmod(P.add(c1, A1), q)), q, cls: 'hl' }] });
+    }
+    const name = api.nextName('rel'); const ct = { name, c: [h0, h1], M: A.M, lvl: A.lvl, desc: `Relin(${A.name})${mode === 'basic' ? ' basic' : ''}` };
+    const da = decryptQuick(ctx, A), dc = decryptQuick(ctx, ct);
+    steps.push({ title: 'Two parts again', why: `Noise before: ${da.norm ?? '—'}; after: ${dc.norm ?? '—'}. ${dc.ok ? 'The message survives.' : 'The added error destroyed the message.'}`, node: gauge(dc.norm, dc.budget) });
+    api.addCt(ct); api.show(`Relinearize ${A.name} → ${name}`, steps);
+  }
+  function msOp(api, A) {
+    const ctx = api.ctx, d = ctx.d, t = d.t; if (A.lvl === 0) throw new Error('Already at level 0.');
+    const q = d.qs[A.lvl], qn = d.qs[A.lvl - 1], pd = d.primes[A.lvl]; const steps = [];
+    steps.push({ title: `Drop p<sub>${A.lvl}</sub> = ${pd}`, why: `Scale every coefficient by q<sub>${A.lvl - 1}</sub>/q<sub>${A.lvl}</sub> = 1/${pd} and round to the nearest integer congruent to it mod t. ${modB(pd, t) === 1n ? `${pd} ≡ 1 (mod ${t}), so dividing by it leaves the message unchanged mod t.` : `${pd} is not ≡ 1 (mod ${t}): the message will be multiplied by ${pd}⁻¹ mod t and decryption breaks.`}`, formula: `c′ = ⌊c / ${pd}⌉ with c′ ≡ c (mod ${t})` });
+    const out = A.c.map((poly, ci) => {
+      const rows = []; const res = poly.map((c) => { const r = modB(c, t), num = c * qn; const base = floorDiv(num, q); const k0 = base - modB(base - r, t); let best = k0, bd = absB(k0 * q - num); for (const k of [k0 + t, k0 - t, k0 + 2n * t]) { const dd = absB(k * q - num); if (dd < bd) { bd = dd; best = k; } } rows.push([c, r, Number(num * 1000n / q) / 1000, roundDiv(num, q), best]); return best; });
+      steps.push({ title: `Switch c${sub(ci)} coefficient by coefficient`, why: 'Highlighted rows are where the congruence moved the value away from plain rounding (by at most t/2).',
+        node: h('div', { class: 'tablewrap' }, h('table', { class: 'mini' }, h('thead', {}, h('tr', {}, ...['c', 'c mod t', 'c/p', 'plain round', 'nearest ≡ c'].map((x) => h('th', {}, x)))), h('tbody', {}, rows.map((r) => h('tr', { class: r[3] !== r[4] ? 'diff' : '' }, ...r.map((x, j) => h('td', { class: 'mono' }, j === 2 ? x.toFixed(3) : String(x)))))))) });
+      return P.cmod(res, qn);
+    });
+    const name = api.nextName('sw'); const ct = { name, c: out, M: A.M, lvl: A.lvl - 1, desc: `ModSwitch(${A.name})` }; const da = decryptQuick(ctx, A), dc = decryptQuick(ctx, ct);
+    steps.push({ title: `Now at level ${A.lvl - 1}`, why: `Noise ${da.norm ?? '—'} → ${dc.norm ?? '—'}: divided by about ${pd}, plus a small rounding term. The budget also shrinks to ${qn / (2n * t)}.`, table: [{ label: 'c₀′', v: out[0], q: qn, cls: 'hl' }, { label: 'c₁′', v: out[1], q: qn, cls: 'hl' }], node: gauge(dc.norm, dc.budget) });
+    api.addCt(ct); api.show(`ModSwitch ${A.name} → ${name}`, steps);
+  }
+  const ops = [
+    { id: 'enc', label: 'Encrypt', blurb: isBGV ? 'c = (PK₀·u + t·e₁ + M, PK₁·u + t·e₂) mod q<sub>L</sub>.' : 'c = (PK₀·u + e₁ + Δ·M, PK₁·u + e₂) mod q.',
+      form: (api) => { const m = h('input', { id: kind + '-msg', value: api.wallet().length ? '3' : '5', size: 10 }); return h('div', {}, opForm(api, [{ label: 'message', el: m }], 'Encrypt', () => encryptOp(api, m.value)), note(`An integer is encoded in base ${api.p.base}; a comma list sets the coefficients directly.`)); } },
+    { id: 'dec', label: 'Decrypt', blurb: isBGV ? 'M = [[c₀ + c₁·SK]<sub>q</sub>]<sub>t</sub>' : 'M = [⌊(t/q)·[c₀ + c₁·SK]<sub>q</sub>⌉]<sub>t</sub>',
+      form: (api) => { if (!api.wallet().length) return note('Encrypt something first.'); const a = ctSelect(api, kind + '-da', null, api.wallet()[api.wallet().length - 1].name); return opForm(api, [{ label: 'ciphertext', el: a }], 'Decrypt', () => { const ct = getCt(api, a.value); api.show(`Decrypt ${ct.name}`, decryptSteps(api, ct)); }); } },
+    { id: 'add', label: 'EvalAdd', blurb: 'Add the two ciphertexts part by part; the noises add.',
+      form: (api) => { if (api.wallet().length < 1) return note('Encrypt two messages first.'); const w = api.wallet(); const a = ctSelect(api, kind + '-aa', null, w[0].name), b = ctSelect(api, kind + '-ab', null, (w[1] || w[0]).name); return opForm(api, [{ label: 'first', el: a }, { label: 'second', el: b }], 'EvalAdd', () => addOp(api, getCt(api, a.value), getCt(api, b.value))); } },
+    { id: 'mul', label: 'EvalMult', blurb: isBGV ? 'Tensor product mod q<sub>ℓ</sub>; three parts.' : 'Tensor product over Z, scaled by t/q and rounded; three parts.',
+      form: (api) => { const w = api.wallet().filter((c) => c.c.length === 2); if (!w.length) return note('Need 2-part ciphertexts: encrypt first.'); const a = ctSelect(api, kind + '-ma', (c) => c.c.length === 2, w[0].name), b = ctSelect(api, kind + '-mb', (c) => c.c.length === 2, (w[1] || w[0]).name); return opForm(api, [{ label: 'first', el: a }, { label: 'second', el: b }], 'EvalMult', () => mulOp(api, getCt(api, a.value), getCt(api, b.value))); } },
+    { id: 'relin', label: 'Relinearize', blurb: 'Turn (c₀*, c₁*, c₂*) back into two parts using the evaluation keys.',
+      form: (api) => { const w = api.wallet().filter((c) => c.c.length === 3); if (!w.length) return note('Run EvalMult first: relinearization takes its 3-part output.'); const a = ctSelect(api, kind + '-ra', (c) => c.c.length === 3, w[w.length - 1].name); const m = h('select', { id: kind + '-rm' }, h('option', { value: 'gadget' }, 'gadget (base w)'), h('option', { value: 'basic' }, 'basic (one key)')); return opForm(api, [{ label: 'ciphertext', el: a }, ...(isBGV ? [] : [{ label: 'method', el: m }])], 'Relinearize', () => relinOp(api, getCt(api, a.value), isBGV ? 'gadget' : m.value)); } },
+    ...(isBGV ? [{ id: 'ms', label: 'ModSwitch', blurb: 'Drop the top prime of the chain: the noise shrinks by about that prime.',
+      form: (api) => { const w = api.wallet().filter((c) => c.lvl > 0 && c.c.length === 2); if (!w.length) return note('Need a 2-part ciphertext above level 0.'); const a = ctSelect(api, kind + '-sa', (c) => c.lvl > 0 && c.c.length === 2, w[w.length - 1].name); return opForm(api, [{ label: 'ciphertext', el: a }], 'ModSwitch', () => msOp(api, getCt(api, a.value))); } }] : []),
+  ];
+  const fields = (p) => [
+    { key: 'n', label: 'Ring degree n', type: 'select', options: [4, 8, 16], num: true, hint: 'R = Z[X]/(X<sup>n</sup>+1)' },
+    { key: 't', label: 'Plaintext modulus t', type: 'number', min: 2 },
+    ...(isBGV ? [{ key: 'primes', label: 'Modulus chain p₀, p₁, …', wide: true, hint: 'q<sub>ℓ</sub> = p₀···p<sub>ℓ</sub>; p<sub>i</sub> ≡ 1 (mod t) for i ≥ 1',
+      extra: (pp, done) => { const lv = h('input', { type: 'number', value: 2, min: 1, max: 5, style: 'width:4em', 'aria-label': 'levels' }), bits = h('input', { type: 'number', value: 14, min: 6, max: 30, style: 'width:4.5em', 'aria-label': 'bits per prime' });
+        return h('div', { class: 'row wrap' }, lv, h('span', { class: 'hint' }, 'levels of'), bits, h('span', { class: 'hint' }, 'bits'), h('button', { class: 'btn small', type: 'button', onclick: () => { const pr = findPrimes(Number(pp.t), Number(lv.value) + 1, Number(bits.value)); if (pr.length < Number(lv.value) + 1) { flash('Not enough primes: use more bits.'); return; } pp.primes = pr.reverse().join(', '); pp.lecture = false; done(); } }, 'Find primes ≡ 1 mod t')); } }]
+      : [{ key: 'q', label: 'Ciphertext modulus q', wide: true, hint: 'any integer up to 2<sup>120</sup>' }]),
+    { key: 'beta', label: 'Error bound β', type: 'number', min: 0, max: 50, hint: 'errors uniform in [−β, β]' },
+    { key: 'w', label: 'Relin base w', type: 'number', min: 2 },
+    { key: 'base', label: 'Encoding base b', type: 'number', min: 2, max: 16 },
+    { key: 'seed', label: 'Random seed', type: 'number', extra: (pp, done) => h('button', { class: 'btn small', type: 'button', onclick: () => { pp.seed = Math.floor(Math.random() * 1e6); pp.lecture = false; done(); } }, 'Randomise') },
+    { key: 'lecture', label: isBGV ? 'Use the Lecture 11 keys and randomness' : 'Use the Lecture 10 keys and randomness', type: 'check' },
+  ];
+  return {
+    id: kind, version: 4, title: isBGV ? 'BGV' : 'BFV', presets, fields, derive, ctInfo, ops,
+    intro: isBGV ? 'The message sits in the low bits and every error is multiplied by t: c₀ + c₁·SK = M + t·v (mod q<sub>ℓ</sub>). Decryption is two reductions. ModSwitch drops a prime of the chain to keep the noise small.' : 'The message sits in the high bits, scaled by Δ = ⌊q/t⌋: c₀ + c₁·SK = Δ·M + v (mod q). Decryption scales by t/q and rounds. EvalMult leaves three parts; relinearization brings them back to two.',
+    keygen: (p, d) => { const ctx = keygen(p, d); ctx.p = p; return ctx; },
+    run: { enc: encryptOp, dec: decryptSteps, add: addOp, mul: mulOp, relin: relinOp, ms: msOp },
+    peek(ctx, ct) { const dq = decryptQuick(ctx, ct); return { got: String(intOf(dq.M, ctx.p)), exp: String(intOf(ct.M, ctx.p)), ok: dq.ok }; },
+  };
+}
+
+// ============ CKKS ============
+function ckksDef() {
+  const presets = [
+    { label: 'Default (n = 8, Δ = 2^20, 2 levels)', p: { n: 8, logDelta: 20, logq0: 30, L: 2, beta: 2, logw: 10, seed: 3 } },
+    { label: 'Low precision (Δ = 2^8)', p: { n: 8, logDelta: 8, logq0: 14, L: 2, beta: 2, logw: 6, seed: 5 } },
+    { label: 'Small (n = 4, one level)', p: { n: 4, logDelta: 16, logq0: 24, L: 1, beta: 1, logw: 8, seed: 9 } },
+  ];
+  const fields = () => [
+    { key: 'n', label: 'Ring degree n', type: 'select', options: [4, 8, 16], num: true, hint: 'n/2 slots' },
+    { key: 'logDelta', label: 'Scale Δ = 2^', type: 'number', min: 4, max: 40 },
+    { key: 'logq0', label: 'Base modulus q₀ = 2^', type: 'number', min: 6, max: 60 },
+    { key: 'L', label: 'Levels L', type: 'number', min: 0, max: 5, hint: 'q<sub>ℓ</sub> = q₀·Δ<sup>ℓ</sup>' },
+    { key: 'beta', label: 'Error bound β', type: 'number', min: 0, max: 64 },
+    { key: 'logw', label: 'Relin base w = 2^', type: 'number', min: 1, max: 30 },
+    { key: 'seed', label: 'Random seed', type: 'number', extra: (pp, done) => h('button', { class: 'btn small', type: 'button', onclick: () => { pp.seed = Math.floor(Math.random() * 1e6); done(); } }, 'Randomise') },
+  ];
+  function derive(p) {
+    const n = Number(p.n), lD = Number(p.logDelta), lq0 = Number(p.logq0), L = Number(p.L), lw = Number(p.logw), beta = Number(p.beta);
+    if (lq0 <= lD) return { error: 'q₀ must exceed Δ so the last level can hold values of size 1.' }; if (!(lw >= 1)) return { error: 'w must be at least 2.' };
+    const qs = Array.from({ length: L + 1 }, (_, l) => 2n ** BigInt(lq0 + l * lD)); const qL = qs[L]; const w = 2n ** BigInt(lw); let ell = 0, tmp = 1n; while (tmp < qL) { tmp *= w; ell++; }
+    return { n, lD, lq0, L, qs, qL, w, ell, beta, Delta: 2 ** lD, chips: [['n', n], ['slots', n / 2], ['Δ', `2<sup>${lD}</sup>`], ['q₀', `2<sup>${lq0}</sup>`], ['L', L], ['q<sub>L</sub>', `2<sup>${lq0 + L * lD}</sup>`], ['β', beta]],
+      list: qs.map((q, l) => [`q<sub>${l}</sub>`, `2<sup>${lq0 + l * lD}</sup>, values up to 2<sup>${lq0 + l * lD - lD - 1}</sup>`]).concat([['Relin keys ℓ', ell]]) };
+  }
+  function keygen(p, d) {
+    const n = d.n, rng = new RNG(Number(p.seed) || 1), q = d.qL; const steps = [];
+    steps.push({ title: 'Parameters', why: 'CKKS uses a power-of-two modulus chain here: each Rescale divides by Δ and drops one level.', node: paramChips(d.chips) });
+    const SK = rng.ternary(n); steps.push({ title: 'Sample SK', table: [{ label: 'SK', v: SK, cls: 'new' }] });
+    const a = rng.uniformPoly(n, q), e = rng.err(n, d.beta); steps.push({ title: 'Sample a and e', table: [{ label: 'a', v: a, q, cls: 'new' }, { label: 'e', v: e, cls: 'new' }] });
+    const ms = shiftSteps(a, SK, { pName: 'a', sName: 'SK', q, title: 'Compute a·SK' }); steps.push(...ms.steps);
+    const PK0 = P.cmod(P.neg(P.add(ms.value, e)), q); steps.push({ title: 'Form PK and check', formula: 'PK₀ = [−(a·SK + e)]<sub>q<sub>L</sub></sub>, PK₁ = a, PK₀ + PK₁·SK = −e', table: [{ label: 'PK₀', v: PK0, q, cls: 'hl' }, { label: 'PK₁', v: a, q, cls: 'hl' }, '-', { label: 'PK₀ + PK₁·SK', v: P.cmod(P.add(PK0, ms.value), q) }, { label: '−e', v: P.neg(e) }] });
+    const SK2 = P.mul(SK, SK); const EK = []; for (let i = 0; i < d.ell; i++) { const ai = rng.uniformPoly(n, q), ei = rng.err(n, d.beta); EK.push({ a: ai, b: P.cmod(P.add(P.neg(P.add(P.mul(ai, SK), ei)), P.scal(d.w ** BigInt(i), SK2)), q) }); }
+    steps.push({ title: 'Evaluation keys', formula: `EK<sup>(i)</sup> encrypts w<sup>i</sup>·SK², w = 2<sup>${p.logw}</sup>, ℓ = ${d.ell}`, table: EK.slice(0, 4).flatMap((k, i) => [{ label: `EK<sup>(${i})</sup>₀`, v: k.b, q }, { label: `EK<sup>(${i})</sup>₁`, v: k.a, q }]) });
+    return { d, rng, SK, SK2, PK0, PK1: a, e, EK, steps };
+  }
+  function dec(ctx, ct) { const q = ctx.d.qs[ct.lvl]; let val = P.add(ct.c[0], P.mul(ct.c[1], ctx.SK)); if (ct.c.length === 3) val = P.add(val, P.mul(ct.c[2], ctx.SK2)); const m = P.cmod(val, q); const z = ckksDecode(m, ctx.d.n, 2 ** ct.scaleLog); const err = z.map((zz, j) => Math.hypot(zz[0] - ct.z[j][0], zz[1] - ct.z[j][1])); const maxErr = Math.max(...err); return { val, m, z, err, maxErr, bits: maxErr > 0 ? -Math.log2(maxErr) : 52 }; }
+  function ctInfo(ct, ctx) { const dd = dec(ctx, ct); const room = ctx.d.lq0 + ct.lvl * ctx.d.lD - 1 - ct.scaleLog; return { ok: dd.maxErr < 0.5, chips: [[`${ct.c.length} parts`, ct.c.length === 3 ? 'warn' : 'muted'], [`level ${ct.lvl}`], [`scale 2<sup>${ct.scaleLog}</sup>`, ct.scaleLog > ctx.d.lD ? 'warn' : 'muted'], [`${dd.bits.toFixed(1)} bits`, dd.bits < 6 ? 'bad' : 'ok'], [`room 2<sup>${room}</sup>`]], gauge: null }; }
+  const parseZ = (str, k) => { const v = String(str).split(',').map((x) => x.trim()).filter(Boolean).map(Number); if (!v.length || v.some((x) => !Number.isFinite(x))) throw new Error('Slot values must be real numbers separated by commas.'); while (v.length < k) v.push(0); return v.slice(0, k); };
+  function encOp(api, str) {
+    const ctx = api.ctx, d = ctx.d, n = d.n, k = n / 2, q = d.qL, rng = ctx.rng; const z = parseZ(str, k); const steps = [];
+    const exps = ckksRoots(n);
+    steps.push({ title: 'The slots and their roots', why: `Slot j is the value of the plaintext polynomial at ζ<sup>${'5<sup>j</sup>'}</sup>, where ζ = e<sup>iπ/${n}</sup> is a primitive ${2 * n}-th root of unity. The conjugate roots get the conjugate values, so the polynomial has real coefficients.`,
+      node: h('div', { class: 'tablewrap' }, h('table', { class: 'mini' }, h('thead', {}, h('tr', {}, h('th', {}, 'slot j'), h('th', {}, 'value z_j'), h('th', {}, 'root ζ^k'), h('th', {}, 'conjugate'))), h('tbody', {}, z.map((zz, j) => h('tr', {}, h('td', {}, String(j)), h('td', { class: 'mono' }, String(zz)), h('td', { class: 'mono' }, `ζ^${exps[j]}`), h('td', { class: 'mono' }, `ζ^${2 * n - exps[j]}`)))))) });
+    const real = ckksEncode(z, n, 1e6).map((x) => Number(x) / 1e6); const m = ckksEncode(z, n, d.Delta);
+    steps.push({ title: 'Inverse embedding σ⁻¹', formula: 'm<sub>k</sub> = (1/n)·Σ<sub>roots r</sub> z<sub>r</sub>·r<sup>−k</sup>', why: 'Interpolate: the unique real polynomial of degree < n with the given values at the roots.', table: [{ label: 'σ⁻¹(z)', v: real, dp: 6 }] });
+    steps.push({ title: `Scale by Δ = 2^${d.lD} and round`, why: 'Rounding to integers is the first, small source of error.', table: [{ label: 'Δ·σ⁻¹(z)', v: real.map((x) => x * d.Delta), dp: 2 }, { label: 'm = ⌊·⌉', v: m, cls: 'hl' }] });
+    const u = rng.ternary(n), e1 = rng.err(n, d.beta), e2 = rng.err(n, d.beta);
+    steps.push({ title: 'Sample u, e₁, e₂', table: [{ label: 'u', v: u, cls: 'new' }, { label: 'e₁', v: e1, cls: 'new' }, { label: 'e₂', v: e2, cls: 'new' }] });
+    const s0 = shiftSteps(ctx.PK0, u, { pName: 'PK₀', sName: 'u', q, title: 'Compute PK₀·u' }); steps.push(...s0.steps.slice(-1));
+    const c0 = P.cmod(P.add(P.add(s0.value, e1), m), q), PK1u = P.mul(ctx.PK1, u), c1 = P.cmod(P.add(PK1u, e2), q);
+    steps.push({ title: 'Form the ciphertext', formula: 'c₀ = [PK₀·u + e₁ + m]<sub>q<sub>L</sub></sub>, c₁ = [PK₁·u + e₂]<sub>q<sub>L</sub></sub>', table: [{ label: 'PK₀·u', v: s0.value }, { label: '+ e₁', v: e1 }, { label: '+ m', v: m }, { label: 'c₀', v: c0, q, cls: 'hl' }, '-', { label: 'PK₁·u', v: PK1u }, { label: '+ e₂', v: e2 }, { label: 'c₁', v: c1, q, cls: 'hl' }] });
+    const name = api.nextName('ct'); const ct = { name, c: [c0, c1], lvl: d.L, scaleLog: d.lD, z: z.map((x) => [x, 0]), desc: `Enc([${z.join(', ')}])` };
+    const dd = dec(ctx, ct); steps.push({ title: `Ciphertext ${name}`, why: `Decrypting now gives ${dd.bits.toFixed(1)} bits of precision.`, node: slotChart(ct.z, dd.z) });
+    api.addCt(ct); api.show(`Encrypt [${z.join(', ')}] → ${name}`, steps);
+  }
+  function decSteps(api, ct) {
+    const ctx = api.ctx, d = ctx.d, q = d.qs[ct.lvl]; const steps = [];
+    const m1 = shiftSteps(ct.c[1], ctx.SK, { pName: 'c₁', sName: 'SK', q, title: 'Compute c₁·SK' }); steps.push(...m1.steps.slice(-1));
+    const dd = dec(ctx, ct);
+    steps.push({ title: `Reduce mod q<sub>${ct.lvl}</sub>`, formula: `m′ = [c₀ + c₁·SK${ct.c.length === 3 ? ' + c₂·SK²' : ''}]<sub>q</sub> = Δ′·m + e`, table: [{ label: 'c₀', v: ct.c[0], q }, { label: '+ c₁·SK', v: m1.value }, ...(ct.c.length === 3 ? [{ label: '+ c₂·SK²', v: P.mul(ct.c[2], ctx.SK2) }] : []), '-', { label: "m′", v: dd.m, cls: 'hl' }] });
+    steps.push({ title: `Divide by the scale 2^${ct.scaleLog}`, table: [{ label: "m′ / scale", v: dd.m.map((x) => Number(x) / 2 ** ct.scaleLog), dp: 6 }] });
+    steps.push({ title: 'Evaluate at the roots (decode)', why: `z′<sub>j</sub> = (m′/scale)(ζ<sup>5<sup>j</sup></sup>). The error is the encryption noise plus rounding, divided by the scale: ${dd.maxErr.toExponential(2)}, i.e. ${dd.bits.toFixed(1)} bits of precision.`, node: h('div', {}, slotChart(ct.z, dd.z), h('div', { class: 'tablewrap' }, h('table', { class: 'mini' }, h('thead', {}, h('tr', {}, h('th', {}, 'slot'), h('th', {}, 'expected'), h('th', {}, 'decrypted'), h('th', {}, 'error'))), h('tbody', {}, ct.z.map((z, j) => h('tr', {}, h('td', {}, String(j)), h('td', { class: 'mono' }, z[0].toFixed(6)), h('td', { class: 'mono' }, dd.z[j][0].toFixed(6)), h('td', { class: 'mono' }, dd.err[j].toExponential(2)))))))) });
+    return steps;
+  }
+  function binOp(api, A, Bc, kind) {
+    const ctx = api.ctx, d = ctx.d; if (A.c.length !== Bc.c.length || (kind === 'mul' && A.c.length !== 2)) throw new Error(kind === 'mul' ? 'EvalMult takes two 2-part ciphertexts.' : 'Both must have the same number of parts.');
+    if (A.lvl !== Bc.lvl) throw new Error(`Levels differ (${A.lvl} and ${Bc.lvl}).`); if (kind === 'add' && A.scaleLog !== Bc.scaleLog) throw new Error('Scales differ: rescale first.');
+    const q = d.qs[A.lvl]; const steps = []; let c, scaleLog, z;
+    if (kind === 'add') { c = A.c.map((x, i) => P.cmod(P.add(x, Bc.c[i]), q)); scaleLog = A.scaleLog; z = A.z.map((zz, j) => C.add(zz, Bc.z[j]));
+      steps.push({ title: 'Add part by part', table: A.c.flatMap((x, i) => [{ label: `${A.name}.c${sub(i)}`, v: x, q }, { label: `+ ${Bc.name}.c${sub(i)}`, v: Bc.c[i], q }, { label: `= c${sub(i)}`, v: c[i], q, cls: 'hl' }, '-']) }); }
+    else { const [a0, a1] = A.c, [b0, b1] = Bc.c; const T = [P.mul(a0, b0), P.add(P.mul(a0, b1), P.mul(a1, b0)), P.mul(a1, b1)]; c = T.map((x) => P.cmod(x, q)); scaleLog = A.scaleLog + Bc.scaleLog; z = A.z.map((zz, j) => C.mul(zz, Bc.z[j]));
+      steps.push({ title: 'Tensor product mod q<sub>ℓ</sub>', why: 'Same as BGV: no rescaling inside the product. Click a coefficient to see its convolution.', table: [{ label: 'c₀c₀′ over Z', v: T[0], explain: (k) => convExplain(a0, b0, k, 'c₀', 'c₀′') }, { label: 'c₀*', v: c[0], q, cls: 'hl' }, '-', { label: 'c₀c₁′ + c₁c₀′', v: T[1] }, { label: 'c₁*', v: c[1], q, cls: 'hl' }, '-', { label: 'c₁c₁′ over Z', v: T[2] }, { label: 'c₂*', v: c[2], q, cls: 'hl' }] });
+      steps.push({ title: 'The scale squares', why: `Each input carries scale 2<sup>${A.scaleLog}</sup>, so the product carries 2<sup>${scaleLog}</sup>. Relinearize, then Rescale to return to Δ.` }); }
+    const name = api.nextName(kind === 'add' ? 'sum' : 'prod'); const ct = { name, c, lvl: A.lvl, scaleLog, z, desc: `${A.name} ${kind === 'add' ? '+' : '×'} ${Bc.name}` }; const dd = dec(ctx, ct);
+    steps.push({ title: 'Result', why: `${dd.bits.toFixed(1)} bits of precision.`, node: slotChart(z, dd.z) });
+    api.addCt(ct); api.show(`${kind === 'add' ? 'EvalAdd' : 'EvalMult'} → ${name}`, steps);
+  }
+  function relinOp(api, A) {
+    const ctx = api.ctx, d = ctx.d; if (A.c.length !== 3) throw new Error('Relinearize takes a 3-part ciphertext.'); const q = d.qs[A.lvl]; const [c0, c1, c2] = A.c; const steps = [];
+    const c2p = P.mod(c2, q); const digits = []; for (let i = 0; i < d.ell; i++) digits.push(c2p.map((x) => (x / (d.w ** BigInt(i))) % d.w));
+    steps.push({ title: `Decompose c₂* in base 2^${Math.log2(Number(d.w))}`, table: [{ label: 'c₂* in [0, q)', v: c2p, cls: 'hl' }, '-', ...digits.map((dg, i) => ({ label: `d<sub>${i}</sub>`, v: dg }))] });
+    let A0 = P.zero(d.n), A1 = P.zero(d.n); digits.forEach((dg, i) => { A0 = P.add(A0, P.mul(dg, P.cmod(ctx.EK[i].b, q))); A1 = P.add(A1, P.mul(dg, P.cmod(ctx.EK[i].a, q))); });
+    const h0 = P.cmod(P.add(c0, A0), q), h1 = P.cmod(P.add(c1, A1), q);
+    steps.push({ title: 'Combine with the keys', formula: 'ĉ<sub>j</sub> = c<sub>j</sub>* + Σ dᵢ·EK<sup>(i)</sup><sub>j</sub>', table: [{ label: 'ĉ₀', v: h0, q, cls: 'hl' }, { label: 'ĉ₁', v: h1, q, cls: 'hl' }] });
+    const name = api.nextName('rel'); const ct = { name, c: [h0, h1], lvl: A.lvl, scaleLog: A.scaleLog, z: A.z, desc: `Relin(${A.name})` }; const dd = dec(ctx, ct);
+    steps.push({ title: 'Result', why: `${dd.bits.toFixed(1)} bits of precision; scale still 2<sup>${A.scaleLog}</sup>.`, node: slotChart(ct.z, dd.z) });
+    api.addCt(ct); api.show(`Relinearize ${A.name} → ${name}`, steps);
+  }
+  function rescaleOp(api, A) {
+    const ctx = api.ctx, d = ctx.d; if (A.lvl === 0) throw new Error('Level 0: nothing left to divide by.'); const p = 2n ** BigInt(d.lD), qn = d.qs[A.lvl - 1]; const steps = [];
+    const c = A.c.map((poly) => P.cmod(poly.map((x) => roundDiv(x, p)), qn));
+    steps.push({ title: `Divide every coefficient by Δ = 2^${d.lD} and round`, formula: `c′ = ⌊c / 2<sup>${d.lD}</sup>⌉ mod q<sub>${A.lvl - 1}</sub>`, why: `The message, the noise and the modulus all shrink by Δ: the scale goes from 2<sup>${A.scaleLog}</sup> to 2<sup>${A.scaleLog - d.lD}</sup> and one level is used.`,
+      table: A.c.flatMap((x, i) => [{ label: `c${sub(i)}`, v: x, q: d.qs[A.lvl] }, { label: `⌊c${sub(i)}/Δ⌉`, v: c[i], q: qn, cls: 'hl' }, '-']) });
+    const name = api.nextName('rs'); const ct = { name, c, lvl: A.lvl - 1, scaleLog: A.scaleLog - d.lD, z: A.z, desc: `Rescale(${A.name})` }; const dd = dec(ctx, ct);
+    steps.push({ title: 'Result', why: `${dd.bits.toFixed(1)} bits of precision at level ${ct.lvl}.`, node: slotChart(ct.z, dd.z) });
+    api.addCt(ct); api.show(`Rescale ${A.name} → ${name}`, steps);
+  }
+  const ops = [
+    { id: 'enc', label: 'Encrypt', blurb: 'Encode a real vector into one polynomial, then encrypt it like BFV without Δ·M.', form: (api) => { const z = h('input', { id: 'ck-z', value: api.wallet().length ? '2, 0.5, -1, 1' : '1.5, -2, 0.25, 3', size: 24 }); return opForm(api, [{ label: `vector (${api.ctx.d.n / 2} slots)`, el: z }], 'Encrypt', () => encOp(api, z.value)); } },
+    { id: 'dec', label: 'Decrypt', blurb: 'm′ = [c₀ + c₁·SK]<sub>q</sub>, then decode at the current scale.', form: (api) => { if (!api.wallet().length) return note('Encrypt something first.'); const a = ctSelect(api, 'ck-da', null, api.wallet()[api.wallet().length - 1].name); return opForm(api, [{ label: 'ciphertext', el: a }], 'Decrypt', () => { const ct = getCt(api, a.value); api.show(`Decrypt ${ct.name}`, decSteps(api, ct)); }); } },
+    { id: 'add', label: 'EvalAdd', blurb: 'Slot values add; the scale stays the same.', form: (api) => { const w = api.wallet(); if (!w.length) return note('Encrypt two vectors first.'); const a = ctSelect(api, 'ck-aa', null, w[0].name), b = ctSelect(api, 'ck-ab', null, (w[1] || w[0]).name); return opForm(api, [{ label: 'first', el: a }, { label: 'second', el: b }], 'EvalAdd', () => binOp(api, getCt(api, a.value), getCt(api, b.value), 'add')); } },
+    { id: 'mul', label: 'EvalMult', blurb: 'Slot values multiply; the scale squares.', form: (api) => { const w = api.wallet().filter((c) => c.c.length === 2); if (!w.length) return note('Encrypt first.'); const a = ctSelect(api, 'ck-ma', (c) => c.c.length === 2, w[0].name), b = ctSelect(api, 'ck-mb', (c) => c.c.length === 2, (w[1] || w[0]).name); return opForm(api, [{ label: 'first', el: a }, { label: 'second', el: b }], 'EvalMult', () => binOp(api, getCt(api, a.value), getCt(api, b.value), 'mul')); } },
+    { id: 'relin', label: 'Relinearize', blurb: 'Back to two parts with the gadget keys.', form: (api) => { const w = api.wallet().filter((c) => c.c.length === 3); if (!w.length) return note('Run EvalMult first.'); const a = ctSelect(api, 'ck-ra', (c) => c.c.length === 3, w[w.length - 1].name); return opForm(api, [{ label: 'ciphertext', el: a }], 'Relinearize', () => relinOp(api, getCt(api, a.value))); } },
+    { id: 'rescale', label: 'Rescale', blurb: 'Divide by Δ and drop a level.', form: (api) => { const w = api.wallet().filter((c) => c.lvl > 0); if (!w.length) return note('Every ciphertext is at level 0.'); const a = ctSelect(api, 'ck-sa', (c) => c.lvl > 0, w[w.length - 1].name); return opForm(api, [{ label: 'ciphertext', el: a }], 'Rescale', () => rescaleOp(api, getCt(api, a.value))); } },
+  ];
+  return { id: 'ckks', version: 4, title: 'CKKS', presets, fields, derive, ctInfo, ops, keygen,
+    run: { enc: encOp, dec: decSteps, add: (api, A, Bc) => binOp(api, A, Bc, 'add'), mul: (api, A, Bc) => binOp(api, A, Bc, 'mul'), relin: relinOp, rescale: rescaleOp },
+    peek(ctx, ct) { const dd = dec(ctx, ct); const g = dd.z[0][0], x = ct.z[0][0]; return { got: g.toFixed(4), exp: String(x), ok: dd.maxErr < 0.5 }; },
+    intro: 'CKKS packs n/2 complex numbers into one polynomial through the canonical embedding, scaled by Δ, and lets the encryption noise blend into the rounding error. Results are approximate; the measure is bits of precision. Multiplication squares the scale and Rescale brings it back.' };
+}
+
+// ============ TFHE ============
+function tfheDef() {
+  const presets = [
+    { label: 'Lecture 15 instance', p: { logq: 10, p: 8, n: 3, N: 16, logBeta: 2, logBks: 2, eLwe: 2, eBk: 1, seed: 7, lecture: true } },
+    { label: 'Multiplication by lookup (p = 32)', p: { logq: 16, p: 32, n: 4, N: 64, logBeta: 4, logBks: 4, eLwe: 2, eBk: 1, seed: 42, lecture: false } },
+    { label: 'Noisy input', p: { logq: 10, p: 8, n: 6, N: 16, logBeta: 2, logBks: 2, eLwe: 30, eBk: 1, seed: 4, lecture: false } },
+  ];
+  const divisors = (k) => Array.from({ length: k }, (_, i) => i + 1).filter((d) => k % d === 0);
+  const fields = (p) => [
+    { key: 'logq', label: 'Torus q = 2^', type: 'select', options: [8, 10, 12, 14, 16], num: true, rebuild: true },
+    { key: 'p', label: 'Message modulus p', type: 'select', options: [4, 8, 16, 32], num: true, hint: 'messages 0 … p/2−1' },
+    { key: 'n', label: 'LWE dimension n', type: 'number', min: 1, max: 10 },
+    { key: 'N', label: 'Ring degree N', type: 'select', options: [8, 16, 32, 64], num: true, hint: 'box width w = 2N/p' },
+    { key: 'logBeta', label: 'Gadget base β = 2^', type: 'select', options: divisors(Number(p.logq)), num: true },
+    { key: 'logBks', label: 'Key-switch base = 2^', type: 'select', options: divisors(Number(p.logq)), num: true },
+    { key: 'eLwe', label: 'Fresh LWE error bound', type: 'number', min: 0, max: 500 },
+    { key: 'eBk', label: 'Key error bound', type: 'number', min: 0, max: 20 },
+    { key: 'seed', label: 'Random seed', type: 'number', extra: (pp, done) => h('button', { class: 'btn small', type: 'button', onclick: () => { pp.seed = Math.floor(Math.random() * 1e6); pp.lecture = false; done(); } }, 'Randomise') },
+    { key: 'lecture', label: 'Use s = (1,0,1) and the Lecture 15 ciphertext for the first encryption', type: 'check' },
+  ];
+  function derive(p) {
+    const k = Number(p.logq), q = 2 ** k, pp = Number(p.p), n = Number(p.n), N = Number(p.N), lb = Number(p.logBeta), lk = Number(p.logBks);
+    if (k % lb || k % lk) return { error: 'The gadget and key-switch bases must divide log q.' }; if (2 * N < pp) return { error: 'Need 2N ≥ p so every message has a box.' }; if (q / pp < 4) return { error: 'q/p is too small to hold any noise.' };
+    if (p.lecture && !(k === 10 && pp === 8 && n === 3 && N === 16)) return { error: 'The Lecture 15 instance needs q = 2^10, p = 8, n = 3, N = 16. Load the preset or untick the box.' };
+    const ell = k / lb, lks = k / lk;
+    return { k, q, p: pp, n, N, beta: 2 ** lb, ell, bks: 2 ** lk, lks, D: q / pp, w: (2 * N) / pp, chips: [['q', `2<sup>${k}</sup>`], ['p', pp], ['Δ = q/p', q / pp], ['n', n], ['N', N], ['w = 2N/p', (2 * N) / pp], ['β', `2<sup>${lb}</sup>`], ['ℓ', ell]],
+      list: [['Δ = q/p', q / pp], ['Box width w = 2N/p', (2 * N) / pp], ['Noise budget Δ/2', q / pp / 2], ['Gadget β, ℓ', `${2 ** lb}, ${ell}`], ['Key switch base, digits', `${2 ** lk}, ${lks}`], ['BK size', `${(n * 2 * ell * 2 * N * k / 8 / 1024).toFixed(1)} KiB`]] };
+  }
+  function keygen(p, d) {
+    const { q, n, N, ell, beta, bks, lks } = d; const rng = new RNG(Number(p.seed) || 1); const md = (x) => ((x % q) + q) % q; const cn = (x) => { x = md(x); return x > q / 2 ? x - q : x; };
+    const steps = []; steps.push({ title: 'Parameters', why: 'The torus is stored as Z<sub>q</sub>. Messages are placed at Δ·m; the top half of the circle is the padding region.', node: paramChips(d.chips) });
+    const s_ = p.lecture ? [1, 0, 1] : Array.from({ length: n }, () => rng.int(0, 1)); const S = Array.from({ length: N }, () => rng.int(0, 1));
+    steps.push({ title: 'Sample the LWE key s and the ring key S', why: 's encrypts the data; S is the key of the accumulator inside bootstrapping. Both are binary.', formula: `s = (${s_.join(', ')}), &nbsp; S = ${polyStr(S.map(BigInt))}` });
+    const pmul = (a, b) => { const r = new Array(N).fill(0); for (let i = 0; i < N; i++) { if (!a[i]) continue; for (let j = 0; j < N; j++) { const t2 = i + j; const v = a[i] * b[j]; if (t2 < N) r[t2] += v; else r[t2 - N] -= v; } } return r.map(md); };
+    const padd = (a, b) => a.map((x, i) => md(x + b[i])); const psub = (a, b) => a.map((x, i) => md(x - b[i]));
+    const glweEnc = (M) => { const A = Array.from({ length: N }, () => rng.int(0, q - 1)); const E = Array.from({ length: N }, () => rng.int(-Number(p.eBk), Number(p.eBk))); return [A, padd(padd(pmul(A, S), M), E.map(md))]; };
+    const ggswEnc = (m) => { const rows = []; for (const part of [0, 1]) for (let t2 = 0; t2 < ell; t2++) { const [A, Bp] = glweEnc(new Array(N).fill(0)); const g = new Array(N).fill(0); g[0] = md(m * beta ** t2); rows.push(part === 0 ? [padd(A, g), Bp] : [A, padd(Bp, g)]); } return rows; };
+    const BK = s_.map((si) => ggswEnc(si));
+    steps.push({ title: 'Bootstrapping key', why: `BK<sub>i</sub> = GGSW<sub>S</sub>(s<sub>i</sub>): a ${2 * ell} × 2 matrix of GLWE encryptions of 0 plus s<sub>i</sub>·G, where G holds the gadget powers 1, β, …, β<sup>ℓ−1</sup>. There are n = ${n} of them.`, formula: `BK<sub>i</sub> = Z<sub>i</sub> + s<sub>i</sub>·G, &nbsp; size n·2ℓ·2·N = ${n * 2 * ell * 2 * N} elements of Z<sub>q</sub>` });
+    const lweEnc = (mu, bound) => { const a = Array.from({ length: n }, () => rng.int(0, q - 1)); return [a, md(a.reduce((acc, x, i) => acc + x * s_[i], 0) + mu + rng.int(-bound, bound))]; };
+    const KSK = S.map((Sj) => Array.from({ length: lks }, (_, t2) => lweEnc(md(Sj * bks ** t2), Number(p.eBk))));
+    steps.push({ title: 'Key-switching key', why: `KSK<sub>j,t</sub> = LWE<sub>s</sub>(S<sub>j</sub>·${bks}<sup>t</sup>) for j < N, t < ${lks}: it brings the extracted ciphertext from key S back to s. Both keys rely on circular security.`, formula: `${N * lks} LWE ciphertexts of length n + 1 = ${n + 1}` });
+    const ctx = { d, p, rng, s: s_, S, BK, KSK, md, cn, pmul, padd, psub, steps, encCount: 0 };
+    ctx.lwePhase = (c, key) => cn(c[1] - c[0].reduce((acc, x, i) => acc + x * key[i], 0));
+    ctx.glwePhase = (c) => psub(c[1], pmul(c[0], S)).map(cn);
+    return ctx;
+  }
+  const decOf = (ctx, ct) => { const ph = ctx.lwePhase(ct.c, ctx.s); const D = ctx.d.D, pp = ctx.d.p; const m = ((Math.round(ph / D) % pp) + pp) % pp; return { phase: ph, m, noise: ctx.cn(ph - Math.round(ph / D) * D) }; };
+  function ctInfo(ct, ctx) { const dd = decOf(ctx, ct); return { ok: dd.m === ct.m, chips: [[`m = ${ct.m}`], [`phase ${dd.phase}`], [`noise ${dd.noise}`, Math.abs(dd.noise) > ctx.d.D / 4 ? 'warn' : 'muted']], gauge: gauge(BigInt(Math.abs(dd.noise)), BigInt(ctx.d.D / 2), '|e|') }; }
+  const tpt = (ctx, ct, cls, title) => { const ph = ctx.lwePhase(ct.c, ctx.s); return { f: ((ph % ctx.d.q) + ctx.d.q) % ctx.d.q / ctx.d.q, cls, title }; };
+  function encOp(api, m) {
+    const ctx = api.ctx, d = ctx.d, rng = ctx.rng; m = Number(m); if (!(m >= 0 && m < d.p)) throw new Error(`Message must be in 0 … ${d.p - 1}.`); const steps = [];
+    const lec = ctx.p.lecture && ctx.encCount === 0; ctx.encCount++;
+    const a = lec ? [333, 790, 150] : Array.from({ length: d.n }, () => rng.int(0, d.q - 1)); const e = lec ? 5 : rng.int(-Number(ctx.p.eLwe), Number(ctx.p.eLwe));
+    steps.push({ title: 'Place the message on the torus', formula: `μ = Δ·m = ${d.D}·${m} = ${d.D * m}`, why: m >= d.p / 2 ? 'This message uses the padding half: bootstrapping will flip its sign.' : `m < p/2 = ${d.p / 2}, so the padding bit is 0.` });
+    const dot = a.reduce((acc, x, i) => acc + x * ctx.s[i], 0);
+    steps.push({ title: 'Sample a and e, form b', formula: `b = ⟨a, s⟩ + Δm + e = ${a.map((x, i) => `${x}·${ctx.s[i]}`).join(' + ')} + ${d.D * m} + ${e} = ${dot + d.D * m + e} ≡ ${ctx.md(dot + d.D * m + e)} (mod ${d.q})`, why: `a is uniform in Z<sub>q</sub><sup>n</sup>; e is drawn from [−${ctx.p.eLwe}, ${ctx.p.eLwe}].${lec ? ' (The handout values.)' : ''}` });
+    const c = [a.map(ctx.md), ctx.md(dot + d.D * m + e)]; const name = api.nextName('c'); const ct = { name, c, m, desc: `Enc(${m})` };
+    steps.push({ title: `Ciphertext ${name}`, why: `(a, b) = ((${c[0].join(', ')}), ${c[1]}). Its phase b − ⟨a, s⟩ = ${d.D * m + e} sits ${e} away from Δm.`, node: torus([tpt(ctx, ct, 'comb', name)], d.p, 'The phase on the torus; sectors are messages, the shaded half is padding.') });
+    api.addCt(ct); api.show(`Encrypt ${m} → ${name}`, steps);
+  }
+  function decSteps(api, ct) {
+    const ctx = api.ctx, d = ctx.d; const dd = decOf(ctx, ct); const dot = ct.c[0].reduce((acc, x, i) => acc + x * ctx.s[i], 0);
+    return [{ title: 'Compute the phase', formula: `φ = b − ⟨a, s⟩ = ${ct.c[1]} − (${ct.c[0].map((x, i) => `${x}·${ctx.s[i]}`).join(' + ')}) = ${ct.c[1] - dot} ≡ ${dd.phase} (centred mod ${d.q})` },
+      { title: 'Round to the nearest multiple of Δ', formula: `m = ⌊φ/Δ⌉ mod p = ⌊${dd.phase}/${d.D}⌉ mod ${d.p} = ${dd.m}`, why: `The noise is ${dd.noise}; decryption works while it stays below Δ/2 = ${d.D / 2}.`, node: h('div', { class: 'two' }, torus([tpt(ctx, ct, dd.m === ct.m ? 'comb' : 'bad', ct.name)], d.p), h('div', { class: 'res ' + (dd.m === ct.m ? 'ok' : 'bad') }, h('span', { class: 'big' }, `Decrypts to ${dd.m}`), h('span', {}, dd.m === ct.m ? 'as expected' : `expected ${ct.m}`))) }];
+  }
+  function linOp(api, A, Bc, alpha, beta, gamma, label) {
+    const ctx = api.ctx, d = ctx.d; const c0 = A.c[0].map((x, i) => ctx.md(alpha * x + beta * Bc.c[0][i])); const c1 = ctx.md(alpha * A.c[1] + beta * Bc.c[1] + gamma * d.D);
+    const m = (((alpha * A.m + beta * Bc.m + gamma) % d.p) + d.p) % d.p; const name = api.nextName(label || 'lin'); const ct = { name, c: [c0, c1], m, desc: `${alpha}·${A.name} + ${beta}·${Bc.name}${gamma ? ` + ${gamma}Δ` : ''}` };
+    const steps = [{ title: 'Combine the vectors', formula: `a″ = ${alpha}·a + ${beta}·a′ = (${c0.join(', ')}), &nbsp; b″ = ${alpha}·b + ${beta}·b′${gamma ? ` + ${gamma}·Δ` : ''} = ${c1}`, why: 'Linear operations act on the phase directly: the phase of the result is the same combination of the phases, and the noises combine the same way. No key is needed.' },
+      { title: `Ciphertext ${name}`, why: `It encrypts ${alpha}·${A.m} + ${beta}·${Bc.m}${gamma ? ` + ${gamma}` : ''} = ${m} (mod ${d.p}).${m >= d.p / 2 ? ' The result is in the padding half.' : ''}`, node: torus([tpt(ctx, A, 'c1', A.name), tpt(ctx, Bc, 'c2', Bc.name), tpt(ctx, ct, 'comb', name)], d.p, `Grey: ${A.name}, amber: ${Bc.name}, accent: ${name}.`) }];
+    api.addCt(ct); return { ct, steps };
+  }
+  function pbs(api, X, lut, title, extraSteps = []) {
+    const ctx = api.ctx, d = ctx.d, { q, N, n, ell, beta, bks, lks, D, w } = d; const md = ctx.md, cn = ctx.cn, pmul = ctx.pmul, padd = ctx.padd, psub = ctx.psub;
+    const mono = (a, kk) => { kk = ((kk % (2 * N)) + 2 * N) % (2 * N); const r = new Array(N).fill(0); for (let i = 0; i < N; i++) { let j = i + kk, sg = 1; while (j >= N) { j -= N; sg = -sg; } r[j] = md(r[j] + sg * a[i]); } return r; };
+    const decomp = (a) => { const digs = Array.from({ length: ell }, () => new Array(N).fill(0)); a.forEach((x0, i) => { let x = md(x0); for (let t2 = 0; t2 < ell; t2++) { let dd = x % beta; x = Math.floor(x / beta); if (dd > beta / 2) { dd -= beta; x += 1; } digs[t2][i] = md(dd); } }); return digs; };
+    const extprod = (Cm, c) => { const ds = [...decomp(c[0]), ...decomp(c[1])]; let A = new Array(N).fill(0), Bp = new Array(N).fill(0); ds.forEach((dg, i) => { A = padd(A, pmul(dg, Cm[i][0])); Bp = padd(Bp, pmul(dg, Cm[i][1])); }); return [A, Bp]; };
+    const cmux = (Cm, d1, d0) => { const e = extprod(Cm, [psub(d1[0], d0[0]), psub(d1[1], d0[1])]); return [padd(e[0], d0[0]), padd(e[1], d0[1])]; };
+    const steps = [...extraSteps]; const [a, b] = X.c;
+    const at = a.map((x) => ((Math.round(x * 2 * N / q) % (2 * N)) + 2 * N) % (2 * N)); const bt = ((Math.round(b * 2 * N / q) % (2 * N)) + 2 * N) % (2 * N); const bt2 = (bt + w / 2) % (2 * N);
+    const phit = ((bt2 - at.reduce((acc, x, i) => acc + x * ctx.s[i], 0)) % (2 * N) + 2 * N) % (2 * N); const exact = ctx.lwePhase(X.c, ctx.s) * 2 * N / q; const box = Math.floor(phit / w);
+    steps.push({ title: `Modulus switch to 2N = ${2 * N}`, formula: `ã<sub>i</sub> = ⌊${2 * N}·a<sub>i</sub>/${q}⌉ = (${at.join(', ')}), &nbsp; b̃ = ⌊${2 * N}·${b}/${q}⌉ + w/2 = ${bt} + ${w / 2} = ${bt2}`, why: `φ̃ = b̃ − Σ ã<sub>i</sub>s<sub>i</sub> = ${bt2} − ${at.reduce((acc, x, i) => acc + x * ctx.s[i], 0)} ≡ <b>${phit}</b> (mod ${2 * N}). The exact scaled phase was ${exact.toFixed(2)} (+${w / 2} offset). Box ⌊φ̃/w⌋ = ⌊${phit}/${w}⌋ = <b>${box}</b>${box === X.m % d.p ? ', the right one.' : `, but the message was ${X.m}: noise and rounding pushed it into the wrong box.`}` });
+    const v = Array.from({ length: N }, (_, j) => md(D * lut[Math.floor(j / w)]));
+    steps.push({ title: 'Build the test polynomial', formula: `v<sub>j</sub> = Δ·f(⌊j/w⌋), j = 0 … ${N - 1}`, why: `f = (${lut.join(', ')}). Each table entry fills a box of w = ${w} coefficients. Multiplying v by X<sup>−k</sup> brings coefficient k to the front, with a sign flip if k ≥ N.`, node: coeffBars(v.map(cn), { cls: (j) => `box${Math.floor(j / w) % 2}`, caption: 'The lookup table, stored in the coefficients.' }) });
+    let ACC = [new Array(N).fill(0), mono(v, -bt2)]; let expo = -bt2; const noise = [0];
+    steps.push({ title: 'Blind rotation: start', formula: `ACC = (0, X<sup>−b̃</sup>·v) = X<sup>${-bt2}</sup>·v`, why: 'A trivial GLWE ciphertext: no mask, no noise.', node: coeffBars(ctx.glwePhase(ACC), { hi: 0, cls: (j, val) => (val >= 0 ? 'barD' : 'barN'), caption: `Decrypted accumulator. Constant coefficient: ${ctx.glwePhase(ACC)[0]}.` }) });
+    for (let i = 0; i < n; i++) {
+      const rot = [mono(ACC[0], at[i]), mono(ACC[1], at[i])]; ACC = cmux(ctx.BK[i], rot, ACC); if (ctx.s[i]) expo += at[i];
+      const ph = ctx.glwePhase(ACC); const ideal = mono(v, expo).map(cn); const nz = Math.max(...ph.map((x, j) => Math.abs(cn(x - ideal[j])))); noise.push(nz);
+      steps.push({ title: `Blind rotation: CMux ${i + 1} of ${n}`, formula: `ACC ← CMux(BK<sub>${i + 1}</sub>, X<sup>${at[i]}</sup>·ACC, ACC) = BK<sub>${i + 1}</sub> ⊡ (X<sup>${at[i]}</sup>·ACC − ACC) + ACC`, why: `BK<sub>${i + 1}</sub> encrypts s<sub>${i + 1}</sub> = ${ctx.s[i]}, so the accumulator is ${ctx.s[i] ? `rotated by X<sup>${at[i]}</sup>` : 'left unrotated'}; the evaluator cannot tell which. It now encrypts X<sup>${expo}</sup>·v, with noise ${nz} from the external product.`,
+        node: coeffBars(ph, { hi: 0, cls: (j, val) => (val >= 0 ? 'barD' : 'barN'), caption: `Decrypted accumulator after step ${i + 1}. Constant coefficient: ${ph[0]}.` }) });
+    }
+    steps.push({ title: 'Accumulator noise', why: 'Each CMux adds a bounded amount; the input noise never enters.', node: lineChart(noise, D / 2, 'Noise after each CMux step.') });
+    const [Aa, Bb] = ACC; const a2 = [Aa[0], ...Array.from({ length: N - 1 }, (_, j) => md(-Aa[N - 1 - j]))]; const b2 = Bb[0]; const extPh = ctx.lwePhase([a2, b2], ctx.S);
+    steps.push({ title: 'Sample extraction', formula: 'a′ = (A₀, −A<sub>N−1</sub>, …, −A₁), b′ = B₀', why: `This is an LWE ciphertext under s′ = coefficients of S whose phase is the constant coefficient of ACC: ${extPh} ${box < lut.length ? `≈ Δ·f(${box}) = ${D * lut[box]}` : '(box in the padding half: the negated table entry)'}. It adds no noise.` });
+    let oa = new Array(n).fill(0), ob = b2; for (let j = 0; j < N; j++) { let x = md(a2[j]); for (let t2 = 0; t2 < lks; t2++) { let dd = x % bks; x = Math.floor(x / bks); if (dd > bks / 2) { dd -= bks; x += 1; } const [ka, kb] = ctx.KSK[j][t2]; oa = oa.map((u, i) => md(u - dd * ka[i])); ob = md(ob - dd * kb); } }
+    const idx = X.m; const mexp = idx < d.p / 2 ? lut[idx] : ((d.p - lut[idx - d.p / 2]) % d.p);
+    const name = api.nextName('boot'); const ct = { name, c: [oa, ob], m: ((mexp % d.p) + d.p) % d.p, desc: title };
+    const dd = decOf(ctx, ct);
+    steps.push({ title: 'Key switching back to s', formula: `(0, b′) − Σ<sub>j,t</sub> d<sub>j,t</sub>·KSK<sub>j,t</sub>, digits base ${bks}`, why: `Phase ${extPh} → ${dd.phase} (noise ${dd.noise}). The result is again an LWE ciphertext of length n = ${n}.`,
+      node: h('div', { class: 'two' }, torus([tpt(ctx, X, 'c1', 'input'), tpt(ctx, ct, dd.m === ct.m ? 'comb' : 'bad', 'output')], d.p, 'Grey: input. Accent: refreshed output.'), h('div', { class: 'res ' + (dd.m === ct.m ? 'ok' : 'bad') }, h('span', { class: 'big' }, `${name} decrypts to ${dd.m}`), h('span', {}, dd.m === ct.m ? `= f(${X.m}), with fresh noise ${dd.noise}` : `expected ${ct.m}`))) });
+    api.addCt(ct); return steps;
+  }
+  const lutInput = (p, def) => h('input', { id: 'tf-lut', value: def || Array.from({ length: p / 2 }, (_, i) => i).join(', '), size: 30 });
+  const parseLut = (str, d) => { const v = String(str).split(',').map((x) => Number(x.trim())); if (v.length !== d.p / 2 || v.some((x) => !Number.isInteger(x) || x < 0 || x >= d.p)) throw new Error(`Give exactly ${d.p / 2} outputs, each in 0 … ${d.p - 1}.`); return v; };
+  const ops = [
+    { id: 'enc', label: 'Encrypt', blurb: 'An LWE ciphertext (a, b) with b = ⟨a, s⟩ + Δm + e.', form: (api) => { const m = h('input', { id: 'tf-m', type: 'number', value: api.wallet().length ? 1 : 2, min: 0, max: api.ctx.d.p - 1, style: 'width:5em' }); return opForm(api, [{ label: 'message', el: m }], 'Encrypt', () => encOp(api, m.value)); } },
+    { id: 'dec', label: 'Decrypt', blurb: 'm = ⌊(b − ⟨a, s⟩)/Δ⌉ mod p.', form: (api) => { if (!api.wallet().length) return note('Encrypt something first.'); const a = ctSelect(api, 'tf-da', null, api.wallet()[api.wallet().length - 1].name); return opForm(api, [{ label: 'ciphertext', el: a }], 'Decrypt', () => { const ct = getCt(api, a.value); api.show(`Decrypt ${ct.name}`, decSteps(api, ct)); }); } },
+    { id: 'add', label: 'EvalAdd', blurb: 'Add the vectors: the phases add, the noises add. Free, no bootstrapping.', form: (api) => { const w = api.wallet(); if (!w.length) return note('Encrypt two messages first.'); const a = ctSelect(api, 'tf-aa', null, w[0].name), b = ctSelect(api, 'tf-ab', null, (w[1] || w[0]).name); const ref = h('label', { class: 'check' }, h('input', { type: 'checkbox', id: 'tf-ref' }), h('span', {}, 'then bootstrap with the identity table (refresh noise)'));
+      return h('div', {}, opForm(api, [{ label: 'first', el: a }, { label: 'second', el: b }], 'EvalAdd', () => { const A = getCt(api, a.value), Bc = getCt(api, b.value); const r = linOp(api, A, Bc, 1, 1, 0, 'sum'); if ($('#tf-ref').checked) { const st2 = pbs(api, r.ct, Array.from({ length: api.ctx.d.p / 2 }, (_, i) => i), `Refresh(${r.ct.name})`, r.steps); api.show(`EvalAdd + refresh → ${api.wallet()[api.wallet().length - 1].name}`, st2); } else api.show(`EvalAdd ${A.name} + ${Bc.name} → ${r.ct.name}`, r.steps); }), ref); } },
+    { id: 'mul', label: 'EvalMult', blurb: 'TFHE has no direct product of two LWE ciphertexts. With x, y < 2<sup>k</sup>, form 2<sup>k</sup>·c<sub>x</sub> + c<sub>y</sub> (it encrypts 2<sup>k</sup>x + y) and bootstrap with the table 2<sup>k</sup>x + y ↦ x·y mod 2<sup>k</sup>.',
+      form: (api) => { const d = api.ctx.d; const kb = Math.floor(Math.log2(d.p / 2) / 2); if (kb < 1) return note(`p = ${d.p} is too small: multiplying needs 2k bits of message space with k ≥ 1. Use p = 8 or more (p = 32 allows x, y < 4).`, 'warnnote'); const w = api.wallet(); if (!w.length) return note('Encrypt two small messages first.');
+        const a = ctSelect(api, 'tf-ma', null, w[0].name), b = ctSelect(api, 'tf-mb', null, (w[1] || w[0]).name); const K = 2 ** kb;
+        return h('div', {}, opForm(api, [{ label: 'x', el: a }, { label: 'y', el: b }], 'EvalMult', () => { const A = getCt(api, a.value), Bc = getCt(api, b.value); if (A.m >= K || Bc.m >= K) throw new Error(`Both messages must be below 2^${kb} = ${K} for this p.`);
+          const r = linOp(api, A, Bc, K, 1, 0, 'pack'); const lut = Array.from({ length: d.p / 2 }, (_, s2) => ((Math.floor(s2 / K) * (s2 % K)) % K));
+          const pre = [...r.steps, { title: 'The product table', why: `Index s = ${K}x + y encodes the pair (x, y) = (⌊s/${K}⌋, s mod ${K}); the table returns x·y mod ${K}.`, formula: `f = (${lut.join(', ')})` }];
+          api.show(`EvalMult ${A.name} × ${Bc.name} by lookup`, pbs(api, r.ct, lut, `${A.name} × ${Bc.name}`, pre)); }), note(`With p = ${d.p}: x, y < ${K}, product mod ${K}.`)); } },
+    { id: 'gate', label: 'Gate', tag: 'sum + table', blurb: 'For bits, c₁ + c₂ encrypts m₁ + m₂ ∈ {0, 1, 2}. One programmable bootstrapping with the gate\'s table returns a fresh encryption of the output (Lecture 15, Section 5).',
+      form: (api) => { const d = api.ctx.d; if (d.p < 8) return note('Gates need p ≥ 8: the sum takes three values.', 'warnnote'); const w = api.wallet().filter((c) => c.m <= 1); if (!w.length) return note('Encrypt two bits (0 or 1) first.');
+        const a = ctSelect(api, 'tf-ga', (c) => c.m <= 1, w[0].name), b = ctSelect(api, 'tf-gb', (c) => c.m <= 1, (w[1] || w[0]).name); const g = h('select', { id: 'tf-gg' }, ...['AND', 'OR', 'XOR', 'NAND'].map((x) => h('option', { value: x }, x)));
+        const TT = { AND: [0, 0, 1], OR: [0, 1, 1], XOR: [0, 1, 0], NAND: [1, 1, 0] };
+        return h('div', {}, opForm(api, [{ label: 'm₁', el: a }, { label: 'm₂', el: b }, { label: 'gate', el: g }], 'Run gate', () => { const A = getCt(api, a.value), Bc = getCt(api, b.value); const T = TT[g.value]; const r = linOp(api, A, Bc, 1, 1, 0, 'sum'); const lut = Array.from({ length: d.p / 2 }, (_, i) => (i < 3 ? T[i] : 0));
+          const pre = [...r.steps, { title: `The ${g.value} table`, why: `Index m₁ + m₂ ∈ {0, 1, 2} → (${T.join(', ')}). The other ${d.p / 2 - 3} entries are never reached and are set to 0.`, formula: `f = (${lut.join(', ')})` }];
+          api.show(`${g.value}(${A.name}, ${Bc.name})`, pbs(api, r.ct, lut, `${g.value}(${A.name}, ${Bc.name})`, pre)); }),
+          h('div', { class: 'tablewrap' }, h('table', { class: 'mini' }, h('thead', {}, h('tr', {}, h('th', {}, 'm₁ + m₂'), ...Object.keys(TT).map((k) => h('th', {}, k)))), h('tbody', {}, [0, 1, 2].map((i) => h('tr', {}, h('th', {}, String(i)), ...Object.values(TT).map((v) => h('td', {}, String(v[i])))))))));
+      } },
+    { id: 'pbs', label: 'Bootstrap', tag: 'programmable', blurb: 'Refresh the noise and apply any table f to the message, in one go.',
+      form: (api) => { const d = api.ctx.d; const w = api.wallet(); if (!w.length) return note('Encrypt something first.'); const a = ctSelect(api, 'tf-pa', null, w[w.length - 1].name); const lut = lutInput(d.p, ctxDefaultLut(api)); const presetsL = h('div', { class: 'row wrap' }, h('span', { class: 'hint' }, 'tables:'), ...[['identity', (i) => i], ['≥ half', (i) => (i >= d.p / 4 ? 1 : 0)], ['NOT', (i) => d.p / 2 - 1 - i], ['square', (i) => (i * i) % (d.p / 2)], ['AND of a sum', (i) => (i === 2 ? 1 : 0)], ['XOR of a sum', (i) => (i === 1 ? 1 : 0)]].map(([l, fn]) => h('button', { class: 'btn small ghost', type: 'button', onclick: () => { lut.value = Array.from({ length: d.p / 2 }, (_, i) => fn(i)).join(', '); } }, l)));
+        return h('div', {}, opForm(api, [{ label: 'ciphertext', el: a }, { label: `f(0 … ${d.p / 2 - 1})`, el: lut }], 'Bootstrap', () => { const L = parseLut(lut.value, d); const X = getCt(api, a.value); api.show(`Bootstrap ${X.name} with f = (${L.join(', ')})`, pbs(api, X, L, `f(${X.name})`)); }), presetsL); } },
+  ];
+  function ctxDefaultLut(api) { const d = api.ctx.d; return api.p.lecture && d.p === 8 ? '0, 0, 1, 1' : Array.from({ length: d.p / 2 }, (_, i) => i).join(', '); }
+  return { id: 'tfhe', version: 5, title: 'TFHE', presets, fields, derive, ctInfo, ops, keygen,
+    run: { enc: encOp, dec: decSteps, lin: linOp, pbs },
+    peek(ctx, ct) { const dd = decOf(ctx, ct); return { got: String(dd.m), exp: String(ct.m), ok: dd.m === ct.m }; },
+    onParam: (p, key) => { if (key === 'logq') { const dv = divisors(Number(p.logq)); if (!dv.includes(Number(p.logBeta))) p.logBeta = dv[Math.min(1, dv.length - 1)]; if (!dv.includes(Number(p.logBks))) p.logBks = dv[Math.min(1, dv.length - 1)]; } },
+    intro: 'Messages live on a discretised torus Z<sub>q</sub> at Δ·m, with the top half kept as a padding bit. Additions are free. Programmable bootstrapping reads the phase blindly through a rotation of a lookup-table polynomial, which refreshes the noise and applies any function at once; products go through such a table.' };
+}
+
+
+// ============ GSW (Lecture 13) ============
+function vecTable(rows, head) {
+  const first = rows.find((r) => r && r !== '-'); const n = first.v.length;
+  const t = h('table', { class: 'ptab compact' });
+  t.append(h('thead', {}, h('tr', {}, h('th', {}, ''), ...Array.from({ length: n }, (_, i) => h('th', { html: head ? head(i) : String(i + 1) })))));
+  const tb = h('tbody');
+  for (const r of rows) {
+    if (r === '-') { tb.append(h('tr', { class: 'sep' }, h('td', { colspan: n + 1 }))); continue; }
+    tb.append(h('tr', { class: r.cls || '' }, h('th', { html: r.label }), ...r.v.map((x, i) => h('td', { class: (r.bad && r.bad[i] ? 'bad' : '') + (r.mark && r.mark[i] ? ' mk' : '') }, String(x)))));
+  }
+  t.append(tb); return h('div', { class: 'tablewrap' }, t);
+}
+function twoLineChart(a, b, budget, labels, caption) {
+  const W = 640, H = 190, padL = 46, padB = 22, padT = 14; const all = [...a, ...b].filter(Number.isFinite); const top = Math.max(budget, ...all) * 1.08;
+  const lg = top > 64 * budget; const f = (v) => (lg ? Math.log2(1 + v) / Math.log2(1 + top) : v / top);
+  const x = (i, len) => padL + i * (W - padL - 10) / Math.max(1, len - 1); const y = (v) => padT + (1 - f(Math.min(v, top))) * (H - padT - padB);
+  const svg = s('svg', { viewBox: `0 0 ${W} ${H}`, class: 'viz', role: 'img', 'aria-label': 'Noise of two chains' });
+  svg.append(s('line', { x1: padL, x2: W - 10, y1: y(budget), y2: y(budget), class: 'budget' })); svg.append(s('text', { x: W - 10, y: y(budget) - 4, class: 'lbl', 'text-anchor': 'end' }, `threshold q/4 = ${budget}`));
+  svg.append(s('line', { x1: padL, x2: W - 10, y1: y(0), y2: y(0), class: 'axis' }));
+  [[a, 'trace', 'tracept'], [b, 'trace2', 'tracept2']].forEach(([vals, cl, cp]) => { svg.append(s('polyline', { points: vals.map((v, i) => `${x(i, vals.length)},${y(v)}`).join(' '), class: cl })); vals.forEach((v, i) => svg.append(s('circle', { cx: x(i, vals.length), cy: y(v), r: 3.5, class: cp }, s('title', {}, `after ${i} products: ${v}`)))); });
+  a.forEach((_, i) => svg.append(s('text', { x: x(i, a.length), y: H - 6, class: 'lbl', 'text-anchor': 'middle' }, String(i))));
+  return h('figure', { class: 'fig' }, svg, h('figcaption', {}, h('span', { class: 'key keyD' }), ` ${labels[0]}   `, h('span', { class: 'key keyN' }), ` ${labels[1]}`, lg ? ' (log scale)' : '', caption ? ' — ' + caption : ''));
+}
+
+function gswDef() {
+  const LEC = { sh: [21], A: [[37, 5, 52, 19, 61, 8, 44, 27, 3, 50, 16, 39], [11, 58, 24, 7, 46, 33, 62, 15, 29, 41, 6, 54]], E: [[1, -1, 0, 1, -1, 1, 0, -1, 1, 0, -1, 1], [-1, 1, 1, 0, -1, 0, 1, 1, -1, -1, 0, 1]] };
+  const presets = [
+    { label: 'Lecture 13 toy instance', p: { n: 1, logq: 6, key: 'uniform', eB: 1, seed: 1, lecture: true } },
+    { label: 'Binary key (n = 3, q = 2^10)', p: { n: 3, logq: 10, key: 'binary', eB: 2, seed: 4, lecture: false } },
+    { label: 'Tight (q = 2^5)', p: { n: 1, logq: 5, key: 'uniform', eB: 1, seed: 2, lecture: false } },
+  ];
+  const fields = () => [
+    { key: 'n', label: 'LWE dimension n', type: 'number', min: 1, max: 4 },
+    { key: 'logq', label: 'Modulus q = 2^', type: 'select', options: [4, 5, 6, 7, 8, 10, 12, 14, 16], num: true, hint: 'base B = 2' },
+    { key: 'key', label: 'Secret ŝ', type: 'select', options: [['uniform', 'uniform in Z_q'], ['binary', 'binary (§6.2)']] },
+    { key: 'eB', label: 'Error bound', type: 'number', min: 0, max: 50, hint: 'errors uniform in [−bound, bound]' },
+    { key: 'seed', label: 'Random seed', type: 'number', extra: (pp, done) => h('button', { class: 'btn small', type: 'button', onclick: () => { pp.seed = Math.floor(Math.random() * 1e6); pp.lecture = false; done(); } }, 'Randomise') },
+    { key: 'lecture', label: 'Use the Lecture 13 key ŝ = 21 and randomness', type: 'check' },
+  ];
+  function derive(p) {
+    const n = Number(p.n), k = Number(p.logq), q = 2 ** k, eB = Number(p.eB);
+    if (!(n >= 1 && n <= 4)) return { error: 'Choose n between 1 and 4.' };
+    if (!(eB >= 0)) return { error: 'The error bound must be non-negative.' };
+    if (p.lecture && !(n === 1 && k === 6)) return { error: 'The Lecture 13 instance needs n = 1 and q = 2^6. Load the preset or untick the box.' };
+    const ell = (n + 1) * k;
+    return { n, k, q, ell, eB, thr: q / 4,
+      chips: [['n', n], ['q', `2<sup>${k}</sup> = ${q}`], ['B', 2], ['ℓ = (n+1)·log q', ell], ['threshold q/4', q / 4], ['error', `[−${eB}, ${eB}]`]],
+      list: [['ℓ = (n+1)·log q', ell], ['Ciphertext', `${ell} × ${n + 1} matrix`], ['Elements per bit', ell * (n + 1)], ['Threshold q/4', q / 4], ['Fresh noise ≤', eB], ['One product ≤ E + ℓE', eB + ell * eB], ['Evaluation key', 'none']] };
+  }
+  function keygen(p, d) {
+    const { n, k, q, ell } = d; const rng = new RNG(Number(p.seed) || 1);
+    const md = (x) => ((x % q) + q) % q; const cn = (x) => { x = md(x); return x > q / 2 ? x - q : x; };
+    const sh = p.lecture ? LEC.sh.slice() : Array.from({ length: n }, () => (p.key === 'binary' ? rng.int(0, 1) : rng.int(0, q - 1)));
+    const s_ = [...sh.map((x) => md(-x)), 1];
+    const G = Array.from({ length: ell }, (_, r) => Array.from({ length: n + 1 }, (_, j) => (Math.floor(r / k) === j ? 2 ** (r % k) : 0)));
+    const mv = (C) => C.map((row) => md(row.reduce((acc, x, j) => acc + x * s_[j], 0)));
+    const Gs = mv(G);
+    const ginvRow = (row) => row.flatMap((x) => { const b = []; let y = md(x); for (let i = 0; i < k; i++) { b.push(y & 1); y = Math.floor(y / 2); } return b; });
+    const matMul = (X, Y) => X.map((xr) => Array.from({ length: Y[0].length }, (_, j) => md(xr.reduce((acc, x, r) => acc + (x ? x * Y[r][j] : 0), 0))));
+    const T = (C) => C[0].map((_, j) => C.map((row) => row[j]));
+    const steps = [];
+    steps.push({ title: 'Parameters', why: `A ciphertext has one row per gadget entry: ℓ = (n + 1)·log q = ${n + 1}·${k} = ${ell} rows and n + 1 = ${n + 1} columns. Decryption compares against q/4 = ${q / 4}.`, node: paramChips(d.chips) });
+    steps.push({ title: 'The gadget matrix G', why: `G stacks the gadget vector g = (1, 2, …, 2<sup>${k - 1}</sup>) once for each of the n + 1 key coordinates, block-diagonally. It is public. Shown transposed (G<sup>⊤</sup>): column i is row i of G.`, node: vecTable(T(G).map((v, j) => ({ label: `G col ${j + 1}`, v }))) });
+    steps.push({ title: 'Sample the key', formula: `ŝ = (${sh.join(', ')}), &nbsp; s = (−ŝ, 1) = (${s_.join(', ')}) mod ${q}`, why: `${p.key === 'binary' && !p.lecture ? 'ŝ is binary (Lecture 13, §6.2): LWE stays hard for a somewhat larger n, and Σ c<sub>j</sub>ŝ<sub>j</sub> only selects known numbers.' : 'ŝ is uniform in Z<sub>q</sub><sup>n</sup>.'} The final 1 makes an LWE sample annihilate itself: (a ‖ ⟨a, ŝ⟩ + e)·s = e.${p.lecture ? ' (Lecture 13, Example 2.)' : ''}` });
+    steps.push({ title: 'The vector Gs', why: `Entry i of Gs is 2<sup>i mod log q</sup> times a key coordinate. Only the <b>last</b> entry, 2<sup>${k - 1}</sup>·1 = q/2, is large for every key: this is what decryption relies on.`, node: vecTable([{ label: 'Gs (centred)', v: Gs.map(cn), mark: Gs.map((_, i) => i === ell - 1) }]) });
+    steps.push({ title: 'No evaluation key', why: 'Neither homomorphic operation uses key material: GSW multiplication is G<sup>−1</sup>(C₁)·C₂, so there is nothing to relinearize. This lab uses the secret-key form Enc(s, M) of Lecture 13.' });
+    return { d, p, rng, sh, s: s_, G, Gs, md, cn, mv, ginvRow, matMul, T, steps, encCount: 0 };
+  }
+  const noiseOf = (ctx, ct) => { const v = ctx.mv(ct.C); const e = v.map((x, i) => ctx.cn(x - ct.M * ctx.Gs[i])); return { v, e, norm: Math.max(0, ...e.map(Math.abs)) }; };
+  const bitOf = (ctx, C) => { const v = ctx.mv(C).map(ctx.cn); return Math.max(...v.map(Math.abs)) < ctx.d.q / 4 ? 0 : 1; };
+  const expBit = (ctx, M) => (ctx.md(M) === 0 ? 0 : 1);
+  function ctInfo(ct, ctx) { const nz = noiseOf(ctx, ct); const b = bitOf(ctx, ct.C); const ok = b === expBit(ctx, ct.M); return { ok, chips: [[`${ctx.d.ell} × ${ctx.d.n + 1}`], [`eigenvalue ${ct.M}`, ct.M > 1 || ct.M < 0 ? 'warn' : 'muted'], [`decrypts to ${b}`, ok ? 'ok' : 'bad']], gauge: gauge(BigInt(nz.norm), BigInt(ctx.d.q / 4), '‖e‖') }; }
+  const cTable = (ctx, C, name, cls = 'hl') => vecTable(ctx.T(C).map((v, j) => ({ label: `${name} col ${j + 1}`, v, cls })));
+  const noiseNode = (ctx, ct) => { const nz = noiseOf(ctx, ct); return h('div', {}, vecTable([{ label: 'C·s (centred)', v: nz.v.map(ctx.cn) }, { label: `${ct.M}·Gs`, v: ctx.Gs.map((x) => ctx.cn(ct.M * x)) }, '-', { label: 'e = Cs − M·Gs', v: nz.e, cls: 'hl' }]), gauge(BigInt(nz.norm), BigInt(ctx.d.q / 4), '‖e‖')); };
+
+  function freshC(ctx, M, lecIdx) {
+    const d = ctx.d, { n, q, ell, k } = d; const md = ctx.md;
+    const A = lecIdx != null ? [LEC.A[lecIdx]] : Array.from({ length: n }, () => Array.from({ length: ell }, () => ctx.rng.int(0, q - 1)));
+    const e = lecIdx != null ? LEC.E[lecIdx] : Array.from({ length: ell }, () => ctx.rng.int(-d.eB, d.eB));
+    const last = Array.from({ length: ell }, (_, r) => md(A.reduce((acc, col, j) => acc + col[r] * ctx.sh[j], 0) + e[r]));
+    const B = Array.from({ length: ell }, (_, r) => [...A.map((col) => md(col[r])), last[r]]);
+    const C = B.map((row, r) => row.map((x, j) => md(x + M * ctx.G[r][j])));
+    return { A, e, last, B, C };
+  }
+  function encOp(api, mStr) {
+    const ctx = api.ctx, d = ctx.d; const M = Number(mStr); if (!(M === 0 || M === 1)) throw new Error('GSW encrypts a bit: enter 0 or 1.');
+    const lec = ctx.p.lecture && ctx.encCount < 2 ? ctx.encCount : null; ctx.encCount++;
+    const f = freshC(ctx, M, lec); const steps = [];
+    steps.push({ title: 'Sample A and e', why: `A is uniform in Z<sub>q</sub><sup>${d.ell}×${d.n}</sup> and e has entries in [−${d.eB}, ${d.eB}]: ${d.ell} LWE samples, one per row.${lec != null ? ` (The values of Lecture 13, Example ${lec === 0 ? 2 : 3}.)` : ''}`, node: vecTable([...f.A.map((col, j) => ({ label: `A col ${j + 1}`, v: col })), { label: 'e', v: f.e }]) });
+    steps.push({ title: 'B = (A | Aŝ + e): an encryption of zero', formula: 'B·s = −Aŝ + Aŝ + e = e', why: 'B is indistinguishable from uniform by decision LWE. Security comes from B alone.', node: vecTable([{ label: 'Aŝ + e', v: f.last, cls: 'new' }, { label: 'B·s (centred)', v: ctx.mv(f.B).map(ctx.cn) }]) });
+    const name = api.nextName('C'); const ct = { name, C: f.C, M, desc: `Enc(${M})` };
+    steps.push({ title: `Add M·G = ${M}·G`, formula: `C = B + ${M}·G`, why: M ? 'Adding G puts the structure in: the first block of g goes to column 1, the next to column 2, and so on. Structure comes from G alone.' : 'M = 0, so C = B.', node: cTable(ctx, f.C, name) });
+    steps.push({ title: `Check: C·s = M·Gs + e`, why: `${name} is an approximate eigenvector of the key: its eigenvalue is M = ${M} and the slack is e.`, node: noiseNode(ctx, ct) });
+    api.addCt(ct); api.show(`Encrypt ${M} → ${name}`, steps);
+  }
+  function decSteps(api, ct) {
+    const ctx = api.ctx, d = ctx.d; const v = ctx.mv(ct.C).map(ctx.cn); const big = v.map((x) => Math.abs(x) >= d.q / 4); const mx = Math.max(...v.map(Math.abs)); const b = mx < d.q / 4 ? 0 : 1; const exp = expBit(ctx, ct.M);
+    const last = v[d.ell - 1]; const nearHalf = Math.abs(Math.abs(last) - d.q / 2) < Math.abs(last);
+    return [
+      { title: 'Compute v = C·s', formula: `v<sub>i</sub> = Σ<sub>j</sub> C<sub>ij</sub>s<sub>j</sub> mod ${d.q}, centred`, why: `Entries with |v<sub>i</sub>| ≥ q/4 = ${d.q / 4} are highlighted.`, node: vecTable([{ label: 'v = C·s', v, cls: 'hl', mark: big }]) },
+      { title: 'Size test', formula: `max |v<sub>i</sub>| = ${mx} ${mx < d.q / 4 ? '<' : '≥'} ${d.q / 4} = q/4 &nbsp;⇒&nbsp; output ${b}`, why: 'If M = 0, v = e is small. If M = 1, the last entry is q/2 + e<sub>ℓ</sub>, far above q/4.', node: h('div', { class: 'res ' + (b === exp ? 'ok' : 'bad') }, h('span', { class: 'big' }, `Decrypts to ${b}`), h('span', {}, b === exp ? (ct.M > 1 ? `eigenvalue ${ct.M} ≠ 0, so 1 (an integer sum, not XOR)` : 'as expected') : `expected ${exp}: the noise passed q/4`)) },
+      { title: 'Only the last row is needed', formula: `⟨c<sub>ℓ</sub>, s⟩ = ${last} — nearer ${nearHalf ? 'q/2' : '0'}`, why: `The last row alone is a Regev ciphertext of M (Lecture 13, §6.1): ⟨c<sub>ℓ</sub>, s⟩ = M·q/2 + e<sub>ℓ</sub>. Lecture 14 bootstraps GSW by evaluating just this inner product.` },
+    ];
+  }
+  function addOp(api, A, Bc) {
+    const ctx = api.ctx; const C = A.C.map((r, i) => r.map((x, j) => ctx.md(x + Bc.C[i][j]))); const name = api.nextName('C'); const ct = { name, C, M: A.M + Bc.M, desc: `${A.name} + ${Bc.name}` };
+    const nA = noiseOf(ctx, A), nB = noiseOf(ctx, Bc), nC = noiseOf(ctx, ct);
+    const steps = [
+      { title: 'Add the matrices', formula: `${name} = ${A.name} + ${Bc.name} mod ${ctx.d.q}`, node: cTable(ctx, C, name) },
+      { title: 'Eigenvalues and noises add', formula: `${name}·s = (${A.M} + ${Bc.M})·Gs + (e₁ + e₂)`, why: `The eigenvalue is the <b>integer</b> sum ${ct.M}${A.M === 1 && Bc.M === 1 ? ', which decrypts to 1, not XOR(1, 1) = 0. A genuine XOR needs a product: C₁ + C₂ − 2G<sup>−1</sup>(C₁)C₂' : ''}. ‖e‖ = ${nC.norm} ≤ ${nA.norm} + ${nB.norm}.`,
+        node: h('div', {}, vecTable([{ label: `e of ${A.name}`, v: nA.e }, { label: `e of ${Bc.name}`, v: nB.e }, '-', { label: `e of ${name}`, v: nC.e, cls: 'hl' }]), gauge(BigInt(nC.norm), BigInt(ctx.d.q / 4), '‖e‖')) },
+    ];
+    api.addCt(ct); api.show(`EvalAdd ${A.name} + ${Bc.name} → ${name}`, steps);
+  }
+  function mulOp(api, A, Bc, gate = 'AND') {
+    const ctx = api.ctx, d = ctx.d, md = ctx.md; const X = A.C.map(ctx.ginvRow); const P1 = ctx.matMul(X, Bc.C);
+    let C = P1, M = A.M * Bc.M, form = `G<sup>−1</sup>(${A.name})·${Bc.name}`;
+    if (gate === 'NAND') { C = P1.map((r, i) => r.map((x, j) => md(ctx.G[i][j] - x))); M = 1 - A.M * Bc.M; form = `G − G<sup>−1</sup>(${A.name})·${Bc.name}`; }
+    if (gate === 'XOR') { C = P1.map((r, i) => r.map((x, j) => md(A.C[i][j] + Bc.C[i][j] - 2 * x))); M = A.M + Bc.M - 2 * A.M * Bc.M; form = `${A.name} + ${Bc.name} − 2·G<sup>−1</sup>(${A.name})·${Bc.name}`; }
+    const name = api.nextName(gate === 'AND' ? 'P' : gate[0]); const ct = { name, C, M, desc: gate === 'AND' ? `${A.name} × ${Bc.name}` : `${gate}(${A.name}, ${Bc.name})` };
+    const r0 = A.C[0]; const show = Math.min(d.ell, 12);
+    const nA = noiseOf(ctx, A), nB = noiseOf(ctx, Bc); const prod = { M: A.M * Bc.M, C: P1 }; const nP = noiseOf(ctx, prod); const nC = noiseOf(ctx, ct);
+    const swapC = ctx.matMul(Bc.C.map(ctx.ginvRow), A.C); const nS = noiseOf(ctx, { M: A.M * Bc.M, C: swapC });
+    const term1 = nA.e.map((x) => Bc.M * x), term2 = X.map((row) => ctx.cn(row.reduce((acc, b, i) => acc + b * nB.e[i], 0)));
+    const steps = [
+      { title: `Decompose ${A.name} into bits`, why: `G<sup>−1</sup> replaces each entry by its ${d.k} binary digits, least significant first, so G<sup>−1</sup>(${A.name}) is ${d.ell} × ${d.ell} with entries in {0, 1} and G<sup>−1</sup>(${A.name})·G = ${A.name}. Row 1: ${r0.map((x) => `${x} → (${ctx.ginvRow([x]).join('')})`).join(', ')}.${d.ell > show ? ` First ${show} rows shown.` : ''}`,
+        node: vecTable(X.slice(0, show).map((row, i) => ({ label: `row ${i + 1}`, v: row }))) },
+      { title: `Multiply: G<sup>−1</sup>(${A.name})·${Bc.name}`, why: `Row i of the product is the sum of the rows of ${Bc.name} selected by the 1s in row i of G<sup>−1</sup>(${A.name}). The shape is ℓ × (n + 1) again: a ciphertext.`, node: cTable(ctx, P1, gate === 'AND' ? name : 'C×') },
+      { title: 'Why it works', formula: `G<sup>−1</sup>(C₁)·C₂·s = G<sup>−1</sup>(C₁)(M₂·Gs + e₂) = M₂·C₁s + G<sup>−1</sup>(C₁)e₂ = M₁M₂·Gs + (M₂e₁ + G<sup>−1</sup>(C₁)e₂)`, why: 'The only step that uses anything is G<sup>−1</sup>(C₁)·G = C₁. For bits, M₁M₂ is AND.' },
+      { title: 'The new noise', formula: `‖e<sub>new</sub>‖ = ${nP.norm} ≤ ‖e₁‖ + ℓ‖e₂‖ = ${nA.norm} + ${d.ell}·${nB.norm} = ${nA.norm + d.ell * nB.norm}`, why: `The noise of the decomposed factor ${A.name} is <b>added</b>; the noise of ${Bc.name} is multiplied by up to ℓ. With the factors swapped, G<sup>−1</sup>(${Bc.name})·${A.name} has noise ${nS.norm} (bound ${nB.norm} + ${d.ell}·${nA.norm} = ${nB.norm + d.ell * nA.norm}): keep the noisier ciphertext in the decomposed slot.`,
+        node: h('div', {}, vecTable([{ label: `M₂·e₁`, v: term1 }, { label: `G<sup>−1</sup>(${A.name})·e₂`, v: term2 }, '-', { label: 'e<sub>new</sub>', v: nP.e, cls: 'hl' }]), gauge(BigInt(nP.norm), BigInt(d.q / 4), '‖e‖')) },
+    ];
+    if (gate !== 'AND') steps.push({ title: `${gate} gate`, formula: `${name} = ${form}`, why: `Eigenvalue ${gate === 'NAND' ? '1 − M₁M₂' : 'M₁ + M₂ − 2M₁M₂'} = ${M}. ${gate === 'NAND' ? 'Subtracting from the noiseless G adds no noise.' : ''}`, node: h('div', {}, cTable(ctx, C, name), noiseNode(ctx, ct)) });
+    else steps.push({ title: `Ciphertext ${name}`, why: `${name} encrypts ${A.M}·${Bc.M} = ${M}.`, node: noiseNode(ctx, ct) });
+    api.addCt(ct); api.show(`${gate === 'AND' ? 'EvalMult' : gate} ${A.name}, ${Bc.name} → ${name}`, steps);
+  }
+  function extOp(api, A, Bc) {
+    const ctx = api.ctx, d = ctx.d, md = ctx.md; const c = Bc.C[d.ell - 1]; const ph = ctx.cn(c.reduce((acc, x, j) => acc + x * ctx.s[j], 0)); const mu = md(Bc.M * d.q / 2); const ec = ctx.cn(ph - mu);
+    const dg = ctx.ginvRow(c); const rows = dg.map((b, i) => (b ? i + 1 : null)).filter(Boolean);
+    const out = Array.from({ length: d.n + 1 }, (_, j) => md(dg.reduce((acc, b, i) => acc + b * A.C[i][j], 0))); const ph2 = ctx.cn(out.reduce((acc, x, j) => acc + x * ctx.s[j], 0));
+    const want = md(A.M * mu); const e2 = ctx.cn(ph2 - want); const nA = noiseOf(ctx, A); const bit = Math.abs(ph2) < d.q / 4 ? 0 : 1; const exp = expBit(ctx, A.M * Bc.M);
+    const steps = [
+      { title: `Take an LWE ciphertext c: the last row of ${Bc.name}`, formula: `c = (${c.join(', ')}), &nbsp; ⟨c, s⟩ = ${ph} = μ + e<sub>c</sub> with μ = ${Bc.M}·q/2 = ${mu}, e<sub>c</sub> = ${ec}`, why: 'Any LWE ciphertext of μ works; the last row of a GSW ciphertext is a convenient one (Lecture 13, §6.1).' },
+      { title: 'Decompose c', formula: `G<sup>−1</sup>(c) = (${dg.join(', ')})`, why: `One row of ℓ = ${d.ell} bits instead of an ℓ × ℓ matrix.` },
+      { title: `External product ${A.name} ⊡ c = G<sup>−1</sup>(c)·${A.name}`, formula: `sum of rows ${rows.join(', ')} of ${A.name} = (${out.join(', ')})`, why: `The result is again a vector of length n + 1: an LWE ciphertext. This is ℓ times cheaper than a full product.` },
+      { title: 'What it encrypts', formula: `⟨${A.name} ⊡ c, s⟩ = ${ph2} = M·μ + e = ${A.M}·${mu} + (${e2})`, why: `Noise ${Math.abs(e2)} ≤ ‖e<sub>c</sub>‖ + ℓ‖e‖ = ${Math.abs(ec)} + ${d.ell}·${nA.norm} = ${Math.abs(ec) + d.ell * nA.norm}. The vector c sits in the decomposed slot, so its noise is only added. TFHE (Lecture 15) is this operation over the ring.`,
+        node: h('div', { class: 'res ' + (bit === exp ? 'ok' : 'bad') }, h('span', { class: 'big' }, `Regev decryption: ${bit}`), h('span', {}, `|${ph2}| is nearer ${bit ? 'q/2' : '0'}; expected ${A.M}·${Bc.M} = ${exp}`)) },
+    ];
+    api.show(`External product ${A.name} ⊡ (last row of ${Bc.name})`, steps);
+  }
+  function chainOp(api, depth) {
+    const ctx = api.ctx, d = ctx.d; depth = Math.max(1, Math.min(40, Number(depth) || 1));
+    const acc0 = freshC(ctx, 1, null).C; let a1 = acc0, a2 = acc0; const n1 = [noiseOf(ctx, { M: 1, C: acc0 }).norm], n2 = [n1[0]];
+    for (let i = 0; i < depth; i++) { const F = freshC(ctx, 1, null).C; a1 = ctx.matMul(a1.map(ctx.ginvRow), F); a2 = ctx.matMul(F.map(ctx.ginvRow), a2); n1.push(noiseOf(ctx, { M: 1, C: a1 }).norm); n2.push(noiseOf(ctx, { M: 1, C: a2 }).norm); }
+    const E = d.eB, lin = Math.floor((d.q / 4 - 1 - E) / (d.ell * Math.max(E, 1)));
+    const steps = [
+      { title: `Multiply by ${depth} fresh encryptions of 1, twice`, why: 'Chain A keeps the running product (the accumulator) in the decomposed slot: G<sup>−1</sup>(ACC)·F. Chain B puts it in the other slot: G<sup>−1</sup>(F)·ACC. Both encrypt 1 = 1·1·…·1.',
+        node: twoLineChart(n1, n2, d.q / 4, ['A: accumulator decomposed', 'B: accumulator in the other slot'], 'observed ‖e‖ after each product') },
+      { title: 'Compare with the bounds', why: `A: N<sub>d</sub> ≤ E(1 + dℓ), linear. B: N<sub>d</sub> ≤ E + ℓN<sub>d−1</sub>, exponential. With E = ${E}, ℓ = ${d.ell}, q/4 = ${d.q / 4}, chain A is guaranteed for d ≤ ${E ? lin : '∞'}. Once the noise passes q/4 it wraps modulo q, so the observed value stalls near q/2: the ciphertext is already destroyed.`,
+        node: h('div', { class: 'tablewrap' }, h('table', { class: 'mini' }, h('thead', {}, h('tr', {}, h('th', {}, 'd'), h('th', {}, 'A observed'), h('th', {}, 'A bound E(1+dℓ)'), h('th', {}, 'B observed'), h('th', {}, 'decrypts (A / B)'))),
+          h('tbody', {}, n1.map((v, i) => h('tr', { class: n2[i] >= d.q / 4 ? 'diff' : '' }, h('td', {}, String(i)), h('td', {}, String(v)), h('td', {}, String(E * (1 + i * d.ell))), h('td', {}, String(n2[i])), h('td', {}, `${v < d.q / 4 ? '✓' : '✗'} / ${n2[i] < d.q / 4 ? '✓' : '✗'}`)))))) },
+    ];
+    api.show(`Chain of ${depth} products`, steps);
+  }
+  const pick2 = (api, pre) => { const w = api.wallet(); return [ctSelect(api, pre + 'a', null, w[0].name), ctSelect(api, pre + 'b', null, (w[1] || w[0]).name)]; };
+  const ops = [
+    { id: 'enc', label: 'Encrypt', blurb: 'C = (A | Aŝ + e) + M·G: an encryption of zero plus the message times the gadget matrix.', form: (api) => { const m = h('select', { id: 'gs-m' }, h('option', { value: 1 }, '1'), h('option', { value: 0 }, '0')); return opForm(api, [{ label: 'bit M', el: m }], 'Encrypt', () => encOp(api, m.value)); } },
+    { id: 'dec', label: 'Decrypt', blurb: 'v = C·s; output 0 if ‖v‖ < q/4, else 1.', form: (api) => { if (!api.wallet().length) return note('Encrypt something first.'); const a = ctSelect(api, 'gs-da', null, api.wallet()[api.wallet().length - 1].name); return opForm(api, [{ label: 'ciphertext', el: a }], 'Decrypt', () => { const ct = getCt(api, a.value); api.show(`Decrypt ${ct.name}`, decSteps(api, ct)); }); } },
+    { id: 'add', label: 'EvalAdd', blurb: 'C₁ + C₂: eigenvalues and noises add. The eigenvalue is an integer sum, not XOR.', form: (api) => { if (!api.wallet().length) return note('Encrypt two bits first.'); const [a, b] = pick2(api, 'gs-a'); return opForm(api, [{ label: 'C₁', el: a }, { label: 'C₂', el: b }], 'EvalAdd', () => addOp(api, getCt(api, a.value), getCt(api, b.value))); } },
+    { id: 'mul', label: 'EvalMult', blurb: 'G<sup>−1</sup>(C₁)·C₂ is AND; G − G<sup>−1</sup>(C₁)C₂ is NAND; C₁ + C₂ − 2G<sup>−1</sup>(C₁)C₂ is XOR. No evaluation key.', form: (api) => { if (!api.wallet().length) return note('Encrypt two bits first.'); const [a, b] = pick2(api, 'gs-m'); const g = h('select', { id: 'gs-g' }, ...['AND', 'NAND', 'XOR'].map((x) => h('option', { value: x }, x))); return opForm(api, [{ label: 'C₁ (decomposed)', el: a }, { label: 'C₂', el: b }, { label: 'gate', el: g }], 'Run', () => mulOp(api, getCt(api, a.value), getCt(api, b.value), g.value)); } },
+    { id: 'ext', label: 'External product', tag: '→ L14, L15', blurb: 'C ⊡ c = G<sup>−1</sup>(c)·C multiplies an LWE vector c by a GSW ciphertext and returns a vector (Lecture 13, §6.3).', form: (api) => { if (!api.wallet().length) return note('Encrypt two bits first.'); const [a, b] = pick2(api, 'gs-x'); return opForm(api, [{ label: 'GSW ciphertext C', el: a }, { label: 'c = last row of', el: b }], 'C ⊡ c', () => extOp(api, getCt(api, a.value), getCt(api, b.value))); } },
+    { id: 'chain', label: 'Chain', tag: 'order matters', blurb: 'Multiply by d fresh encryptions of 1 with the accumulator in each slot, and watch the noise.', form: (api) => { const dd = h('input', { id: 'gs-d', type: 'number', value: 6, min: 1, max: 40, style: 'width:5em' }); return opForm(api, [{ label: 'depth d', el: dd }], 'Run both chains', () => chainOp(api, dd.value)); } },
+  ];
+  return { id: 'gsw', version: 1, title: 'GSW', presets, fields, derive, ctInfo, ops, keygen,
+    keyText: (c) => [`ŝ = (${c.sh.join(', ')}), &nbsp; s = (−ŝ, 1) = (${c.s.join(', ')})`, `No public or evaluation key: G is public and multiplication needs no key.`],
+    run: { enc: encOp, dec: decSteps, add: addOp, mul: mulOp },
+    peek(ctx, ct) { const b = bitOf(ctx, ct.C); const e = expBit(ctx, ct.M); return { got: String(b), exp: String(e), ok: b === e }; },
+    intro: 'A bit is encrypted as a matrix C with C·s = M·Gs + e: an approximate eigenvector of the key. Addition adds matrices; multiplication G<sup>−1</sup>(C₁)·C₂ needs no evaluation key, and its noise grows asymmetrically. The last row is a Regev ciphertext, and the external product is the step to bootstrapping and TFHE.' };
+}
+
+// ============ Compare: one pipeline, five schemes ============
+function compareDef() {
+  const S = [
+    { id: 'bfv', name: 'BFV', lec: 'L10', make: () => intDef('bfv'), preset: 0 },
+    { id: 'bgv', name: 'BGV', lec: 'L11', make: () => intDef('bgv'), preset: 0 },
+    { id: 'ckks', name: 'CKKS', lec: 'L12', make: ckksDef, preset: 0 },
+    { id: 'gsw', name: 'GSW', lec: 'L13', make: gswDef, preset: 0 },
+    { id: 'tfhe', name: 'TFHE', lec: 'L15', make: tfheDef, preset: 1 },
+  ];
+  const STATIC = {
+    pt: { bfv: 'A polynomial in R<sub>t</sub>; integers are encoded in base b', bgv: 'A polynomial in R<sub>t</sub>', ckks: 'n/2 complex slots, approximate', gsw: 'One bit M ∈ {0, 1}', tfhe: 'A small integer m < p/2' },
+    ct: { bfv: '(c₀, c₁) ∈ R<sub>q</sub>²', bgv: '(c₀, c₁) ∈ R<sub>q<sub>ℓ</sub></sub>², with a level ℓ', ckks: '(c₀, c₁) ∈ R<sub>q<sub>ℓ</sub></sub>², with a level and a scale', gsw: 'An ℓ × (n+1) matrix, ℓ = (n+1)·log q', tfhe: 'An LWE vector (a, b) ∈ Z<sub>q</sub><sup>n+1</sup>' },
+    where: { bfv: 'c₀ + c₁·SK = Δ·M + v<br>top bits', bgv: 'c₀ + c₁·SK = M + t·v<br>low bits', ckks: 'c₀ + c₁·SK = Δ·m + e<br>noise joins the value', gsw: 'C·s = M·Gs + e<br>an eigenvalue', tfhe: 'b − ⟨a, s⟩ = Δm + e<br>torus, padding bit' },
+    keys: { bfv: 'SK ternary; PK = (−(a·SK + e), a); EK<sup>(i)</sup> encrypts w<sup>i</sup>·SK²', bgv: 'As BFV, errors times t; chain q<sub>L</sub> = p₀···p<sub>L</sub>', ckks: 'As BFV; chain q<sub>ℓ</sub> = q₀·Δ<sup>ℓ</sup>', gsw: 's = (−ŝ, 1); no evaluation key', tfhe: 's ∈ {0,1}<sup>n</sup>; BK<sub>i</sub> = GGSW(s<sub>i</sub>); key-switching key' },
+    enc: { bfv: 'c = (PK₀u + e₁ + Δ·M, PK₁u + e₂)', bgv: 'c = (PK₀u + t·e₁ + M, PK₁u + t·e₂)', ckks: 'm = ⌊Δ·τ⁻¹(z)⌉, then as BGV with t = 1', gsw: 'C = (A | Aŝ + e) + M·G', tfhe: 'b = ⟨a, s⟩ + Δm + e' },
+    add: { bfv: 'c + c′ part by part; noises add', bgv: 'c + c′ part by part; noises add', ckks: 'c + c′; slots add, scale unchanged', gsw: 'C₁ + C₂; eigenvalue M₁ + M₂ (an integer sum)', tfhe: 'c₁ + c₂; phases add, no bootstrapping' },
+    mul: { bfv: 'Tensor over Z, scale by t/q, round; 3 parts', bgv: 'Tensor mod q<sub>ℓ</sub>; 3 parts', ckks: 'Tensor; scale becomes Δ²; 3 parts', gsw: 'G<sup>−1</sup>(C₁)·C₂; noise ≤ ‖e₁‖ + ℓ‖e₂‖', tfhe: 'No direct product: 2<sup>k</sup>c<sub>x</sub> + c<sub>y</sub>, then a table x·y' },
+    ctl: { bfv: 'Relinearize: back to 2 parts', bgv: 'Relinearize, then ModSwitch: drop a prime', ckks: 'Relinearize, then Rescale: ÷Δ, drop a level', gsw: 'None needed; keep the accumulator in the decomposed slot', tfhe: 'Bootstrap: resets the noise (identity table on the sum)' },
+    dec: { bfv: '[⌊(t/q)·[c₀ + c₁·SK]<sub>q</sub>⌉]<sub>t</sub>', bgv: '[[c₀ + c₁·SK]<sub>q<sub>ℓ</sub></sub>]<sub>t</sub>', ckks: 'Decode [c₀ + c₁·SK]<sub>q<sub>ℓ</sub></sub> at scale Δ', gsw: '‖C·s‖ < q/4 ? 0 : 1', tfhe: '⌊(b − ⟨a, s⟩)/Δ⌉ mod p' },
+  };
+  const ROWS = [
+    { id: 'pt', label: 'Plaintext' }, { id: 'ct', label: 'Ciphertext' }, { id: 'where', label: 'Where M sits' },
+    { id: 'keys', label: 'Key generation', live: true }, { id: 'enc', label: 'Encrypt m₁, m₂', live: true }, { id: 'add', label: 'EvalAdd', live: true },
+    { id: 'mul', label: 'EvalMult', live: true }, { id: 'ctl', label: 'Noise control', live: true }, { id: 'dec', label: 'Decrypt the product', live: true },
+  ];
+  const st = store.get('lab2.cmp', { m1: 3, m2: 1, on: S.map((x) => x.id) });
+  let results = {}, detail = null;
+  const root = h('div', { class: 'page cmp', id: 'page-compare' });
+
+  function headless(sc) {
+    const def = sc.make(); const p = { ...def.presets[sc.preset].p }; const d = def.derive(p); if (d.error) throw new Error(d.error);
+    const ctx = def.keygen(p, d); ctx.p = ctx.p || p; const wallet = []; let last = null;
+    const api = { get p() { return p; }, get ctx() { return ctx; }, wallet: () => wallet, addCt(ct) { wallet.push(ct); }, nextName(pre) { let i = 1; while (wallet.some((c) => c.name === pre + i)) i++; return pre + i; }, show(title, steps) { last = { title, steps }; }, refresh() {} };
+    const take = () => { const r = last; last = null; return r; }; const top = () => wallet[wallet.length - 1];
+    return { def, p, d, ctx, api, take, top };
+  }
+  function runScheme(sc, m1, m2) {
+    const H = headless(sc); const { def, api, ctx, take, top } = H; const R = def.run; const out = {};
+    const cell = (ct, shown, extra) => ({ ct, info: ct ? def.ctInfo(ct, ctx) : null, peek: ct && def.peek ? def.peek(ctx, ct) : null, steps: shown ? shown.steps : null, title: shown ? shown.title : '', extra });
+    out.keys = { steps: ctx.steps, title: 'Key generation', keyText: def.keyText ? def.keyText(ctx) : (ctx.SK ? [`SK = ${polyStr(ctx.SK)}`, `${ctx.EK.length} evaluation keys (base w)`] : [`s = (${ctx.s.join(', ')})`, `BK: ${ctx.d.n} GGSW ciphertexts; KSK: ${ctx.d.N * ctx.d.lks} LWE ciphertexts`]) };
+    let x1 = m1, x2 = m2, note1 = '';
+    if (sc.id === 'gsw') { x1 = m1 % 2; x2 = m2 % 2; note1 = `bits m₁ mod 2 = ${x1}, m₂ mod 2 = ${x2}`; }
+    if (sc.id === 'ckks') note1 = 'slot 0 shown';
+    R.enc(api, String(x1)); const e1 = take(); const c1 = top(); R.enc(api, String(x2)); const e2 = take(); const c2 = top();
+    out.enc = { ...cell(c1, e1), second: cell(c2, e2), extra: note1 };
+    let sum, prod, ctl;
+    if (sc.id === 'tfhe') {
+      const r = R.lin(api, c1, c2, 1, 1, 0, 'sum'); sum = r.ct; out.add = cell(sum, { title: `EvalAdd ${c1.name} + ${c2.name}`, steps: r.steps });
+      const d = ctx.d; const kb = Math.floor(Math.log2(d.p / 2) / 2); const K = 2 ** kb;
+      if (x1 >= K || x2 >= K) { out.mul = { error: `TFHE multiplies by lookup with x, y < ${K} at p = ${d.p}.` }; }
+      else { const rp = R.lin(api, c1, c2, K, 1, 0, 'pack'); const lut = Array.from({ length: d.p / 2 }, (_, s2) => ((Math.floor(s2 / K) * (s2 % K)) % K)); const steps = R.pbs(api, rp.ct, lut, `${c1.name} × ${c2.name}`, [...rp.steps, { title: 'The product table', why: `Index ${K}x + y ↦ x·y mod ${K}.`, formula: `f = (${lut.join(', ')})` }]); prod = top(); out.mul = cell(prod, { title: `EvalMult ${c1.name} × ${c2.name} by lookup`, steps }, `product mod ${K}`); }
+      const st2 = R.pbs(api, sum, Array.from({ length: ctx.d.p / 2 }, (_, i) => i), `Refresh(${sum.name})`); ctl = top(); out.ctl = cell(ctl, { title: `Bootstrap ${sum.name} (identity table)`, steps: st2 }, 'the sum, refreshed');
+    } else {
+      R.add(api, c1, c2); out.add = cell(top(), take()); sum = top();
+      R.mul(api, c1, c2); const ms = take(); prod = top(); out.mul = cell(prod, ms, sc.id === 'gsw' ? 'AND' : '');
+      if (sc.id === 'gsw') { R.mul(api, c2, c1); const sw = take(); ctl = top(); out.ctl = cell(ctl, sw, `other order: G⁻¹(${c2.name})·${c1.name}`); }
+      else {
+        R.relin(api, prod, 'gadget'); const rl = take(); let fin = top(); let steps = rl.steps, title = rl.title;
+        if (sc.id === 'bgv' && fin.lvl > 0) { R.ms(api, fin); const m2s = take(); fin = top(); steps = [...steps, ...m2s.steps]; title += ' + ModSwitch'; }
+        if (sc.id === 'ckks' && fin.lvl > 0) { R.rescale(api, fin); const rs = take(); fin = top(); steps = [...steps, ...rs.steps]; title += ' + Rescale'; }
+        ctl = fin; out.ctl = cell(ctl, { title, steps }); prod = fin;
+      }
+    }
+    if (prod) out.dec = { ...cell(prod, { title: `Decrypt ${prod.name}`, steps: R.dec(api, prod) }) };
+    else out.dec = { error: 'No product to decrypt.' };
+    return out;
+  }
+  function runAll() {
+    results = {}; detail = null;
+    for (const sc of S) { if (!st.on.includes(sc.id)) continue; try { results[sc.id] = runScheme(sc, st.m1, st.m2); } catch (e) { results[sc.id] = { fatal: e.message }; } }
+    render();
+  }
+  function liveNode(sc, row) {
+    const R = results[sc.id]; if (!R) return null; if (R.fatal) return note(R.fatal, 'warnnote'); const c = R[row]; if (!c) return null; if (c.error) return note(c.error, 'warnnote');
+    const box = h('div', { class: 'live' });
+    const ctLine = (cc) => { if (!cc || !cc.ct) return null; const pk = cc.peek; return h('div', { class: 'livect' }, h('div', { class: 'wtop' }, h('span', { class: 'cname mono' }, cc.ct.name), pk ? h('span', { class: 'chip ' + (pk.ok ? 'ok' : 'bad'), html: `→ ${pk.got}${pk.ok ? '' : ` (expected ${pk.exp})`}` }) : null), h('div', { class: 'wchips' }, ...cc.info.chips.filter((x, i) => i < 3 || /bits/.test(x[0])).map((x) => chip(x[0], x[1] || 'muted'))), cc.info.gauge || null); };
+    if (row === 'keys') box.append(h('p', { class: 'mono small', html: c.keyText[0] }), h('p', { class: 'small', html: c.keyText[1] }));
+    else { box.append(ctLine(c)); if (c.second) box.append(ctLine(c.second)); if (c.extra) box.append(h('p', { class: 'hint', html: c.extra })); }
+    const steps = c.steps; if (steps && steps.length) box.append(h('button', { class: 'btn small ghost', type: 'button', onclick: () => { detail = { sc, row, title: c.title, steps }; render(); setTimeout(() => { const el = $('#cmp-detail'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); } }, `Steps (${steps.length}) ▸`));
+    if (c.second && c.second.steps) box.append(h('button', { class: 'btn small ghost', type: 'button', onclick: () => { detail = { sc, row, title: c.second.title, steps: c.second.steps }; render(); setTimeout(() => { const el = $('#cmp-detail'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 30); } }, `Second encryption ▸`));
+    return box;
+  }
+  function render() {
+    root.innerHTML = ''; const main = h('div', { class: 'main' }); root.append(main);
+    main.append(h('div', { class: 'lede' }, h('h2', {}, 'Compare'), h('p', { html: 'The same pipeline in every scheme, side by side: generate keys, encrypt m₁ and m₂, add, multiply, control the noise, decrypt. Each column uses that scheme\'s first preset (TFHE: p = 32, so products work). Click <b>Steps</b> in any cell to replay that operation.' })));
+    const m1 = h('input', { id: 'cmp-m1', type: 'number', min: 0, max: 3, value: st.m1, style: 'width:5em' }), m2 = h('input', { id: 'cmp-m2', type: 'number', min: 0, max: 3, value: st.m2, style: 'width:5em' });
+    const boxes = S.map((sc) => h('label', { class: 'check', style: `--accent: var(--${sc.id})` }, h('input', { type: 'checkbox', checked: st.on.includes(sc.id), onchange: (e) => { st.on = e.target.checked ? [...st.on, sc.id] : st.on.filter((x) => x !== sc.id); store.set('lab2.cmp', st); render(); } }), h('span', {}, sc.name)));
+    main.append(h('section', { class: 'card' }, h('div', { class: 'opform' }, h('label', { class: 'opfield' }, h('span', {}, 'm₁ (0–3)'), m1), h('label', { class: 'opfield' }, h('span', {}, 'm₂ (0–3)'), m2),
+      h('button', { class: 'btn primary', type: 'button', id: 'cmp-run', onclick: () => { const a = Number(m1.value), b = Number(m2.value); if (![a, b].every((x) => Number.isInteger(x) && x >= 0 && x <= 3)) { flash('Use integers 0 to 3, so every scheme can multiply them.'); return; } st.m1 = a; st.m2 = b; store.set('lab2.cmp', st); runAll(); } }, 'Run all schemes')),
+      h('div', { class: 'row wrap' }, h('span', { class: 'hint' }, 'Show:'), ...boxes),
+      note(`Expected: m₁ + m₂ = ${st.m1 + st.m2}, m₁·m₂ = ${st.m1 * st.m2}. GSW works on bits (m mod 2); TFHE multiplies modulo 4 by lookup.`)));
+    const cols = S.filter((sc) => st.on.includes(sc.id));
+    if (!cols.length) { main.append(note('Choose at least one scheme.')); return; }
+    const tbl = h('table', { class: 'cmpt' }, h('thead', {}, h('tr', {}, h('th', {}, ''), ...cols.map((sc) => h('th', { style: `--accent: var(--${sc.id})` }, h('a', { href: '#' + sc.id }, sc.name), h('span', { class: 'sub' }, ' ' + sc.lec))))));
+    const tb = h('tbody');
+    for (const r of ROWS) tb.append(h('tr', { class: r.live ? 'liverow' : 'staticrow' }, h('th', {}, r.label), ...cols.map((sc) => h('td', { style: `--accent: var(--${sc.id})` }, h('div', { class: 'formula small', html: STATIC[r.id][sc.id] }), r.live ? liveNode(sc, r.id) : null))));
+    tbl.append(tb); main.append(h('section', { class: 'card' }, h('div', { class: 'tablewrap cmpwrap' }, tbl)));
+    if (detail) main.append(h('section', { class: 'card vizcard', id: 'cmp-detail', style: `--accent: var(--${detail.sc.id})` }, h('div', { class: 'chead' }, h('h4', {}, `${detail.sc.name}: ${detail.title}`), h('button', { class: 'btn small ghost', type: 'button', onclick: () => { detail = null; render(); } }, 'Close')), stepper(detail.steps)));
+  }
+  return { root, start() { runAll(); } };
+}
+
+// ========== shell ==========
+const DEFS = { bfv: () => intDef('bfv'), bgv: () => intDef('bgv'), ckks: ckksDef, gsw: gswDef, tfhe: tfheDef, compare: null };
+const built = {};
+function route() {
+  let id = (location.hash || '').replace('#', ''); if (!(id in DEFS)) id = store.get('lab2.tab', 'bfv'); if (!(id in DEFS)) id = 'bfv'; store.set('lab2.tab', id);
+  document.querySelectorAll('.tabs a').forEach((a) => a.setAttribute('aria-current', a.dataset.id === id ? 'page' : 'false')); document.documentElement.dataset.scheme = id;
+  for (const k in built) built[k].root.hidden = k !== id;
+  if (!built[id]) { built[id] = id === 'compare' ? compareDef() : makeLab(DEFS[id]()); $('#host').append(built[id].root); built[id].start(); }
+}
+window.addEventListener('hashchange', route);
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', route); else route();
+
+</script>
+
+</body></html>

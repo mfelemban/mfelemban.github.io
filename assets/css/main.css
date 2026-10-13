@@ -471,6 +471,16 @@ table.lectures td:nth-child(n+3) {
   color: var(--muted);
 }
 
+.topic-lab {
+  margin: 0.25rem 0 0.6rem !important;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.topic-lab a {
+  font-weight: 600;
+}
+
 .course-links {
   columns: 2 16rem;
 }

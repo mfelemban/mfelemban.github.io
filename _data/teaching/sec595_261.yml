@@ -1,5 +1,12 @@
 # SEC 595 — Fall 2026 (Term 261). Rendered by _layouts/course.html.
-# Each lecture may have: n, title, handout, slides, extras (list of {title, url}).
+# Each lecture may have: n, title, handout, slides, extras (list of {title, url, kind, tab}).
+#   kind: label shown before the link (default "Supplement"); tab: lab tab to open (URL #fragment).
+# Each topic may have: labs (list of {title, url, note, tab}), shown under the topic heading.
+#
+# Lab deep links (usable from handouts/slides):
+#   FHE lab tabs: bfv, bgv, ckks, gsw, tfhe, compare
+#   PQC lab tabs: overview, mlkem, frodo, ntru, mldsa, falcon, mceliece, hqc, bike,
+#                 lamport, wots, xmss, slhdsa, uov, mayo, csidh
 
 code: SEC 595
 title: Secure Computation and Post-Quantum Cryptography
@@ -192,6 +199,10 @@ topics:
         slides: Slides/SEC595-L7-Slides.pdf
 
   - title: Homomorphic Encryption
+    labs:
+      - title: FHE Scheme Lab
+        url: FHE Scheme Lab.html
+        note: interactive walkthrough of BFV, BGV, CKKS, GSW, and TFHE
     lectures:
       - n: 8
         title: "Homomorphic Encryption: Definitions and First Examples"
@@ -205,18 +216,38 @@ topics:
         title: The BFV Scheme
         handout: Handouts/SEC595-L10.pdf
         slides: Slides/SEC595-L10-Slides.pdf
+        extras:
+          - title: FHE Scheme Lab — BFV
+            url: FHE Scheme Lab.html
+            tab: bfv
+            kind: Lab
       - n: 11
         title: The BGV Scheme
         handout: Handouts/SEC595-L11.pdf
         slides: Slides/SEC595-L11-Slides.pdf
+        extras:
+          - title: FHE Scheme Lab — BGV
+            url: FHE Scheme Lab.html
+            tab: bgv
+            kind: Lab
       - n: 12
         title: "The CKKS Scheme: Approximate Arithmetic"
         handout: Handouts/SEC595-L12.pdf
         slides: Slides/SEC595-L12-Slides.pdf
+        extras:
+          - title: FHE Scheme Lab — CKKS
+            url: FHE Scheme Lab.html
+            tab: ckks
+            kind: Lab
       - n: 13
         title: The GSW Scheme
         handout: Handouts/SEC595-L13.pdf
         slides: Slides/SEC595-L13-Slides.pdf
+        extras:
+          - title: FHE Scheme Lab — GSW
+            url: FHE Scheme Lab.html
+            tab: gsw
+            kind: Lab
       - n: 14
         title: Bootstrapping
         handout: Handouts/SEC595-L14.pdf
@@ -225,21 +256,46 @@ topics:
         title: Bootstrapping GSW and TFHE
         handout: Handouts/SEC595-L15.pdf
         slides: Slides/SEC595-L15-Slides.pdf
+        extras:
+          - title: FHE Scheme Lab — TFHE
+            url: FHE Scheme Lab.html
+            tab: tfhe
+            kind: Lab
 
   - title: Post-Quantum Cryptography
+    labs:
+      - title: PQC Lab
+        url: SEC595-PQC-Lab.html
+        tab: overview
+        note: interactive walkthrough of lattice, code-based, hash-based, multivariate, and isogeny schemes
     lectures:
       - n: 16
         title: The Families of Post-Quantum Cryptography
         handout: Handouts/SEC595-L16.pdf
         slides: Slides/SEC595-L16-Slides.pdf
+        extras:
+          - title: PQC Lab — overview
+            url: SEC595-PQC-Lab.html
+            tab: overview
+            kind: Lab
       - n: 17
         title: ML-KEM (FIPS 203)
         handout: Handouts/SEC595-L17.pdf
         slides: Slides/SEC595-L17-Slides.pdf
+        extras:
+          - title: PQC Lab — ML-KEM
+            url: SEC595-PQC-Lab.html
+            tab: mlkem
+            kind: Lab
       - n: 18
         title: ML-DSA (FIPS 204)
         handout: Handouts/SEC595-L18.pdf
         slides: Slides/SEC595-L18-Slides.pdf
+        extras:
+          - title: PQC Lab — ML-DSA
+            url: SEC595-PQC-Lab.html
+            tab: mldsa
+            kind: Lab
 
   - title: Secret Sharing and Secure Computation
     lectures:
